@@ -2,7 +2,7 @@ import React from 'react'
 
 const CompletedPrescription = (props) => {
 
-  const { patients } = props;
+  const prescriptions = props.prescriptions;
   let idx = 0;
 
   return (
@@ -27,7 +27,7 @@ const CompletedPrescription = (props) => {
           </tr>
         </thead>
         <tbody>
-          {patients?.map((element) => {
+          {prescriptions?.map((element) => {
             idx++;
             return(
               <tr key={idx}>

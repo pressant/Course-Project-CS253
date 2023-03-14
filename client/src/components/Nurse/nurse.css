@@ -1,0 +1,34 @@
+.user_ic{
+    height:100px;
+    width: 100px;
+}
+#user1{
+    float:right;
+    padding-top: 14px;
+    padding-bottom: 4px;
+    padding-right:5px;
+}
+body{
+    background-color: #ffe6cc;
+}
+.form_inp{
+    /* margin-left: 472px; */
+    margin-right:582px;
+    border-color: #ffe6cc;
+    width:100px;
+}
+#bt1 {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    /* padding: 15px 32px; */
+    /* text-align: center; */
+    
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 670px;
+    
+    height:40px;
+    width:95px;
+  }

@@ -1,0 +1,44 @@
+.user_pr{
+    margin-left: 500px;
+    margin-right:500px;
+    
+}
+#user1{
+    padding-top: 20px;
+    float:right;
+}
+.heade{
+    height:125px;
+    font-size: 34px;
+    text-align: center;
+    align-items: center;
+    background-color: #e0e0eb;
+}
+.bode{
+    height:180px;
+    background-color: #e0e0eb;
+}
+.vitalinfo{
+    margin-left: 424px;
+    justify-content: space-between;
+}
+.entry{
+    width:180px;
+    margin-right: 20px;
+    margin-left:20px;
+}
+.butt{
+    margin-left:270px;
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    /* padding: 15px 32px; */
+    /* text-align: center; */
+    
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    height:34px;
+    width:95px;
+   
+}

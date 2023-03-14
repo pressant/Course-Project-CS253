@@ -1,29 +1,12 @@
-import React, { useState, useEffect } from 'react'
-import Patient from './Patient'
+import React, { useState } from "react";
+import Patient from "./Patient";
 
-const InitialPharmacy = () => {
-
-    const [pending, setPending] = useState([{
-        name: "abcd",
-        id: 123,
-        description: "asg sdf fs f"
-    },
-    {
-        name: "asdf",
-        id: 341,
-        description: "asdbjf dj fnjn jk nsdkjf"
-    }]);
+const InitialPharmacy = (props) => {
+    // eslint-disable-next-line
+    const [pending, setPending] = useState(props.prescriptions);
     // pending is an array which stores all pending prescriptions
     // Use setPending to change pending
 
-    useEffect (() => {
-        setPending([...pending, {
-            name: "abcd",
-            id: 14,
-            description: "asg sdf fs f"
-        }]);
-    }, []);
-    
     return (
         <div className="container my-5">
             <div className="row justify-content-between">
@@ -33,16 +16,18 @@ const InitialPharmacy = () => {
                 <div className="col-5">
                     <form className="d-flex" role="search">
                         <input className="form-control me-2" type="number" placeholder="Roll/PF Number" aria-label="Search"/>
-                        <button className="btn btn-outline-success" type="submit">Search</button>
+                        <button className="btn btn-outline-success" type="submit">
+                            Search
+                        </button>
                     </form>
                 </div>
             </div>
             <div className="container">
                 <div className="row">
                     {pending?.map((element) => {
-                        return(
+                        return (
                             <div className="col-md-4" key={element.id}>
-                                <Patient name={element.name} id={element.id} description={element.description}/>
+                                <Patient prescription={element}/>
                             </div>
                         );
                     })}
@@ -50,6 +35,6 @@ const InitialPharmacy = () => {
             </div>
         </div>
     );
-}
+};
 
-export default InitialPharmacy
+export default InitialPharmacy;
