@@ -7,7 +7,6 @@ import { useState } from 'react';
 import Doctor from './components/doctor/Entry_page';
 import Schedule from './components/doctor/Schedule';
 import Veiwappointments from './components/doctor/Veiw Appointments/veiw_appointments';
-
 import InitialNurse from "./components/Nurse/InitialNurse"
 import Vitals from "./components/Nurse/Vitals"
 import InitialPharmacy from "./components/Pharmacy/InitialPharmacy"
@@ -22,6 +21,7 @@ import StudentDoctors from "./components/Student/Doctors";
 import InitialReceptionist from './components/Receptionist/InitialReceptionist';
 import AppointmentsRequests from './components/Receptionist/AppointmentsRequests';
 import DoctorAllotment from './components/Pharmacy/DoctorAllotment';
+import Conductappointment from './components/doctor/Veiw Appointments/Conduct_appointment';
 
 function App() {
 
@@ -128,7 +128,7 @@ function App() {
           <Route exact path="/receptionist/"><InitialReceptionist/></Route>
           <Route exact path="/receptionist/appointments"><AppointmentsRequests prescriptions={prescriptions}/></Route>
           <Route exact path="/receptionist/doctorallotment"><DoctorAllotment/></Route>
-        
+          <Route exact path="/doctor/conduct_appointment"><Conductappointment/></Route>
         </Switch>
       </Router>
     </div>
