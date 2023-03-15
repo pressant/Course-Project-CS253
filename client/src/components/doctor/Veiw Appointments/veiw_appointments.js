@@ -32,7 +32,6 @@ const veiw_appointments = () => {
           <Link to="./conduct_appointment"><button>Begin Appointment</button></Link>
         </Card.Body>
       </Card>
-      
     </div>
   )
 }
