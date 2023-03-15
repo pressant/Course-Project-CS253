@@ -1,3 +1,4 @@
+import "./request.css"
 import React from "react";
 // import {Link} from "react-router-dom";
 
@@ -7,7 +8,7 @@ export default function Request(props) {
 	const doctors = ["Dr. A", "Dr. B", "Dr. C"];
 
 	return (
-		<div className="">
+		<div className="student_request">
 			<h2>Request an appointment</h2>
 			<div id="appt_type">
 				<input type="radio" id="opd" name="appt_type" value="OPD" checked/>
