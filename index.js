@@ -68,6 +68,41 @@ app.post("/register", (req, res)=> {
     
 }) 
 
+const student_request_schema = new mongoose.Schema({
+    name: String,
+    rollno:Number,
+    appy_type:String,
+    appt_slot:String,
+    symptoms: String,
+    Doctor:String
+})
+
+const Student_request = new mongoose.model("Student_request", student_request_schema)
+
+app.post("/request_student", (req, res)=> {
+    const { name, rollno,appy_type,appt_slot,symptoms,Doctor } = req.body
+            const request = new Student_request({
+                name,
+                rollno,
+                appy_type,
+                appt_slot,
+                symptoms,
+                Doctor
+            })
+                       request.save(err => {
+                if(err) {
+                    res.send(err)
+                } else {
+                    res.send( { message: "Succesfully request registered" })
+                }
+            })
+        }
+    )
+
+
+
+
+
 app.listen(9002,() => {
     console.log("BE started at port 9002")
 })
