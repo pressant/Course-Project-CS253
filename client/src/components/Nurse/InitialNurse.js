@@ -5,8 +5,7 @@ import './nurse.css'
 
 const InitialNurse = () => {
 
-    const { name, id } = useSelector((state) => state.appt);
-
+    // const { name, id } = useSelector((state) => state.appt);
     const history = useHistory();
     var inputId;
 

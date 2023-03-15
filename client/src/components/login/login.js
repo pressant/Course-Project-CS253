@@ -19,14 +19,34 @@ const Login = ({ setLoginUser}) => {
             [name]: value
         })
     }
-
     const login = () => {
         axios.post("http://localhost:9002/login", user)
         .then(res => {
             alert(res.data.message)
-            setLoginUser(res.data.user)
             console.log(res.data.user);
-            history.push("/")
+            if(res.data.user.identity==='doctor'){
+            history.push("/doctor")
+            }
+            else if(res.data.user.identity==='nurse'){
+                history.push("/nurse")
+                
+            }
+            else if(res.data.user.identity==='pharmacy'){   
+                history.push("/pharmacy")
+        
+            }
+            else if(res.data.user.identity==='receptionist'){
+                history.push("/receptionist")
+             
+            }
+            else if(res.data.user.identity==='student'){
+                history.push("/student")
+         
+            }
+            else{
+                alert("Invalid Identity")
+                
+            }
         })
     }
 
