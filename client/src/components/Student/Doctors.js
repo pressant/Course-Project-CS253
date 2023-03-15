@@ -1,5 +1,6 @@
+import "./doctors.css"
 import React from "react";
-// import {Link} from "react-router-dom";
+import {Link} from "react-router-dom";
 
 export default function Doctors(props) {
 
@@ -7,7 +8,7 @@ export default function Doctors(props) {
 
 
 	return (
-		<div className="">
+		<div className="student_doctors">
 			<h2>Doctors available today:</h2>
 			{doctors.map((doctor) => (
 				<div>

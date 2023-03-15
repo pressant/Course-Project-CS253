@@ -13,7 +13,9 @@ const Appointment = (props) => {
                 prescriptionId: prescription.prescriptionId,
                 id: prescription.id,
                 medicines: prescription.medicines,
-                description: prescription.description
+                description: prescription.description,
+                preferredDoctor: prescription.preferredDoctor,
+                slot: prescription.slot,
             }
         });
     };
@@ -26,7 +28,7 @@ const Appointment = (props) => {
                     <h5 className="card-title">{prescription.name}</h5>
                     <p className="card-text">{prescription.description}</p>
                     <button className="btn btn-dark btn-sm" onClick={handleClick}>
-                        View Prescription
+                        Allot Doctor
                     </button>
                 </div>
             </div>

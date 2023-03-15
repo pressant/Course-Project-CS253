@@ -1,3 +1,4 @@
+import "./Entry_page.css"
 import React from 'react'
 import {useHistory} from 'react-router-dom';
 
@@ -11,7 +12,7 @@ const Entry_page = () => {
         history.push('/doctor/view_appointment');
     }
     return (
-        <div>
+        <div className="Entry_page">
         <h1>Doctor Entry page</h1>
         <button onClick={schedule} >Schedule</button>
         <br/>

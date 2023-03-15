@@ -1,8 +1,4 @@
 import React,{useState} from 'react'
-
-
-
-
 const Conduct_appointment = () => {
     const [value,setValue]=useState("");
     const [remarks,setRemarks]=useState("");
@@ -22,36 +18,11 @@ const Conduct_appointment = () => {
     const changed=(e)=>{
         setRemarks(e.target.value);
     }
-
-    // const medicines = ["3-carboxy-4-hydroxyaniline",
-    // "5-ASA",
-    // "5-aminosalicylic acid",
-    // "Asacol",
-    // "Asacolitin",
-    // "Canasa",
-    // "Claversal",
-    // "Fisalamine",
-    // "Iialda",
-    // "Lixacol",
-    // "Mesalamine",
-    // "Mesalazina",
-    // "Mesalazine",
-    // "Mesalazinum",
-    // "Mesasal",
-    // "P-Aminosalicylsaeure",
-    // "Pentasa",
-    // "Rowasa",
-    // "Salofalk",
-    // "m-Aminosalicylic acid"];
-
   return (
     <>
-       
          <div>
             Medicine
          </div>
-              
-
          <div id="medicine">
          <select value={value} onChange={handleChange}>
   {options.map(item => {
@@ -59,8 +30,6 @@ const Conduct_appointment = () => {
   })}
 </select>     
             </div>
-
-       
          <br/>
      <div>
 				<input type="radio" id="1BB" name="dose" value="1BB" />
@@ -76,15 +45,11 @@ const Conduct_appointment = () => {
                 <input type="radio" id="1AD" name="dose" value="1AD" />
 				<label for="evening">1AD</label>
 			</div>
-
             <br/>
-            
             <h7>Days  {days}</h7>
             <button onClick={increment}>+</button>
-            
             <input value={remarks} id="remarks" placeholder='remarks' onChange={changed}/>
             <p>Prescription to be implemented mostly by backend</p>
-
             <br/>
 
 <button>Specialist Refferal</button> 
@@ -92,15 +57,7 @@ const Conduct_appointment = () => {
 <button>Medical history</button> 
 
     <br/>
-
     <button>Submit</button>
-
     </>
-
-
-
-
-  )
-}
-
+  )}
 export default Conduct_appointment

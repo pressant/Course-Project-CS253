@@ -8,6 +8,8 @@
     padding: 1rem;
     align-items: center;
     text-align: center;
+    margin-top: 15vh;
+    margin-bottom: 5vh;
 }
 
 .register > input {
@@ -22,8 +24,8 @@
 }
 
 .register > .button {
-    background: #1877f2;
-    border: 1px solid #1877f2;
+    background: #ff9900;
+    border: 1px solid #ff9900;
     color: #fff;
     font-size: 1.25rem;
     padding: 0.5rem;

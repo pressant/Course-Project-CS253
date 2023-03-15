@@ -1,15 +1,21 @@
 import React from 'react'
+// import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import './vitals.css'
 
 const Vitals = () => {
 
     const location = useLocation();
+    // const dispatch = useDispatch();
     const state = location.state;
+
+    const handleClick = () => {
+        // dispatch()
+    }
 
     return (
         <div className="container">
-            {/* <div className="row justify-content-between my-3">
+            <div className="row justify-content-between my-3">
                 <div className="col-4">Name: {state.name}</div>
                 <div className="col-4">Roll/PF Number: {state.id}</div>
             </div>
@@ -26,14 +32,9 @@ const Vitals = () => {
                 <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
             </div>
             <div className="d-grid gap-2 col-6 mx-auto">
-                <button className="btn btn-primary" type="button">Submit</button>
-            </div> */}
-            <header style={{backgroundColor:"#ff9933", height:"100px"}}>
-                {/* <img id='user1' src="user-solid.svg" height="70px" width="70px"/> */}
-                <i className="fa-solid fa-user"></i>
-            </header>
-            <br/>
-            <div className="container">
+                <button className="btn btn-primary" onClick={handleClick} type="button">Submit</button>
+            </div>
+            {/* <div className="container">
                 <div className="card text-center user_pr">
                     <div className="card-body bode">
                         <h1>Name: {state.name}</h1>
@@ -60,7 +61,7 @@ const Vitals = () => {
                     <br/>
                     <button type="submit ml-600" className=" butt">Submit</button>
                 </form>
-            </div>
+            </div> */}
         </div>
     );
 }

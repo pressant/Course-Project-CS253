@@ -20,85 +20,27 @@ import StudentHistory from "./components/Student/History";
 import StudentDoctors from "./components/Student/Doctors";
 import InitialReceptionist from './components/Receptionist/InitialReceptionist';
 import AppointmentsRequests from './components/Receptionist/AppointmentsRequests';
-import DoctorAllotment from './components/Pharmacy/DoctorAllotment';
+import DoctorAllotment from './components/Receptionist/DoctorAllotment';
+
 import Conductappointment from './components/doctor/Veiw Appointments/Conduct_appointment';
+
+import DoctorAppointments from './components/Receptionist/DoctorAppointments';
+
+import pendingAppointments from './Data';
+import { ongoingAppointments, completedAppointments } from './Data';
+import UploadReports from './components/Receptionist/UploadReports';
+import AppointmentStatus from './components/Receptionist/AppointmentStatus';
 
 function App() {
 
   const [ user, setLoginUser] = useState({identity:"doctor"})
 
   // eslint-disable-next-line
-  const [prescriptions, setPrescriptions] = useState([
-    {
-      name: "a",
-      id: 1,
-      prescriptionId: 100,
-      description: "asdfas a sd asdhaj shdfaj s",
-      medicines: [
-        {
-          id: 1,
-          name: "Paracetamol",
-          dose: "asdon f asdf"
-        },
-        {
-          id: 2,
-          name: "Soframycin",
-          dose: "ka sjdg nj"
-        },
-        {
-          id: 3,
-          name: "Morphine",
-          dose: "nsfn jndvjen f"
-        },
-        {
-          id: 4,
-          name: "Erythromycin",
-          dose: "sadn sd fj sasd f"
-        }
-      ]
-    },
-    {
-      name: "b",
-      id: 2,
-      prescriptionId: 200,
-      description: "dfhg dgfdg fg e adva",
-      medicines: [
-        {
-          id: 1,
-          name: "Paracetamol",
-          dose: "asdon f asdf"
-        },
-        {
-          id: 2,
-          name: "Soframycin",
-          dose: "ka sjdg nj"
-        }
-      ]
-    },
-    {
-      name: "c",
-      id: 3,
-      prescriptionId: 300,
-      description: "erh rfd hbtdf ghbdfh sdfasf",
-      medicines: [
-        {
-          id: 1,
-          name: "Paracetamol",
-          dose: "asdon f asdf"
-        },
-        {
-          id: 2,
-          name: "Soframycin",
-          dose: "ka sjdg nj"
-        },
-        {
-          id: 3,
-          name: "Morphine",
-          dose: "nsfn jndvjen f"
-        }
-      ]
-    }
-  ]);
+  // const [pendingAppt, setPendingAppt] = useState(pendingAppointments);
+  // eslint-disable-next-line
+  // const [ongoingAppt, setOngoingAppt] = useState(ongoingAppointments);
+  // eslint-disable-next-line
+  // const [completedAppt, setCompletedAppt] = useState(completedAppointments);
 
   return (
     <div className="App">
@@ -117,18 +59,22 @@ function App() {
           <Route exact path="/doctor/view_appointment"><Veiwappointments/></Route>
           <Route exact path="/nurse/"><InitialNurse name="abcd" id={420}/></Route>
           <Route exact path="/nurse/vitals"><Vitals/></Route>
-          <Route exact path="/pharmacy/"><InitialPharmacy prescriptions={prescriptions}/></Route>
+          <Route exact path="/pharmacy/"><InitialPharmacy prescriptions={ongoingAppointments}/></Route>
           <Route exact path="/pharmacy/prescription"><Prescription/></Route>
-          <Route exact path="/pharmacy/completedprescription"><CompletedPrescription prescriptions={prescriptions}/></Route>
+          <Route exact path="/pharmacy/completedprescription"><CompletedPrescription prescriptions={completedAppointments}/></Route>
           <Route exact path="/student/"><StudentHome /></Route>
           <Route exact path="/student/request"><StudentRequest /></Route>
           <Route exact path="/student/upcoming"><StudentUpcoming /></Route>
           <Route exact path="/student/history"><StudentHistory /></Route>
           <Route exact path="/student/doctors"><StudentDoctors /></Route>
           <Route exact path="/receptionist/"><InitialReceptionist/></Route>
-          <Route exact path="/receptionist/appointments"><AppointmentsRequests prescriptions={prescriptions}/></Route>
+          <Route exact path="/receptionist/"><InitialReceptionist/></Route>
+          <Route exact path="/receptionist/appointments"><AppointmentsRequests prescriptions={pendingAppointments}/></Route>
+          <Route exact path="/receptionist/appointmentstatus"><AppointmentStatus prescriptions={ongoingAppointments}/></Route>
           <Route exact path="/receptionist/doctorallotment"><DoctorAllotment/></Route>
           <Route exact path="/doctor/conduct_appointment"><Conductappointment/></Route>
+          <Route exact path="/receptionist/setschedule"><DoctorAppointments/></Route>
+          <Route exact path="/receptionist/uploadreports"><UploadReports/></Route>
         </Switch>
       </Router>
     </div>

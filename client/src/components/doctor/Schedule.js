@@ -1,8 +1,9 @@
+import "./Schedule.css"
 import React from 'react'
 
 const Schedule = () => {
   return (
-    <div>
+    <div className="Schedule">
       <h1>Schedule to be done by backend</h1>
     </div>
   )

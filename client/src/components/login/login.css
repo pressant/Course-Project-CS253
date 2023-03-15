@@ -8,6 +8,7 @@
     padding: 1rem;
     align-items: center;
     text-align: center;
+    margin-top: 12.5vh;
 }
 
 .login > input {
@@ -22,8 +23,8 @@
 }
 
 .login > .button {
-    background: #1877f2;
-    border: 1px solid #1877f2;
+    background: #ff9900;
+    border: 1px solid #ff9900;
     color: #fff;
     font-size: 1.25rem;
     padding: 0.5rem;

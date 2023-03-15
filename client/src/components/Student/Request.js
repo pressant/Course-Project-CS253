@@ -2,7 +2,7 @@
 import React,{useState} from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
-// import {Link} from "react-router-dom";
+import "./request.css"
 	
 export default function Request(props) {
 	const history = useHistory()
@@ -45,7 +45,7 @@ export default function Request(props) {
 		setDoctor(e.target.value);
 	}	
 	return (
-		<div className="">
+		<div className="student_request">
 			<h2>Request an appointment</h2>
 			<div id="appt_type">
 				<input type="radio" id="opd" name="appt_type" value="OPD" onChange={handleChange}/>
