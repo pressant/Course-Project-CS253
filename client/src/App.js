@@ -44,7 +44,7 @@ function App() {
 
   return (
     <div className="App">
-      <Navbar/>
+      {/* <Navbar/> */}
       <Router>
         <Switch>
           <Route exact path="/">
@@ -62,7 +62,7 @@ function App() {
           <Route exact path="/pharmacy/"><InitialPharmacy prescriptions={ongoingAppointments}/></Route>
           <Route exact path="/pharmacy/prescription"><Prescription/></Route>
           <Route exact path="/pharmacy/completedprescription"><CompletedPrescription prescriptions={completedAppointments}/></Route>
-          <Route exact path="/student/"><StudentHome /></Route>
+          <Route exact path="/student"> <StudentHome /></Route>
           <Route exact path="/student/request"><StudentRequest /></Route>
           <Route exact path="/student/upcoming"><StudentUpcoming /></Route>
           <Route exact path="/student/history"><StudentHistory /></Route>
@@ -72,7 +72,7 @@ function App() {
           <Route exact path="/receptionist/appointments"><AppointmentsRequests prescriptions={pendingAppointments}/></Route>
           <Route exact path="/receptionist/appointmentstatus"><AppointmentStatus prescriptions={ongoingAppointments}/></Route>
           <Route exact path="/receptionist/doctorallotment"><DoctorAllotment/></Route>
-          <Route exact path="/doctor/conduct_appointment"><Conductappointment/></Route>
+          <Route exact path="/doctor/conduct_appointment"> <Conductappointment/> </Route>
           <Route exact path="/receptionist/setschedule"><DoctorAppointments/></Route>
           <Route exact path="/receptionist/uploadreports"><UploadReports/></Route>
         </Switch>

@@ -12,8 +12,8 @@ export default function Request(props) {
 
 	const doctors = ["Dr. A", "Dr. B", "Dr. C","Assign by hc"];
     const [symptoms,updateSymptoms] = useState("")
-	let name="aman_ammu"
-	let roll=210104
+	let name="ktg"
+	let roll=12345
 	const Request=[name,roll,appy_type,appt_slot,symptoms,doctor];
     
 
@@ -31,10 +31,6 @@ export default function Request(props) {
 			alert("Please fill all the fields")
 		}
 	}
-
-
-
-
     const handleChange=(e)=>{
 		setappytype(e.target.value);
     }

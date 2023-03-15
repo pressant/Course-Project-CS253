@@ -98,6 +98,16 @@ app.post("/request_student", (req, res)=> {
             })
         }
     )
+    app.get("/upcoming_student", (req, res)=> {
+       Student_request.find({name:"ktg"}, (err, request) => {
+              if(request){
+                console.log(request);
+                res.send({message: "Upcoming appointments", request: request})
+              } else {
+                res.send({message: "No appointments"})
+              }
+       })
+    })
 
 
 
