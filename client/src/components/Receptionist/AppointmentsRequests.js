@@ -1,21 +1,21 @@
-import React,{useEffect} from 'react'
+import React,{useEffect, useState} from 'react'
 import Appointment from './Appointment'
 import axios from 'axios';
 
-const app_t_arr=[]
-
 const AppointmentsRequests = (props) => {
+	const [app_t_arr, setAppts] = useState([])
 
     const prescriptions = props.prescriptions;
     
     useEffect(() => {
         document.onload = rrr();
-    })
+    },[])
 
     const rrr = () =>{
         axios.get('http://localhost:9002/upcoming_student') 
         .then(res => {
-            app_t_arr.push(res.data.request);
+            setAppts(res.data.request);
+            console.log(res.data.request);
         })
         .catch(err => {
             console.log(err);
@@ -41,13 +41,25 @@ const AppointmentsRequests = (props) => {
 
                 <div className="container"> 
                     <div className="row">
-                        {prescriptions?.map((element) => {
-                            return (
-                                <div className="col-md-4" key={element.id}>
-                                    <Appointment prescription={element}/>
-                                </div>
-                            );
-                        })}
+                        {// prescriptions?.map((element) => {
+//                             return (
+//                                 <div className="col-md-4" key={element.id}>
+//                                     <Appointment prescription={element}/>
+//                                 </div>
+//                             );
+//                         })
+						}
+						{app_t_arr.map((el) =>  {
+							return (
+						<div className="col-md-4" key={app_t_arr.indexOf(el)}> 
+							<Appointment prescription={{
+								id: app_t_arr.indexOf(el),
+								name: el.name,
+								description:el.symptoms
+							}} />
+						</div>);
+						})
+						}
                     </div>
                 </div>
             </div>

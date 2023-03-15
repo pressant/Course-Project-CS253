@@ -24,7 +24,7 @@ const Login = ({ setLoginUser}) => {
         .then(res => {
             alert(res.data.message)
             console.log(res.data.user);
-            if(res.data.user.identity==='doctor'){
+            if(res.data.user.identity==='doctor' || res.data.user.identity === "a"){
             history.push("/doctor")
             }
             else if(res.data.user.identity==='nurse'){
