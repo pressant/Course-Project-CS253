@@ -1,10 +1,26 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import Appointment from './Appointment'
+import axios from 'axios';
+
+const app_t_arr=[]
 
 const AppointmentsRequests = (props) => {
 
     const prescriptions = props.prescriptions;
+    
+    useEffect(() => {
+        document.onload = rrr();
+    })
 
+    const rrr = () =>{
+        axios.get('http://localhost:9002/upcoming_student') 
+        .then(res => {
+            app_t_arr.push(res.data.request);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
     return (
         <div>
             <div className="container my-5">
@@ -21,7 +37,9 @@ const AppointmentsRequests = (props) => {
                         </form>
                     </div>
                 </div>
-                <div className="container">
+             {/* render this section from the data uploaded from the array appt_array that contains all the info*/}
+
+                <div className="container"> 
                     <div className="row">
                         {prescriptions?.map((element) => {
                             return (

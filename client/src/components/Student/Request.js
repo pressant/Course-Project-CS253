@@ -10,7 +10,7 @@ export default function Request(props) {
     const [appt_slot,setapptslot]=useState("Morning");
     const [doctor,setDoctor]=useState("Dr. A")
 
-	const doctors = ["Dr. A", "Dr. B", "Dr. C","Assign by hc"];
+	const doctors = ["Dr. A", "Dr. B", "Dr. C","Dr. D","Dr. E","Dr. E"];
     const [symptoms,updateSymptoms] = useState("")
 	let name="ktg"
 	let roll=12345

@@ -1,6 +1,7 @@
 import React from 'react'
 import { useLocation } from 'react-router-dom'
 import $ from 'jquery'
+import axios from 'axios'
 
 const DoctorAllotment = () => {
 
@@ -12,6 +13,7 @@ const DoctorAllotment = () => {
         var doc = $(this).text();
         document.getElementById("doc-allot").innerHTML = doc;
     }
+    
 
     return (
         <div className="container">
