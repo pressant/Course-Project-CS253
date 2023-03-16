@@ -2,7 +2,7 @@ import React, {useState} from "react"
 import "./login.css"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
-const global=[];
+let global=[];
 const Login = ({ setLoginUser}) => {
 
     const history = useHistory()
@@ -23,9 +23,9 @@ const Login = ({ setLoginUser}) => {
         axios.post("http://localhost:9002/login", user)
         .then(res => {
             alert(res.data.message)
+            if(res.data.message === "Login Successfull"){
             global.push(res.data.user.name,res.data.user.identity,res.data.user.rollno);
-            console.log(global);
-            if(res.data.user.identity==='doctor'){
+                        if(res.data.user.identity==='doctor'){
             history.push("/doctor")
             }
             else if(res.data.user.identity==='nurse'){
@@ -38,15 +38,13 @@ const Login = ({ setLoginUser}) => {
             }
             else if(res.data.user.identity==='receptionist'){
                 history.push("/receptionist")
-             
             }
             else if(res.data.user.identity==='student'){
                 history.push("/student")
          
-            }
+            }}
             else{
-                alert("Invalid Identity")
-                
+                alert("Invalid")
             }
         })
     }

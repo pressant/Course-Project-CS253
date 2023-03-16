@@ -11,11 +11,15 @@ const Entry_page = () => {
     const appointments=()=>{
         history.push('/doctor/view_appointment');
     }
+    var k=0;
+   if(global[1]==='doctor'){
+    k=1;
+   }
+   if(k===0){
+    history.push("/login")
+   }
     return (
         <>
-        if(global[1]!=='doctor'){
-            history.push("/login")
-        }
         <div className="Entry_page">
         <h1>Doctor Entry page</h1>
         <button onClick={schedule} >Schedule</button>

@@ -18,12 +18,16 @@ const InitialReceptionist = () => {
   const handleSchedule = () => {
     history.push('/receptionist/setschedule');
   }
+  var k=0;
+   if(global[1]==='receptionist'){
+    k=1;
+   }
+   if(k===0){
+    history.push("/login")
+   }
 
   return (
     <>
-    if(global[1]!=='receptionist'){
-        history.push("/login")
-    }
     <div>
         <div className="row">
             <button type="button" onClick={handleViewReq} class="btn btn-secondary btn-lg col-lg-4 my-3 mx-3">View Appointment Requests</button>

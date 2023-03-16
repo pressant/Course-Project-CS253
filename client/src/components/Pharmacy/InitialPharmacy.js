@@ -9,12 +9,15 @@ const InitialPharmacy = (props) => {
     const [pending, setPending] = useState(props.prescriptions);
     // pending is an array which stores all pending prescriptions
     // Use setPending to change pending
-
+    var k=0;
+   if(global[1]==='pharmacy'){
+    k=1;
+   }
+   if(k===0){
+    history.push("/login")
+   }
     return (
         <>
-        if(global.role !== "pharmacy"){
-           history.push("/login")
-        }
         <div className="container my-5">
             <div className="row justify-content-between">
                 <div className="col-6">

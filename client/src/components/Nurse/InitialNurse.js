@@ -28,12 +28,16 @@ const InitialNurse = () => {
     const handleChange = (event) => {
         inputId = event.target.value;
     }
+   var k=0;
+   if(global[1]==='nurse'){
+    k=1;
+   }
+   if(k===0){
+    history.push("/login")
+   }
 
     return (
         <>
-        if(global[1]!=='nurse'){
-            history.push("/login")
-        }
         <div className='nurse_initial'>
             <div className="container text-center my-5">
                 <h1>Add Vital Information</h1>
