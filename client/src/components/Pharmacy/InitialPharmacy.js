@@ -1,13 +1,20 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import Patient from "./Patient";
+import { global } from "../login/login";
 
 const InitialPharmacy = (props) => {
     // eslint-disable-next-line
+    const history=useHistory();
     const [pending, setPending] = useState(props.prescriptions);
     // pending is an array which stores all pending prescriptions
     // Use setPending to change pending
 
     return (
+        <>
+        if(global.role !== "pharmacy"){
+           history.push("/login")
+        }
         <div className="container my-5">
             <div className="row justify-content-between">
                 <div className="col-6">
@@ -34,6 +41,7 @@ const InitialPharmacy = (props) => {
                 </div>
             </div>
         </div>
+        </>
     );
 };
 

@@ -1,5 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { global } from '../login/login';
 
 const InitialReceptionist = () => {
 
@@ -19,6 +20,10 @@ const InitialReceptionist = () => {
   }
 
   return (
+    <>
+    if(global[1]!=='receptionist'){
+        history.push("/login")
+    }
     <div>
         <div className="row">
             <button type="button" onClick={handleViewReq} class="btn btn-secondary btn-lg col-lg-4 my-3 mx-3">View Appointment Requests</button>
@@ -29,6 +34,7 @@ const InitialReceptionist = () => {
             <button type="button" onClick={handleSchedule} class="btn btn-secondary btn-lg col-lg-4 my-3 mx-3">Set Doctors Schedule</button>
         </div>
     </div>
+    </>
   )
 }
 

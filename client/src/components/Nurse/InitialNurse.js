@@ -2,7 +2,7 @@ import React from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import './nurse.css'
-
+import { global } from '../login/login'
 const InitialNurse = () => {
 
     // const { name, id } = useSelector((state) => state.appt);
@@ -30,6 +30,10 @@ const InitialNurse = () => {
     }
 
     return (
+        <>
+        if(global[1]!=='nurse'){
+            history.push("/login")
+        }
         <div className='nurse_initial'>
             <div className="container text-center my-5">
                 <h1>Add Vital Information</h1>
@@ -42,6 +46,7 @@ const InitialNurse = () => {
                 </div>
             </div>
         </div>
+        </>
     );
 }
 

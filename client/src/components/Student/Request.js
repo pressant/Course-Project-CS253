@@ -3,7 +3,8 @@ import React,{useState} from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "./request.css"
-	
+import { global } from "../login/login";
+
 export default function Request(props) {
 	const history = useHistory()
 	const [appy_type,setappytype]=useState("OPD");
@@ -12,8 +13,8 @@ export default function Request(props) {
 
 	const doctors = ["Dr. A", "Dr. B", "Dr. C","Dr. D","Dr. E","Dr. E"];
     const [symptoms,updateSymptoms] = useState("")
-	let name="ktg"
-	let roll=12345
+	let name=global[0];
+	let roll=global[2];
 	const Request=[name,roll,appy_type,appt_slot,symptoms,doctor];
     
 
