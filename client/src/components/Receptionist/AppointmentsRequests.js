@@ -2,14 +2,14 @@ import React,{useEffect} from 'react'
 import Appointment from './Appointment'
 import axios from 'axios';
 
-const app_t_arr=[]
+let app_t_arr=[]
 
 const AppointmentsRequests = (props) => {
 
     const prescriptions = props.prescriptions;
-    
     useEffect(() => {
         document.onload = rrr();
+        console.log(app_t_arr);
     })
 
     const rrr = () =>{
@@ -37,7 +37,7 @@ const AppointmentsRequests = (props) => {
                         </form>
                     </div>
                 </div>
-             {/* render this section from the data uploaded from the array appt_array that contains all the info*/}
+             {/* render below section from the data uploaded from the array appt_array that contains all the info*/}
 
                 <div className="container"> 
                     <div className="row">
@@ -50,6 +50,8 @@ const AppointmentsRequests = (props) => {
                         })}
                     </div>
                 </div>
+
+
             </div>
         </div>
     );
