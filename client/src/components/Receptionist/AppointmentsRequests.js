@@ -45,7 +45,7 @@ const AppointmentsRequests = (props) => {
 							return (
 						<div className="col-md-4" key={app_t_arr.indexOf(el)}> 
 							<Appointment prescription={{
-								id: app_t_arr.indexOf(el),
+								id: el.rollno,
 								name: el.name,
 								description:el.symptoms
 							}} />
