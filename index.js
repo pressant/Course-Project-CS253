@@ -4,12 +4,12 @@ import mongoose from "mongoose"
 
 const app = express()
 app.use(express.json())
-app.use(express.urlencoded())
+app.use(express.urlencoded({extended: true}))
 app.use(cors())
 
 //mongodb+srv://CS:5i4tDRJZM5W78xgn@cluster0.5ebvu5n.mongodb.net/
 //mongodb+srv://aniketsborkar:AeQrXz4v5Go8WTKP@cluster0.ukqevpn.mongodb.net/test
-mongoose.connect("mongodb+srv://CS:5i4tDRJZM5W78xgn@cluster0.5ebvu5n.mongodb.net/?retryWrites=true&w=majority", {
+mongoose.connect("CS:5i4tDRJZM5W78xgn@cluster0.5ebvu5n.mongodb.net/?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, () => {
@@ -123,7 +123,7 @@ const apptSchema = new mongoose.Schema({
     appt_slot:String,
     symptoms: String,
     Doctor:String,
-    identity:String,
+    // identity:String,
     medicine: [{
         name_med: String,
         dosage: [String],
@@ -155,7 +155,49 @@ app.post("/doctor_prescribe", (req, res) => {
 
 // const arr=[name,roll_id,description,slot,doctor_by_receptionist , doctor_by_student_choice]
 app.post("/submitted", (req, res) =>{
-    
+    console.log(req.body);
+    const {name,roll_id,description,slot,doctor_by_receptionist , doctor_by_student_choice} = req.body;
+    console.log(name);
+    const appt_final = new Appointment;
+    const filter = {
+        name: name,
+        rollno: roll_id, 
+        symptoms: description, 
+        appt_slot: slot, 
+        Doctor: doctor_by_student_choice
+    };
+    Student_request.find(filter, (err, stuff) =>{
+        console.log("hello");
+        if(err){
+            console.log("here");
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            console.log(stuff);
+            appt_final.name = stuff[0].name;
+            appt_final.rollno = stuff[0].rollno;
+            appt_final.appy_type = stuff[0].appy_type;
+            appt_final.appt_slot = stuff[0].appt_slot;
+            appt_final.symptoms = stuff[0].symptoms;
+            appt_final.Doctor = doctor_by_receptionist;
+            // appt_final.identity = stuff.
+            appt_final.save(err =>{
+                if(err){
+                    console.log(err);
+                    res.send(err);
+                }
+            });
+
+            Student_request.deleteOne(filter, (err) =>{
+                if(err){
+                    console.log(err);
+                }
+            });
+
+            res.send({message : "Done"});
+        }
+    })
 });
 
 
