@@ -17,8 +17,9 @@ export default function Request(props) {
 	let roll=global[2];
 	const Request=[name,roll,appy_type,appt_slot,symptoms,doctor];
     let role=global[1];
-
-
+	if(role!=="student"){
+		history.push("/login")
+	}
     const requested=()=>{
 
 		const {name,roll,appy_type,appt_slot,symptoms,doctor}=Request;
@@ -46,9 +47,7 @@ export default function Request(props) {
 	}	
 	return (
 		<>
-		if(role!=="student"){
-			history.push("/login")
-		}
+		
 		<div className="student_request">
 			<h2>Request an appointment</h2>
 			<div id="appt_type">

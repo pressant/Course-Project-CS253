@@ -74,13 +74,14 @@ const student_request_schema = new mongoose.Schema({
     appy_type:String,
     appt_slot:String,
     symptoms: String,
-    Doctor:String,
+    Doctor:String
 })
 
 const Student_request = new mongoose.model("Student_request", student_request_schema)
 
 app.post("/request_student", (req, res)=> {
     const { name, rollno,appy_type,appt_slot,symptoms,Doctor } = req.body
+    console.log(req.body);
             const request = new Student_request({
                 name,
                 rollno,
