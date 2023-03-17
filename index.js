@@ -7,6 +7,8 @@ app.use(express.json())
 app.use(express.urlencoded())
 app.use(cors())
 
+//mongodb+srv://CS:5i4tDRJZM5W78xgn@cluster0.5ebvu5n.mongodb.net/
+//mongodb+srv://aniketsborkar:AeQrXz4v5Go8WTKP@cluster0.ukqevpn.mongodb.net/test
 mongoose.connect("mongodb+srv://CS:5i4tDRJZM5W78xgn@cluster0.5ebvu5n.mongodb.net/?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -113,7 +115,49 @@ app.post("/request_student", (req, res)=> {
        })
     })  
     
+
+const apptSchema = new mongoose.Schema({
+    name: String,
+    rollno:String,
+    appy_type:String,
+    appt_slot:String,
+    symptoms: String,
+    Doctor:String,
+    identity:String,
+    medicine: [{
+        name_med: String,
+        dosage: [String],
+        number_of_days: Number
+    }],
+    remark: String
+});
+
+const Appointment = new mongoose.model('Appointment', apptSchema);
+
+app.get("/doctor_appt", (req, res) =>{
+    console.log(req.query);
+    Appointment.find({ Doctor: req.query.doctor }).then((err, stuff)=>{
+        if(err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            console.log(stuff);
+            res.json(stuff);
+        }
+    });
+});
+
+app.post("/doctor_prescribe", (req, res) => {
+
+})
+
+app.post("/submitted", (req, res) =>{
     
+});
+
+
+
     
 app.listen(9002,() => {
     console.log("BE started at port 9002")
