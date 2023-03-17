@@ -1,0 +1,15 @@
+.Conduct_appointment  button {
+    background: #ff9900;
+    border: 1px solid #ff9900;
+    color: #fff;
+    margin: 0.5rem;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+}
+.current_prescription {
+    background-color: #fff;
+}
+#prescribed_heading {
+    text-align: center;
+}
