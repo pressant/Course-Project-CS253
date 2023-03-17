@@ -22,11 +22,11 @@ const Appointment = (props) => {
 
     return (
         <div className="my-3">
-            <div className="card my-3">
+            <div className="card my-3 appointment_card shadow">
                 <div className="card-header">{prescription.id}</div>
                 <div className="card-body">
                     <h5 className="card-title">{prescription.name}</h5>
-                    <p className="card-text">{prescription.description}</p>
+                    <p className="card-text mb-2 text-muted">{prescription.description}</p>
                     <button className="btn btn-dark btn-sm" onClick={handleClick}>
                         Allot Doctor
                     </button>
