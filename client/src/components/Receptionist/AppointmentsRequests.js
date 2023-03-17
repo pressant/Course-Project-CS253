@@ -41,14 +41,6 @@ const AppointmentsRequests = (props) => {
 
                 <div className="container"> 
                     <div className="row">
-                        {// prescriptions?.map((element) => {
-//                             return (
-//                                 <div className="col-md-4" key={element.id}>
-//                                     <Appointment prescription={element}/>
-//                                 </div>
-//                             );
-//                         })
-						}
 						{app_t_arr.map((el) =>  {
 							return (
 						<div className="col-md-4" key={app_t_arr.indexOf(el)}> 
