@@ -2,10 +2,9 @@ import React,{useEffect, useState} from 'react'
 import Appointment from './Appointment'
 import axios from 'axios';
 
-const AppointmentsRequests = (props) => {
+const AppointmentsRequests = () => {
 	const [app_t_arr, setAppts] = useState([])
 
-    const prescriptions = props.prescriptions;
     
     useEffect(() => {
         document.onload = rrr();

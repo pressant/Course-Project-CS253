@@ -152,6 +152,8 @@ app.post("/doctor_prescribe", (req, res) => {
 
 })
 
+
+// const arr=[name,roll_id,description,slot,doctor_by_receptionist , doctor_by_student_choice]
 app.post("/submitted", (req, res) =>{
     
 });

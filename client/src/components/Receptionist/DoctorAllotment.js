@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { useLocation } from 'react-router-dom'
-import $ from 'jquery'
+import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 const doctors = ["Dr. A", "Dr. B", "Dr. C","Dr. D","Dr. E","Dr. F"];
 
@@ -8,18 +8,26 @@ const DoctorAllotment = () => {
     const [doctor,setDoctor]=useState("Dr. A")
     const location = useLocation();
     const state = location.state;
-
-    const handleClick = () => {
-        // document.getElementById("doc-allot").innerHTML = item.innerHTML;
-        var doc = $(this).text();
-        document.getElementById("doc-allot").innerHTML = doc;
-    }
+    const history = useHistory();
+    // const handleClick = () => {
+    //     // document.getElementById("doc-allot").innerHTML = item.innerHTML;
+    //     var doc = $(this).text();
+    //     document.getElementById("doc-allot").innerHTML = doc;
+    // }
     const handleChange2=(e)=>{
 		setDoctor(e.target.value);
 	}	
-    const arr=[state.name,state.id,state.description,state.preferredDoctor,state.slot,doctor]
+    const arr=[state.name,state.id,state.description,state.slot,doctor,state.preferredDoctor]
     const submited=(e)=>{
-        
+        if( doctor!==""){
+            axios.post("http://localhost:9002/submitted", arr)
+            .then( res => {
+                alert(res.data.message)
+                history.push("/receptionist/appointments")
+            })
+        } else {
+            alert("invlid input")
+        }
     }
 
     return (
