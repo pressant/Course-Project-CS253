@@ -1,7 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import Appointment from './Appointment'
 import axios from 'axios';
-import "./AppointmentsRequests.css"
 
 const AppointmentsRequests = () => {
 	const [app_t_arr, setAppts] = useState([])
@@ -22,7 +21,7 @@ const AppointmentsRequests = () => {
         })
     }
     return (
-        <div className='appointmentrequests' id='appointmentrequests'>
+        <div>
             <div className="container my-5">
                 <div className="row justify-content-between">
                     <div className="col-6">
