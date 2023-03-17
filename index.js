@@ -70,17 +70,18 @@ app.post("/register", (req, res)=> {
 
 const student_request_schema = new mongoose.Schema({
     name: String,
-    rollno:Number,
+    rollno:String,
     appy_type:String,
     appt_slot:String,
     symptoms: String,
-    Doctor:String
+    Doctor:String,
+    identity:String
 })
 
 const Student_request = new mongoose.model("Student_request", student_request_schema)
 
 app.post("/request_student", (req, res)=> {
-    const { name, rollno,appy_type,appt_slot,symptoms,Doctor } = req.body
+    const [ name, rollno,appy_type,appt_slot,symptoms,Doctor ] = req.body
     console.log(req.body);
             const request = new Student_request({
                 name,
@@ -88,7 +89,8 @@ app.post("/request_student", (req, res)=> {
                 appy_type,
                 appt_slot,
                 symptoms,
-                Doctor
+                Doctor,
+                identity:"student"
             })
                        request.save(err => {
                 if(err) {
@@ -101,7 +103,7 @@ app.post("/request_student", (req, res)=> {
     )
 
     app.get("/upcoming_student", (req, res)=> {
-       Student_request.find({name:"ktg"}, (err, request) => {
+       Student_request.find({identity:"student"}, (err, request) => {
               if(request){
                 console.log(request);
                 res.send({message: "Upcoming appointments", request: request})
@@ -109,7 +111,7 @@ app.post("/request_student", (req, res)=> {
                 res.send({message: "No appointments"})
               }
        })
-    })
+    })  
     
     
     
