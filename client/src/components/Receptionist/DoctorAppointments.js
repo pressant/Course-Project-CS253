@@ -1,4 +1,6 @@
 import React from 'react'
+const doctors=["Dr 1","Dr 2","Dr 3","Dr 4"];
+const patients=["Pat 1","Pat 2","Pat 3","Pat 4"];
 
 const DoctorAppointments = () => {
     return (
@@ -12,12 +14,10 @@ const DoctorAppointments = () => {
                             Search
                         </button>
                     </form>
-                    <ul class="list-group my-5">
-                        <li class="list-group-item">Dr. A</li>
-                        <li class="list-group-item">Dr. B</li>
-                        <li class="list-group-item">Dr. C</li>
-                        <li class="list-group-item">Dr. D</li>
-                        <li class="list-group-item">Dr. E</li>
+                    <ul className="list-group my-5">
+                    {doctors.map((doctor) => (
+                        <li class="list-group-item">{doctor}</li>
+									))}
                     </ul>
                 </div>
                 <div className="col-7 text-center">
@@ -31,9 +31,9 @@ const DoctorAppointments = () => {
                         </div>
                         <div class="list-group">
                             <button type="button" class="list-group-item list-group-item-action" aria-current="true">Patient 1 - 210001</button>
-                            <button type="button" class="list-group-item list-group-item-action">Patient 2 - 210002</button>
-                            <button type="button" class="list-group-item list-group-item-action">Patient 3 - 210003</button>
-                            <button type="button" class="list-group-item list-group-item-action">Patient 4 - 210004</button>
+                            {patients.map((patient) => (
+                                <button type="button" class="list-group-item list-group-item-action">{patient}</button>
+                            ))}
                             <button type="button" class="list-group-item list-group-item-action active">Add New Patient</button>
                         </div>
                     </div>
