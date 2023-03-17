@@ -74,7 +74,7 @@ const student_request_schema = new mongoose.Schema({
     appy_type:String,
     appt_slot:String,
     symptoms: String,
-    Doctor:String
+    Doctor:String,
 })
 
 const Student_request = new mongoose.model("Student_request", student_request_schema)
@@ -98,6 +98,7 @@ app.post("/request_student", (req, res)=> {
             })
         }
     )
+
     app.get("/upcoming_student", (req, res)=> {
        Student_request.find({name:"ktg"}, (err, request) => {
               if(request){

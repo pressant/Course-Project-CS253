@@ -16,12 +16,15 @@ export default function Request(props) {
 	let name=global[0];
 	let roll=global[2];
 	const Request=[name,roll,appy_type,appt_slot,symptoms,doctor];
-    
+    let role=global[1];
+
 
     const requested=()=>{
+
 		const {name,roll,appy_type,appt_slot,symptoms,doctor}=Request;
 		console.log(Request);
         if(name!=="" && roll!=="" && appy_type!=="" && appt_slot!=="" && symptoms!=="" && doctor!==""){
+			console.log(name);
 			axios.post("http://localhost:9002/request_student", Request)
 			.then( res => {
 				alert(res.data.message)
@@ -42,6 +45,10 @@ export default function Request(props) {
 		setDoctor(e.target.value);
 	}	
 	return (
+		<>
+		if(role!=="student"){
+			history.push("/login")
+		}
 		<div className="student_request">
 			<h2>Request an appointment</h2>
 			<div id="appt_type">
@@ -69,5 +76,6 @@ export default function Request(props) {
 			</div>
 			<button onClick={requested}>Request</button>
 		</div>
+		</>
 	);
 }
