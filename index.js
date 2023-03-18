@@ -12,7 +12,7 @@ app.use(cors())
 
 //mongodb+srv://CS:5i4tDRJZM5W78xgn@cluster0.5ebvu5n.mongodb.net/
 //mongodb+srv://aniketsborkar:AeQrXz4v5Go8WTKP@cluster0.ukqevpn.mongodb.net/test
-mongoose.connect("mongodb+srv://CS:5i4tDRJZM5W78xgn@cluster0.5ebvu5n.mongodb.net/?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://aniketsborkar:AeQrXz4v5Go8WTKP@cluster0.ukqevpn.mongodb.net/test?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, () => {
@@ -191,13 +191,13 @@ app.post("/submitted", (req, res) =>{
                     res.send(err);
                 }
             });
-
-            Student_request.deleteOne(filter, (err) =>{
+            
+            Student_request.findOneAndDelete(filter, (err) => {
                 if(err){
                     console.log(err);
+                    res.send(err);
                 }
-            });
-
+            })
             res.send({message : "Done"});
         }
     })
