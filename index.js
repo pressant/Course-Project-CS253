@@ -208,7 +208,19 @@ app.get("/new:roll", (req, res)=> {
           }
     })
 })
+
+app.get("/doctor:name", (req, res) =>{
+     Appointment.find({Doctor:req.params.name}, (err, request) => {
+        if(request){
+            res.send({message: "Upcoming appointments", request: request})
+          } else {
+            res.send({message: "No appointments"})
+          }
+        })
+});
+
     
 app.listen(9002,() => {
     console.log("BE started at port 9002")
 })
+

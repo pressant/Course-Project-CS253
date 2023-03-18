@@ -12,7 +12,7 @@ const Entry_page = () => {
         history.push('/doctor/view_appointment');
     }
     var k=0;
-   if(global[1]==='doctor'){
+   if(global[1]==='doctor'){ 
     k=1;
    }
    if(k===0){

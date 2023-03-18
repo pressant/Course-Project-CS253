@@ -1,35 +1,85 @@
 import "./view_appointments.css"
-import React from 'react'
-import Card from "react-bootstrap/Card"
-import { Link } from 'react-router-dom'
+import React,{useState,useEffect} from 'react'
+import axios from "axios"
+import {global} from "../../login/login"
+import Appointment from './Appointment'
 
-const veiw_appointments = () => {
+
+const Veiw_appointments = () => {
+  const [app_t_arr, setAppts] = useState([])
+  useEffect(() => {
+    document.onload = abcd();
+})
+  const abcd=()=>{
+    axios.get("http://localhost:9002/doctor"+global[2]).then((res) => {
+      setAppts(res.data.request);
+    }).catch((err) => {
+      console.log(err);})
+  }
+
 
   return (
-    <div className="view_appointments">
-      <Card className="appointment_card shadow">
-        <Card.Body>
-          <Card.Title>Student Name</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">Student Roll_no</Card.Subtitle>
-          <Card.Text>
-            Description
-          </Card.Text>
-          <Link to="./conduct_appointment"><button>Begin Appointment</button></Link>
-        </Card.Body>
-      </Card>
+    <>
+        <div>
+            <div className="container my-5">
+                <div className="row justify-content-between">
+                    <div className="col-6">
+                        <h2>Appointment Requests</h2>
+                    </div>
+                    <div className="col-5">
+                        <form className="d-flex" role="search">
+                            <input className="form-control me-2" type="number" placeholder="Roll/PF Number" aria-label="Search"/>
+                            <button className="btn btn-outline-success" type="submit">
+                                Search
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                <div className="container"> 
+                    <div className="row">
+						{app_t_arr.map((el) =>  {
+							return (
+						<div className="col-md-4" key={app_t_arr.indexOf(el)}> 
+							<Appointment prescription={{
+                                 name :el.name ,
+                                 id :el.rollno,
+                                 description :el.symptoms,
+							}} />
+						</div>);
+						})
+						}
+                    </div>
+                </div>
 
-      <Card className="appointment_card shadow">
-        <Card.Body>
-          <Card.Title>Student Name</Card.Title>
-          <Card.Subtitle className="mb-2 text-muted">Student Roll_no</Card.Subtitle>
-          <Card.Text>
-            Description
-          </Card.Text>
-          <Link to="./conduct_appointment"><button>Begin Appointment</button></Link>
-        </Card.Body>
-      </Card>
-    </div>
+
+            </div>
+        </div>
+    </>
   )
 }
 
-export default veiw_appointments
+export default Veiw_appointments
+
+ // <div className="view_appointments">
+    //   <Card className="appointment_card shadow">
+    //     <Card.Body>
+    //       <Card.Title>Student Name</Card.Title>
+    //       <Card.Subtitle className="mb-2 text-muted">Student Roll_no</Card.Subtitle>
+    //       <Card.Text>
+    //         Description
+    //       </Card.Text>
+    //       <Link to="./conduct_appointment"><button>Begin Appointment</button></Link>
+    //     </Card.Body>
+    //   </Card>
+
+    //   <Card className="appointment_card shadow">
+    //     <Card.Body>
+    //       <Card.Title>Student Name</Card.Title>
+    //       <Card.Subtitle className="mb-2 text-muted">Student Roll_no</Card.Subtitle>
+    //       <Card.Text>
+    //         Description
+    //       </Card.Text>
+    //       <Link to="./conduct_appointment"><button>Begin Appointment</button></Link>
+    //     </Card.Body>
+    //   </Card>
+    // </div> 
