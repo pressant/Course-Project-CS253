@@ -14,8 +14,6 @@ const veiw_appointments = () => {
           <Card.Text>
             Description
           </Card.Text>
-          <button>Medical History</button>
-          <br/>
           <Link to="./conduct_appointment"><button>Begin Appointment</button></Link>
         </Card.Body>
       </Card>
@@ -27,8 +25,6 @@ const veiw_appointments = () => {
           <Card.Text>
             Description
           </Card.Text>
-          <button>Medical History</button>
-          <br/>
           <Link to="./conduct_appointment"><button>Begin Appointment</button></Link>
         </Card.Body>
       </Card>
