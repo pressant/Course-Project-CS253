@@ -2,25 +2,26 @@ import "./Upcoming.css"
 import React,{useState,useEffect} from "react";
 import axios from "axios";
 import Appointment from "../Receptionist/Appointment";
+import {global} from "../login/login";
 // import {Link} from "react-router-dom";
 
 export default function Upcoming(props) {
-
+    let a=0;
 	useEffect(() => {
-        document.onload = rrr();
-    },[])
+        document.onload = rrr1();
+    })
 	const [app_t_arr, setAppts] = useState([])
-	const rrr = () =>{
-        axios.get('http://localhost:9002/upcoming_student') 
-        .then(res => {
-            setAppts(res.data.request);
-            console.log(res.data.request);
-        })
-        .catch(err => {
-            console.log(err);
-        })
-    }
-
+  
+    const rrr1 = () => {
+		axios.get("http://localhost:5000/new"+global.roll)
+			.then((res) => {
+				console.log(res.data.request);
+				setAppts(res.data.request);
+			})
+			.catch((err) => {
+				console.log(err);
+			})
+		}
 	return (
 		<div className="student_upcoming">
 			<div className="container"> 

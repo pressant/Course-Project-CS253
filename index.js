@@ -12,7 +12,7 @@ app.use(cors())
 
 //mongodb+srv://CS:5i4tDRJZM5W78xgn@cluster0.5ebvu5n.mongodb.net/
 //mongodb+srv://aniketsborkar:AeQrXz4v5Go8WTKP@cluster0.ukqevpn.mongodb.net/test
-mongoose.connect("mongodb+srv://aniketsborkar:AeQrXz4v5Go8WTKP@cluster0.ukqevpn.mongodb.net/test?retryWrites=true&w=majority", {
+mongoose.connect("mongodb+srv://aniketsborkar:AeQrXz4v5Go8WTKP@cluster0.ukqevpn.mongodb.net/test", {
     useNewUrlParser: true,
     useUnifiedTopology: true
 }, () => {
@@ -106,19 +106,16 @@ app.post("/request_student", (req, res)=> {
             })
         }
     )
-
+    
     app.get("/upcoming_student", (req, res)=> {
        Student_request.find({identity:"student"}, (err, request) => {
               if(request){
-                console.log(request);
                 res.send({message: "Upcoming appointments", request: request})
               } else {
                 res.send({message: "No appointments"})
               }
        })
     })  
-    
-
 const apptSchema = new mongoose.Schema({
     name: String,
     rollno:String,
@@ -202,9 +199,15 @@ app.post("/submitted", (req, res) =>{
         }
     })
 });
-
-
-
+// app.get("/new:roll", (req, res)=> {
+//     Appointment.find({rollno:req.params.roll}, (err, request) => {
+//         if(request){
+//             res.send({message: "Upcoming appointments", request: request})
+//           } else {
+//             res.send({message: "No appointments"})
+//           }
+//     })
+// })
     
 app.listen(9002,() => {
     console.log("BE started at port 9002")
