@@ -17,7 +17,8 @@ const DoctorAllotment = () => {
     const handleChange2=(e)=>{
 		setDoctor(e.target.value);
 	}	
-    const arr=[state.name,state.id,state.description,state.slot,doctor,state.preferredDoctor]
+    const arr=[state.name,state.id,state.description,"Morning",doctor,"Dr. A"]
+    console.log(arr);
     const submited=(e)=>{
         if( doctor!==""){
             axios.post("http://localhost:9002/submitted", arr)

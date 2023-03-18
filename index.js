@@ -148,19 +148,18 @@ app.get("/doctor_appt", (req, res) =>{
     });
 });
 
-app.post("/doctor_prescribe", (req, res) => {
+// app.post("/doctor_prescribe", (req, res) => {
 
-})
+// })
 
 
 // const arr=[name,roll_id,description,slot,doctor_by_receptionist , doctor_by_student_choice]
 app.post("/submitted", (req, res) =>{
     console.log(req.body);
-    const {name,roll_id,description,slot,doctor_by_receptionist , doctor_by_student_choice} = req.body;
+    const [name,roll_id,description,slot,doctor_by_receptionist , doctor_by_student_choice] = req.body;
     console.log(name);
     const appt_final = new Appointment;
     const filter = {
-        name: name,
         rollno: roll_id, 
         symptoms: description, 
         appt_slot: slot, 
@@ -168,6 +167,7 @@ app.post("/submitted", (req, res) =>{
     };
     Student_request.find(filter, (err, stuff) =>{
         console.log("hello");
+        console.log(stuff);
         if(err){
             console.log("here");
             console.log(err);
@@ -180,7 +180,7 @@ app.post("/submitted", (req, res) =>{
             appt_final.appy_type = stuff[0].appy_type;
             appt_final.appt_slot = stuff[0].appt_slot;
             appt_final.symptoms = stuff[0].symptoms;
-            appt_final.Doctor = doctor_by_receptionist;
+            appt_final.Doctor = stuff[0].Doctor;
             // appt_final.identity = stuff.
             appt_final.save(err =>{
                 if(err){
@@ -199,15 +199,15 @@ app.post("/submitted", (req, res) =>{
         }
     })
 });
-// app.get("/new:roll", (req, res)=> {
-//     Appointment.find({rollno:req.params.roll}, (err, request) => {
-//         if(request){
-//             res.send({message: "Upcoming appointments", request: request})
-//           } else {
-//             res.send({message: "No appointments"})
-//           }
-//     })
-// })
+app.get("/new:roll", (req, res)=> {
+    Appointment.find({rollno:req.params.roll}, (err, request) => {
+        if(request){
+            res.send({message: "Upcoming appointments", request: request})
+          } else {
+            res.send({message: "No appointments"})
+          }
+    })
+})
     
 app.listen(9002,() => {
     console.log("BE started at port 9002")
