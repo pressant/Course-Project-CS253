@@ -10,9 +10,7 @@ const Appointment = (props) => {
             pathname: "/receptionist/doctorallotment",
             state: {
                 name: prescription.name,
-                prescriptionId: prescription.prescriptionId,
                 id: prescription.id,
-                medicines: prescription.medicines,
                 description: prescription.description,
                 preferredDoctor: prescription.preferredDoctor,
                 slot: prescription.slot,

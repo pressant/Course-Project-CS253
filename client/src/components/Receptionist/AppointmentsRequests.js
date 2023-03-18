@@ -44,9 +44,11 @@ const AppointmentsRequests = () => {
 							return (
 						<div className="col-md-4" key={app_t_arr.indexOf(el)}> 
 							<Appointment prescription={{
-								id: el.rollno,
-								name: el.name,
-								description:el.symptoms
+                                 name :el.name ,
+                                 id :el.rollno,
+                                 slot :el.appt_slot ,
+                                 description :el.symptoms,
+                                 preferredDoctor :el.Doctor,
 							}} />
 						</div>);
 						})

@@ -4,21 +4,19 @@ import { useHistory } from 'react-router-dom'
 import axios from 'axios'
 const doctors = ["Dr. A", "Dr. B", "Dr. C","Dr. D","Dr. E","Dr. F"];
 
-const DoctorAllotment = () => {
+const DoctorAllotment = (props) => {
     const [doctor,setDoctor]=useState("Dr. A")
     const location = useLocation();
     const state = location.state;
     const history = useHistory();
-    // const handleClick = () => {
-    //     // document.getElementById("doc-allot").innerHTML = item.innerHTML;
-    //     var doc = $(this).text();
-    //     document.getElementById("doc-allot").innerHTML = doc;
-    // }
+
+
     const handleChange2=(e)=>{
 		setDoctor(e.target.value);
 	}	
-    const arr=[state.name,state.id,state.description,"Morning",doctor,"Dr. A"]
-    console.log(arr);
+    console.log(state.slot,state.preferredDoctor);
+
+    const arr=[state.name,state.id,state.description,state.slot,doctor,state.preferredDoctor]
     const submited=(e)=>{
         if( doctor!==""){
             axios.post("http://localhost:9002/submitted", arr)
@@ -45,16 +43,16 @@ const DoctorAllotment = () => {
                 <div className="col-4">Preferred Doctor: {state.preferredDoctor}</div>
                 <div className="col-4">Preferred Slot: {state.slot}</div>
             </div>
-            <div class="row justify-content-between">
-                <div class="col-6">
-                    {/* <div class="btn-group mx-5 justify-content-center">
-                        <button class="btn btn-secondary btn-lg" type="button" id="doc-allot">
+            <div className="row justify-content-between">
+                <div className="col-6">
+                    {/* <div className="btn-group mx-5 justify-content-center">
+                        <button className="btn btn-secondary btn-lg" type="button" id="doc-allot">
                             Assign Doctor
                         </button>
-                        <button type="button" class="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span class="visually-hidden">Toggle Dropdown</span>
+                        <button type="button" className="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span className="visually-hidden">Toggle Dropdown</span>
                         </button>
-                        <ul class="dropdown-menu">
+                        <ul className="dropdown-menu">
                             <button className="dropdown-item" onClick={handleClick} id="list-docs">Dr. A</button>
                             <button className="dropdown-item" onClick={handleClick} id="list-docs">Dr. B</button>
                             <button className="dropdown-item" onClick={handleClick} id="list-docs">Dr. C</button>
@@ -69,8 +67,8 @@ const DoctorAllotment = () => {
 				))}
 			</div>
                 </div>
-                <div class="col-4">
-                    <button type="button" class="btn btn-secondary btn-lg col-md-8" onClick={submited}>Approve Appointment Request</button>
+                <div className="col-4">
+                    <button type="button" className="btn btn-secondary btn-lg col-md-8" onClick={submited}>Approve Appointment Request</button>
                 </div>
             </div>
         </div>
