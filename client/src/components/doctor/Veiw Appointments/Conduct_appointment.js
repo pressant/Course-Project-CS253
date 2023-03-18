@@ -68,14 +68,31 @@ const Conduct_appointment = () => {
                                     <span className="glyphicon glyphicon-search"></span>
                                 </button>
                                 <ul id="def" className="dropdown-menu" style={{display:"none"}}>
-                                        <li><a id="HTML" onclick={mydef} >HTML</a></li>
-                                        <li><a id="CSS" onclick={mydef}>CSS</a></li>
-                                        <li><a id="JavaScript" onclick={mydef} >JavaScript</a></li>
+                                    <li><a id="HTML" onclick={mydef} >HTML</a></li>
+                                    <li><a id="CSS" onclick={mydef}>CSS</a></li>
+                                    <li><a id="JavaScript" onclick={mydef} >JavaScript</a></li>
                                 </ul>
                                 <ul id="def1" className="dropdown-menu" style={{display:"none"}}></ul>
                             </div>
                         </div>
                     </div>
+                </div>
+
+                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"/>
+                    <label class="btn btn-outline-primary" htmlFor="btnradio1">qD</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"/>
+                    <label class="btn btn-outline-primary" htmlFor="btnradio2">BID</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"/>
+                    <label class="btn btn-outline-primary" htmlFor="btnradio3">TID</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off"/>
+                    <label class="btn btn-outline-primary" htmlFor="btnradio4">BBF</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off"/>
+                    <label class="btn btn-outline-primary" htmlFor="btnradio5">BD</label>
                 </div>
             </div>
         </div>
