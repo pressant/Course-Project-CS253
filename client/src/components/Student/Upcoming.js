@@ -1,9 +1,7 @@
 import "./Upcoming.css"
 import React,{useState,useEffect} from "react";
 import axios from "axios";
-import Appointment from "../Receptionist/Appointment";
 import {global} from "../login/login";
-// import {Link} from "react-router-dom";
 
 export default function Upcoming(props) {
 	useEffect(() => {
@@ -22,18 +20,19 @@ export default function Upcoming(props) {
                     <div className="row">
 						{app_t_arr.map((el) =>  {
 							return (
-						<div className="col-md-4" key={app_t_arr.indexOf(el)}> 
-							<Appointment prescription={{
-								id: app_t_arr.indexOf(el),
-								name: el.name,
-								description:el.symptoms,
-								doctor:el.preferredDoctor
-							}} />
-						</div>);
-						})
-						}
+								<div className="my-3">
+									<div className="card my-3">
+										<div className="card-header">{el.rollno}</div>
+										<div className="card-body">
+											<h5 className="card-title">{el.name}</h5>
+											<p className="card-text">{el.symptoms}</p>
+										</div>
+									</div>
+								</div>
+							);
+						})}
                     </div>
                 </div>
 		</div>
-	)
+	);
 }

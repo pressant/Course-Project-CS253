@@ -2,7 +2,7 @@ import "./doctors.css"
 import React from "react";
 import {Link,useHistory} from "react-router-dom";
 
-export default function Doctors(props) {
+export default function Doctors() {
    const history=useHistory();
 	const doctors = [{name:"Dr. A", specialization:"ABCD", room:"A123", time:"12 pm - 5 pm"}, {name:"Dr. B", specialization:"BCDE", room:"A234", time:"1 pm - 5 pm"}];
 
