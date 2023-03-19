@@ -20,30 +20,36 @@ const Conduct_appointment = () => {
     // const changed=(e)=>{
     //     setRemarks(e.target.value);
     // }
+    const [medicine, setMedicine] = useState([]);
+    // var days = 0;
 
-    function doOn(obj)
-     {
-
-        if(obj.id=="mydef")
-        {
-            document.getElementById("def1").style.display="none";
-            document.getElementById("def").style.display="block";
-        }
-        if(obj.id=="search")
-        {
-            document.getElementById("def").style.display="none";
-
-            document.getElementById("def1").innerHTML=`<li><a id="Java" onclick="mydef(this);" >java</a></li><li><a id="oracle" onclick="mydef(this);" >Oracle</a></li>`;
-
-            document.getElementById("def1").style.display="block";
-        }
-
+    const handleMinus = () => {
+        var input = document.getElementById('days');
+        if(input.value > 0) input.value = parseInt(input.value) - 1;
     }
-    function mydef(obj)
-    {
-        document.getElementById("search").value=obj.innerHTML;
-        document.getElementById("def1").style.display="none";
-        document.getElementById("def").style.display="none";
+
+    const handlePlus = () => {
+        var input = document.getElementById('days');
+        input.value = parseInt(input.value) + 1;
+    }
+    
+    const handleClick = () => {
+        var name = document.getElementById('name').value;
+        var dosage = document.getElementsByName('btnradio');
+        var dose;
+        var days = document.getElementById('days').value;
+        for(var i = 0; i < dosage.length; i++)
+        {
+            if(dosage[i].checked)
+            {
+                dose = dosage[i].value;
+                dosage[i].checked = false;
+                break;
+            }
+        }
+        setMedicine([...medicine, {name: name, dose: dose, days: days}]);
+        document.getElementById('name').value = "";
+        document.getElementById('days').value = 0;
     }
 
     return (
@@ -56,43 +62,67 @@ const Conduct_appointment = () => {
             </div>
             <div className="col-7 text-center">
                 <h2 className="mb-5">Medication</h2>
-                <div className="container">
-                    <div className="form-group">
-                        <label className="col-xs-3 control-label">Medicine: </label>
-                        <div className="col-xs-7">
-                            <div className="dropdown">
-                                <button id="mydef" className="btn dropdown-toggle" type="button" data-toggle="dropdown" onclick={doOn}>
-                                    <div className="col-xs-10">
-                                        <input type="text" id="search" placeholder="search" onkeyup={doOn}></input>
-                                    </div>
-                                    <span className="glyphicon glyphicon-search"></span>
-                                </button>
-                                <ul id="def" className="dropdown-menu" style={{display:"none"}}>
-                                    <li><a id="HTML" onclick={mydef} >HTML</a></li>
-                                    <li><a id="CSS" onclick={mydef}>CSS</a></li>
-                                    <li><a id="JavaScript" onclick={mydef} >JavaScript</a></li>
-                                </ul>
-                                <ul id="def1" className="dropdown-menu" style={{display:"none"}}></ul>
-                            </div>
+                <div className="container my-3">
+                    <div class="input-group mb-3">
+                        <span class="input-group-text" id="inputGroup-sizing-default">Medicine Name</span>
+                        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="name"/>
+                    </div>
+                </div>
+                <div class="btn-group my-3" role="group" aria-label="Basic radio toggle button group">  
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="qD"/>
+                    <label class="btn btn-outline-primary" htmlFor="btnradio1">qD</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="BID"/>
+                    <label class="btn btn-outline-primary" htmlFor="btnradio2">BID</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off" value="TID"/>
+                    <label class="btn btn-outline-primary" htmlFor="btnradio3">TID</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off" value="BBF"/>
+                    <label class="btn btn-outline-primary" htmlFor="btnradio4">BBF</label>
+
+                    <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off" value="BD"/>
+                    <label class="btn btn-outline-primary" htmlFor="btnradio5">BD</label>
+                </div>
+
+                <div className="row my-3">
+                    <div className="col-5 align-center">
+                        Days:
+                    </div>
+                    <div className="col-5">
+                        <div class="input-group mb-3">
+                            <button onClick={handleMinus} class="btn btn-dark" type="button" id="button-addon2">-</button>
+                            <input id="days" style={{textAlign: "center"}} type="number" class="form-control" placeholder="0" aria-label="Number of Days" aria-describedby="button-addon2" value={0} readOnly/>
+                            <button onClick={handlePlus} class="btn btn-dark" type="button" id="button-addon2">+</button>
                         </div>
                     </div>
                 </div>
 
-                <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off"/>
-                    <label class="btn btn-outline-primary" htmlFor="btnradio1">qD</label>
-
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off"/>
-                    <label class="btn btn-outline-primary" htmlFor="btnradio2">BID</label>
-
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off"/>
-                    <label class="btn btn-outline-primary" htmlFor="btnradio3">TID</label>
-
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off"/>
-                    <label class="btn btn-outline-primary" htmlFor="btnradio4">BBF</label>
-
-                    <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off"/>
-                    <label class="btn btn-outline-primary" htmlFor="btnradio5">BD</label>
+                <button className="btn btn-dark my-3" onClick={handleClick}>Add Medicine</button>
+                <div className="row my-3">
+                    <div className="col-6">
+                        <h4>Current Prescription</h4>
+                    </div>
+                    <div className="col-6">
+                        <h4 className="justify-content-center">Remarks</h4>
+                    </div>
+                    <div className="col-6">
+                        {
+                            medicine?.map((element) => {
+                                return(
+                                    <div className="row">
+                                        {element.name} {element.dose}-{element.days}
+                                    </div>
+                                );
+                            })
+                        }
+                    </div>
+                    <div className="col-6">
+                        <div class="input-group">
+                            {/* <span class="input-group-text">With textarea</span> */}
+                            <textarea class="form-control" rows="6" aria-label="With textarea"></textarea>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
