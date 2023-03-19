@@ -116,6 +116,8 @@ app.post("/request_student", (req, res)=> {
               }
        })
     })  
+
+
 const apptSchema = new mongoose.Schema({
     name: String,
     rollno:String,
@@ -123,16 +125,32 @@ const apptSchema = new mongoose.Schema({
     appt_slot:String,
     symptoms: String,
     Doctor:String,
+    
+    
+
     // identity:String,
-    medicine: [{
-        name_med: String,
-        dosage: [String],
-        number_of_days: Number
-    }],
-    remark: String
 });
 
 const Appointment = new mongoose.model('Appointment', apptSchema);
+
+const Medical_history = new mongoose.Schema({
+    name: String,
+    rollno:String,
+    count:Number,
+    medical_history:[{
+        date: Date,
+        medication:[{name_of_medicine:String,
+                    dosage:String,
+                    days:Number}],
+        vitals_Blood_pressure: String,
+        vitals_Oxygen: String,
+        vitals_temperature: Number,
+        completed: Boolean
+    }],
+    
+});
+const Med = new mongoose.model('Med', Medical_history);
+
 
 app.get("/doctor_appt", (req, res) =>{
     console.log(req.query);
@@ -167,8 +185,7 @@ app.post("/submitted", (req, res) =>{
     };
     Student_request.find(filter, (err, stuff) =>{
         console.log("hello");
-        console.log(stuff);
-        if(err){
+            if(err){
             console.log("here");
             console.log(err);
             res.send(err);
@@ -181,6 +198,36 @@ app.post("/submitted", (req, res) =>{
             appt_final.appt_slot = stuff[0].appt_slot;
             appt_final.symptoms = stuff[0].symptoms;
             appt_final.Doctor = stuff[0].Doctor;
+            
+            Med.findOne({rollno: stuff[0].rollno}, (err, stuff) =>{
+
+                if(stuff){
+                    console.log("here");
+                    stuff.medical_history.push({
+                        date: new Date(),
+                        medication:[{name_of_medicine:"Paracetamol",
+                                    dosage:"2 tablets",
+                                    days:2}],
+                        vitals_Blood_pressure: "Not chechked",
+                         vitals_Oxygen: "Checked",
+                         vitals_temperature: 0 ,
+                          completed: false                
+                    })
+                }
+                else{
+                    const med = new Med;
+                    med.count=0;
+                    med.name = appt_final.name;
+                    med.rollno = appt_final.rollno;
+                    med.save(err => {
+                        if(err){
+                            console.log(err);
+                            res.send(err);
+                        }
+                    })
+                }
+            })
+
             // appt_final.identity = stuff.
             appt_final.save(err =>{
                 if(err){
@@ -188,6 +235,7 @@ app.post("/submitted", (req, res) =>{
                     res.send(err);
                 }
             });
+
             
             Student_request.findOneAndDelete(filter, (err) => {
                 if(err){
@@ -218,6 +266,20 @@ app.get("/doctor:name", (req, res) =>{
           }
         })
 });
+
+
+
+app.post("/nurse", (req, res) => {
+    console.log(req.body);
+    Med.findOne({rollno: req.body.rollno}, (err, stuff) => {
+                   if(stuff){
+                    stuff.medical_history[stuff.count].vitals_Blood_pressure = req.body.vitals_Blood_pressure;
+                    stuff.medical_history[stuff.count].vitals_Oxygen = req.body.vitals_Oxygen;
+                    stuff.medical_history[stuff.count].vitals_temperature = req.body.vitals_temperature;
+                   }
+    })
+})
+
 
     
 app.listen(9002,() => {

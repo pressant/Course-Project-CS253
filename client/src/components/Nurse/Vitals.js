@@ -1,22 +1,30 @@
-import React from 'react'
+import React from 'react' 
 // import { useDispatch } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useHistory } from 'react-router-dom';
 import './vitals.css'
+import axios from 'axios';
 
 const Vitals = () => {
-
+    const history = useHistory();
     const location = useLocation();
     // const dispatch = useDispatch();
     const state = location.state;
 
+
+
     const handleClick = () => {
-        // dispatch()
+        axios.post("http://localhost:9002/nurse", {roll:state.id,vitals_Oxgen:"Abcd",vitals_Temperature:98,vitals_BloodPressure:"Abcd"})
+            .then( res => {
+                history.push("/nurse")
+            }).catch(err => {
+                console.log(err);
+            })
     }
 
     return (
         <div className="container">
             <div className="row justify-content-between my-3">
-                <div className="col-4">Name: {state.name}</div>
+                <div className="col-4">Name: Hardcoded</div>
                 <div className="col-4">Roll/PF Number: {state.id}</div>
             </div>
             <div className="input-group input-group-lg my-5">
