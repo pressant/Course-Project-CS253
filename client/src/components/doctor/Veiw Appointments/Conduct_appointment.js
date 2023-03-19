@@ -1,25 +1,8 @@
 import React,{useState} from 'react'
-
+import axios from 'axios'
+import {useHistory } from 'react-router-dom'
 const Conduct_appointment = () => {
-
-    // const [value,setValue]=useState("");
-    // const [remarks,setRemarks]=useState("");
-    // const [days,updateDays]=useState(1);
-    // const options = [
-    //     {value: 'value-1', text: '3-carboxy-4-hydroxyaniline'},
-    //     {value: 'value-2', text: '5-ASA'},
-    //     {value: 'value-3', text: '5-aminosalicylic acid'},
-    //     {value:"value-4",text:'Asacolitin'}
-    // ];
-    // const handleChange=()=>{
-    //     console.log("Onchange");
-    // }
-    // const increment=()=>{
-    //     updateDays(days+1);
-    // }
-    // const changed=(e)=>{
-    //     setRemarks(e.target.value);
-    // }
+    const history = useHistory();
     const [medicine, setMedicine] = useState([]);
     // var days = 0;
 
@@ -32,7 +15,29 @@ const Conduct_appointment = () => {
         var input = document.getElementById('days');
         input.value = parseInt(input.value) + 1;
     }
-    
+    const [val, setVal] = useState("");
+    const changed=(e)=>[
+        setVal(e.target.value)
+    ]
+
+    const main=()=>{
+        axios.post('http://localhost:9002/doctor_prescribe', {
+            rollno: "210496",
+            medication: [{name_of_medicine:"Paracetamol",
+                        dosage:"AB",
+                        days:2},
+                        {name_of_medicine:"Jahar",
+                        dosage:"AL",
+                        days:2}
+                ],
+            remark: val
+        }).then((res)=>{
+            console.log(res);
+            history.push('/doctor_appt');
+        }).catch((err)=>{
+            console.log(err);
+        })
+    }
     const handleClick = () => {
         var name = document.getElementById('name').value;
         var dosage = document.getElementsByName('btnradio');
@@ -55,7 +60,7 @@ const Conduct_appointment = () => {
     return (
         <div className="container row">
             <div className="col-5" role="group" aria-label="Vertical button group">
-                <button type="button" className="btn btn-dark col-12 my-5">Prescribe Medication</button>
+                <button type="button" className="btn btn-dark col-12 my-5" onClick={main}>Prescribe Medication</button>
                 <button type="button" className="btn btn-dark col-12 my-5">Medical History</button>
                 <button type="button" className="btn btn-dark col-12 my-5">Specialist Referral</button>
                 <button type="button" className="btn btn-dark col-12 my-5">Diagnostic Tests</button>
@@ -120,7 +125,7 @@ const Conduct_appointment = () => {
                     <div className="col-6">
                         <div class="input-group">
                             {/* <span class="input-group-text">With textarea</span> */}
-                            <textarea class="form-control" rows="6" aria-label="With textarea"></textarea>
+                            <textarea value={val} onChange={changed}  class="form-control" rows="6" aria-label="With textarea"></textarea>
                         </div>
                     </div>
                 </div>

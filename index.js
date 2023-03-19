@@ -277,11 +277,38 @@ app.post("/nurse", (req, res) => {
                     stuff.medical_history[stuff.count].vitals_Oxygen = req.body.vitals_Oxygen;
                     stuff.medical_history[stuff.count].vitals_temperature = req.body.vitals_temperature;
                    }
+                   stuff.save(err => {
+                          if(err){
+                            console.log(err);
+                            res.send(err);
+                          }
+                     })
     })
 })
 
+app.post("/doctor_prescribe", (req, res) => {
+    const [rollno,medication,remark]=req.body;
+    Med.findOne({rollno: rollno}, (err, stuff) => {
+        if(stuff){
+            stuff.medical_history[stuff.count].medication = medication;
+            stuff.medical_history[stuff.count].remark = remark;
+            stuff.medical_history[stuff.count].completed = true;
+            stuff.count = stuff.count + 1;
+        }
+    })
 
+})
     
+app.get("/student_history:roll", (req, res) => {
+    Med.findOne({rollno: req.params.roll}, (err, stuff) => {
+        if(stuff){
+            res.send({message: "Medical history", request: stuff.medical_history})
+          } else {
+            res.send({message: "No Medical History"})
+          }
+    })
+})
+
 app.listen(9002,() => {
     console.log("BE started at port 9002")
 })
