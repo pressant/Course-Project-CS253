@@ -23,13 +23,7 @@ const Conduct_appointment = () => {
     const main=()=>{
         axios.post('http://localhost:9002/doctor_prescribe', {
             rollno: "210496",
-            medication: [{name_of_medicine:"Paracetamol",
-                        dosage:"AB",
-                        days:2},
-                        {name_of_medicine:"Jahar",
-                        dosage:"AL",
-                        days:2}
-                ],
+            medication: medicine ,
             remark: val
         }).then((res)=>{
             console.log(res);
