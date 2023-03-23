@@ -309,6 +309,35 @@ app.get("/student_history:roll", (req, res) => {
     })
 })
 
+app.get("/pharmacist", (req, res) => {
+    Med.find((err, stuff) =>{
+        if(err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            const resp_arr = [];
+            stuff.forEach(element => {
+                const hist = [];
+                element.medical_history.forEach(inner_el => {
+                    if(inner_el.completed == false){
+                        hist.push(inner_el);
+                    }
+                });
+                if(hist.length != 0){
+                    const resp_obj = {
+                        rollno : element.rollno,
+                        name: element.name,
+                        medical_history : hist
+                    }
+                    resp_arr.push(resp_obj);
+                }
+            });
+            res.json(resp_arr);
+        }
+    })
+});
+
 app.listen(9002,() => {
     console.log("BE started at port 9002")
 })
