@@ -401,13 +401,23 @@ app.post("/nurse", (req, res) => {
 })
 
 app.post("/doctor_prescribe", (req, res) => {
-    const [rollno,medication,remark]=req.body;
+    const {rollno,medication,remark} =req.body;
+    console.log(req.body);
     Med.findOne({rollno: rollno}, (err, stuff) => {
+        const new_appt = {
+            date : new Date(),
+            medication: medication,
+            remark: remark,
+            completed: false
+        };
         if(stuff){
-            stuff.medical_history[stuff.count].medication = medication;
-            stuff.medical_history[stuff.count].remark = remark;
-            stuff.medical_history[stuff.count].completed = true;
+            console.log(new_appt);
+            stuff.medical_history.push(new_appt);
+            // stuff.medical_history[stuff.count].medication = medication;
+            // stuff.medical_history[stuff.count].remark = remark;
+            // stuff.medical_history[stuff.count].completed = true;
             stuff.count = stuff.count + 1;
+            stuff.save();
         }
     })
 
