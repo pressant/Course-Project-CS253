@@ -55,12 +55,12 @@ app.post("/login", async (req, res)=> {
                     const accessToken = jwt.sign(
                         {email, identity : user.identity},
                         process.env.ACCESS_TOKEN_SECRET,
-                        {expiresIn : '30s'}
+                        {expiresIn : '600s'}
                     )
                     const refreshToken = jwt.sign(
                         {email},
                         process.env.REFRESH_TOKEN_SECRET,
-                        {expiresIn : '1d'}
+                        {expiresIn : '7d'}
                     )
                     const newLoggedUser = new loggedUser({
                         email,
@@ -74,7 +74,7 @@ app.post("/login", async (req, res)=> {
 
                     // console.log(accessToken)
                     // console.log(newLoggedUser)
-                    res.cookie('jwt', refreshToken, {httpOnly : true, maxAge : 24 * 60 * 60 * 1000})
+                    res.cookie('jwt', refreshToken, {httpOnly : true, maxAge : 7 * 24 * 60 * 60 * 1000})
                     res.json({ message: "Login Successfull", user: user, accessToken })
                     
                     // res.send({message: "Login Successfull", user: user})
@@ -133,7 +133,7 @@ app.get("/refresh", async (req, res) => {
         if(!user) res.sendStatus(403)
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
             if(err || user.email !== decoded.email) return res.sendStatus(403)
-            const accessToken = jwt.sign({email : decoded.email, identity : decoded.identity}, process.env.ACCESS_TOKEN_SECRET, {expiresIn : "30s"})
+            const accessToken = jwt.sign({email : decoded.email, identity : decoded.identity}, process.env.ACCESS_TOKEN_SECRET, {expiresIn : "600s"})
             res.json({accessToken})
         })
     })
@@ -150,11 +150,11 @@ app.get("/logout", async (req, res) => {
             res.send({message : err.message})
         }
         if(!user){
-            res.clearCookie('jwt', {httpOnly : true, maxAge : 24 * 60 * 60 * 1000})
+            res.clearCookie('jwt', {httpOnly : true, maxAge : 7 * 24 * 60 * 60 * 1000})
             res.sendStatus(204)     // No content
         }
         await loggedUser.deleteOne({refreshToken : refreshToken})
-        res.clearCookie('jwt', {httpOnly : true, maxAge : 24 * 60 * 60 * 1000})     // secure : true on production for both creating and clearing cookie
+        res.clearCookie('jwt', {httpOnly : true, maxAge : 7 * 24 * 60 * 60 * 1000})     // secure : true on production for both creating and clearing cookie
         res.sendStatus(204)
     })
 })
@@ -184,7 +184,7 @@ const verifyIdentity = (...allowedIdentity) => {
     }
 }
 
-app.use(verifyJWT)
+// app.use(verifyJWT)
 
 const student_request_schema = new mongoose.Schema({
     name: String,
