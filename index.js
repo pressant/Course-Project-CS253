@@ -1,14 +1,19 @@
 //ABC -Aniket
 
-
+import * as dotenv from 'dotenv' // see https://github.com/motdotla/dotenv#how-do-i-use-dotenv-with-import
+dotenv.config()
 import express from "express"
 import cors from "cors"
 import mongoose from "mongoose"
+import bcrypt from "bcrypt"
+import jwt from "jsonwebtoken"
+import cookieParser from "cookie-parser"
 
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cors())
+app.use(cookieParser())
 
 //mongodb+srv://CS:5i4tDRJZM5W78xgn@cluster0.5ebvu5n.mongodb.net/
 //mongodb+srv://aniketsborkar:AeQrXz4v5Go8WTKP@cluster0.ukqevpn.mongodb.net/test
@@ -30,48 +35,156 @@ const userSchema = new mongoose.Schema({
 
 const User = new mongoose.model("User", userSchema)
 
+const loggedUserSchema = new mongoose.Schema({
+    email : String,
+    identity : String,
+    refreshToken : String
+})
+
+const loggedUser = new mongoose.model("loggedUser", loggedUserSchema)
+
 //Routes
-app.post("/login", (req, res)=> {
+app.post("/login", async (req, res)=> {
     const { email, password} = req.body
-    User.findOne({ email: email}, (err, user) => {
-        if(user){
-            console.log(user);
-            if(password === user.password ) {
-                res.send({message: "Login Successfull", user: user})
+    User.findOne({ email: email}, async (err, user) => {
+        try {
+            if(user){
+                console.log(user);
+                const isMatch = await bcrypt.compare(password, user.password)
+                if(isMatch) {
+                    const accessToken = jwt.sign(
+                        {email, identity : user.identity},
+                        process.env.ACCESS_TOKEN_SECRET,
+                        {expiresIn : '600s'}
+                    )
+                    const refreshToken = jwt.sign(
+                        {email},
+                        process.env.REFRESH_TOKEN_SECRET,
+                        {expiresIn : '7d'}
+                    )
+                    const newLoggedUser = new loggedUser({
+                        email,
+                        refreshToken
+                    })
+                    await newLoggedUser.save(err => {
+                        if(err){
+                            res.send(err)
+                        }
+                    })
+
+                    // console.log(accessToken)
+                    // console.log(newLoggedUser)
+                    res.cookie('jwt', refreshToken, {httpOnly : true, maxAge : 7 * 24 * 60 * 60 * 1000})
+                    res.json({ message: "Login Successfull", user: user, accessToken })
+                    
+                    // res.send({message: "Login Successfull", user: user})
+                } else {
+                    res.send({ message: "Password didn't match"})
+                }
             } else {
-                res.send({ message: "Password didn't match"})
+                res.send({message: "User not registered"})
             }
-        } else {
-            res.send({message: "User not registered"})
+        } catch (err) {
+            res.status(500).send()
         }
     })
 }) 
 
-app.post("/register", (req, res)=> {
+app.post("/register", async (req, res)=> {
     const { name, email,rollno,bg,identity, password} = req.body
-    User.findOne({email: email}, (err, user) => {
-        if(user){
-            res.send({message: "User already registerd"})
-        } else {
-            const user = new User({
-                name,
-                email,
-                rollno,
-                bg,
-                identity,
-                password
-            })
-            user.save(err => {
-                if(err) {
-                    res.send(err)
-                } else {
-                    res.send( { message: "Successfully Registered, Please login now." })
-                }
-            })
+    User.findOne({email: email}, async (err, user) => {
+        try {
+            if(user){
+                res.send({message: "User already registerd"})
+            }
+            else {
+                const hashedPassword = await bcrypt.hash(password, 10)
+                const user = new User({
+                    name,
+                    email,
+                    rollno,
+                    bg,
+                    identity,
+                    password : hashedPassword
+                })
+                // console.log(user)
+                await user.save(err => {
+                    if(err) {
+                        res.send(err)
+                    } else {
+                        res.send( { message: "Successfully Registered, Please login now." })
+                    }
+                })
+            }
+        } catch (error) {
+            res.status(500).send()
         }
     })
     
 }) 
+
+app.get("/refresh", async (req, res) => {
+    const cookies = req.cookies
+    if(!(cookies?.jwt)) return res.sendStatus(401)
+    const refreshToken = cookies.jwt
+    console.log(refreshToken)
+
+    loggedUser.findOne({refreshToken : refreshToken}, async (err, user) => {
+        if(!user) res.sendStatus(403)
+        jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
+            if(err || user.email !== decoded.email) return res.sendStatus(403)
+            const accessToken = jwt.sign({email : decoded.email, identity : decoded.identity}, process.env.ACCESS_TOKEN_SECRET, {expiresIn : "600s"})
+            res.json({accessToken})
+        })
+    })
+})
+
+app.get("/logout", async (req, res) => {
+    // On client also, delete the accessToken
+    const cookies = req.cookies
+    if(!(cookies?.jwt)) return res.sendStatus(204)
+    const refreshToken = cookies.jwt
+
+    loggedUser.findOne({refreshToken : refreshToken}, async (err, user) => {
+        if(err){
+            res.send({message : err.message})
+        }
+        if(!user){
+            res.clearCookie('jwt', {httpOnly : true, maxAge : 7 * 24 * 60 * 60 * 1000})
+            res.sendStatus(204)     // No content
+        }
+        await loggedUser.deleteOne({refreshToken : refreshToken})
+        res.clearCookie('jwt', {httpOnly : true, maxAge : 7 * 24 * 60 * 60 * 1000})     // secure : true on production for both creating and clearing cookie
+        res.sendStatus(204)
+    })
+})
+
+const verifyJWT = (req, res, next) => {
+    const authHeader = req.headers['authorization']
+    if(!authHeader?.startsWith("Bearer ")) res.sendStatus(401)
+    const token = authHeader.split(' ')[1]
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
+        if(err) res.sendStatus(403)         // Invalid token
+        req.user = decoded.email
+        req.identity = decoded.identity
+        console.log(req.user)
+        next()
+    })
+}
+
+const verifyIdentity = (...allowedIdentity) => {
+    return (req, res, next) => {
+        if(!req?.identity) return res.sendStatus(401)
+        const identityArray = [...allowedIdentity]
+        console.log(identityArray)
+        console.log(req.identity)
+        const result = identityArray.includes(req.identity)
+        if(!result) return res.sendStatus(401)
+        next()
+    }
+}
+
+// app.use(verifyJWT)
 
 const student_request_schema = new mongoose.Schema({
     name: String,
