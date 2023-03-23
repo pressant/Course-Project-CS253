@@ -313,7 +313,7 @@ app.post("/submitted", (req, res) =>{
             appt_final.Doctor = stuff[0].Doctor;
             
             Med.findOne({rollno: stuff[0].rollno}, (err, stuff) =>{
-
+                //made medical history record
                 if(stuff){
                     console.log("here");
                     stuff.medical_history.push({
@@ -326,6 +326,7 @@ app.post("/submitted", (req, res) =>{
                          vitals_temperature: 0 ,
                           completed: false                
                     })
+                    // stuff.save();
                 }
                 else{
                     const med = new Med;
@@ -450,6 +451,33 @@ app.get("/pharmacist", (req, res) => {
         }
     })
 });
+
+app.post("/dispense", (req, res) => {
+    console.log(req.body);
+    const {rollno, UID} = req.body;
+    console.log(rollno);
+    const filter = {
+        rollno: rollno
+    }
+    Med.findOne(filter, (err, stuff) =>{
+        if(err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            console.log("receieved stuff");
+            console.log(stuff);
+            stuff.medical_history.forEach(element => {
+                if(element._id == UID){
+                    console.log("found it!");
+                    element.completed = true;
+                    stuff.save();
+                }
+            })
+            res.send("ok");
+        }
+    });
+})
 
 app.listen(9002,() => {
     console.log("BE started at port 9002")
