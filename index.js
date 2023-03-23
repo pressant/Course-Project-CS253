@@ -37,6 +37,7 @@ const User = new mongoose.model("User", userSchema)
 
 const loggedUserSchema = new mongoose.Schema({
     email : String,
+    identity : String,
     refreshToken : String
 })
 
@@ -52,7 +53,7 @@ app.post("/login", async (req, res)=> {
                 const isMatch = await bcrypt.compare(password, user.password)
                 if(isMatch) {
                     const accessToken = jwt.sign(
-                        {email},
+                        {email, identity : user.identity},
                         process.env.ACCESS_TOKEN_SECRET,
                         {expiresIn : '30s'}
                     )
@@ -132,7 +133,7 @@ app.get("/refresh", async (req, res) => {
         if(!user) res.sendStatus(403)
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
             if(err || user.email !== decoded.email) return res.sendStatus(403)
-            const accessToken = jwt.sign({email : decoded.email}, process.env.ACCESS_TOKEN_SECRET, {expiresIn : "30s"})
+            const accessToken = jwt.sign({email : decoded.email, identity : decoded.identity}, process.env.ACCESS_TOKEN_SECRET, {expiresIn : "30s"})
             res.json({accessToken})
         })
     })
@@ -160,17 +161,30 @@ app.get("/logout", async (req, res) => {
 
 const verifyJWT = (req, res, next) => {
     const authHeader = req.headers['authorization']
-    if(!authHeader) res.sendStatus(401)
+    if(!authHeader?.startsWith("Bearer ")) res.sendStatus(401)
     const token = authHeader.split(' ')[1]
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
         if(err) res.sendStatus(403)         // Invalid token
         req.user = decoded.email
+        req.identity = decoded.identity
         console.log(req.user)
         next()
     })
 }
 
-// app.use(verifyJWT)
+const verifyIdentity = (...allowedIdentity) => {
+    return (req, res, next) => {
+        if(!req?.identity) return res.sendStatus(401)
+        const identityArray = [...allowedIdentity]
+        console.log(identityArray)
+        console.log(req.identity)
+        const result = identityArray.includes(req.identity)
+        if(!result) return res.sendStatus(401)
+        next()
+    }
+}
+
+app.use(verifyJWT)
 
 const student_request_schema = new mongoose.Schema({
     name: String,
