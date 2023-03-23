@@ -252,32 +252,34 @@ const Medical_history = new mongoose.Schema({
     count:Number,
     medical_history:[{
         date: Date,
+        doctor: String,
         medication:[{name_of_medicine:String,
                     dosage:String,
                     days:Number}],
         vitals_Blood_pressure: String,
         vitals_Oxygen: String,
         vitals_temperature: Number,
-        completed: Boolean
+        completed: Boolean,
+        completed_doc: Boolean
     }],
     
 });
 const Med = new mongoose.model('Med', Medical_history);
 
 
-app.get("/doctor_appt", (req, res) =>{
-    console.log(req.query);
-    Appointment.find({ Doctor: req.query.doctor }).then((err, stuff)=>{
-        if(err){
-            console.log(err);
-            res.send(err);
-        }
-        else{
-            console.log(stuff);
-            res.json(stuff);
-        }
-    });
-});
+// app.get("/doctor_appt", (req, res) =>{
+//     console.log(req.query);
+//     Appointment.find({ Doctor: req.query.doctor }).then((err, stuff)=>{
+//         if(err){
+//             console.log(err);
+//             res.send(err);
+//         }
+//         else{
+//             console.log(stuff);
+//             res.json(stuff);
+//         }
+//     });
+// });
 
 // app.post("/doctor_prescribe", (req, res) => {
 
@@ -310,22 +312,13 @@ app.post("/submitted", (req, res) =>{
             appt_final.appy_type = stuff[0].appy_type;
             appt_final.appt_slot = stuff[0].appt_slot;
             appt_final.symptoms = stuff[0].symptoms;
-            appt_final.Doctor = stuff[0].Doctor;
+            appt_final.Doctor = doctor_by_receptionist; //stuff[0].Doctor;
             
             Med.findOne({rollno: stuff[0].rollno}, (err, stuff) =>{
                 //made medical history record
                 if(stuff){
                     console.log("here");
-                    stuff.medical_history.push({
-                        date: new Date(),
-                        medication:[{name_of_medicine:"Paracetamol",
-                                    dosage:"2 tablets",
-                                    days:2}],
-                        vitals_Blood_pressure: "Not chechked",
-                         vitals_Oxygen: "Checked",
-                         vitals_temperature: 0 ,
-                          completed: false                
-                    })
+                    stuff.medical_history.push()
                     // stuff.save();
                 }
                 else{
@@ -401,14 +394,16 @@ app.post("/nurse", (req, res) => {
 })
 
 app.post("/doctor_prescribe", (req, res) => {
-    const {rollno,medication,remark} =req.body;
+    const {rollno,medication,remark, name_doc, appt_slot} =req.body;
     console.log(req.body);
     Med.findOne({rollno: rollno}, (err, stuff) => {
         const new_appt = {
             date : new Date(),
+            doctor: name_doc,
             medication: medication,
             remark: remark,
-            completed: false
+            completed: false,
+            completed_doc: true
         };
         if(stuff){
             console.log(new_appt);
@@ -420,6 +415,16 @@ app.post("/doctor_prescribe", (req, res) => {
             stuff.save();
         }
     })
+
+    Appointment.findOneAndDelete({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot}, (err) => {
+        if(err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            res.send("ok");
+        }
+    });
 
 })
     
