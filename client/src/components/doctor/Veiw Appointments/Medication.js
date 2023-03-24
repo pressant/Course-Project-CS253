@@ -1,10 +1,13 @@
 import React,{useState} from 'react'
 import axios from 'axios'
 import {useHistory } from 'react-router-dom'
-const Conduct_appointment = () => {
+
+const Conduct_appointment = (props) => {
+
     const history = useHistory();
     const [medicine, setMedicine] = useState([]);
-    // var days = 0;
+    const [val, setVal] = useState("");
+    const { doctor, slot, rollno } = props;
 
     const handleMinus = () => {
         var input = document.getElementById('days');
@@ -15,23 +18,26 @@ const Conduct_appointment = () => {
         var input = document.getElementById('days');
         input.value = parseInt(input.value) + 1;
     }
-    const [val, setVal] = useState("");
-    const changed=(e)=>[
+
+    const changed = (e) => [
         setVal(e.target.value)
     ]
 
-    const handlePrescribe=()=>{
+    const handlePrescribe = () => {
         axios.post('http://localhost:9002/doctor_prescribe', {
-            rollno: "210496",
+            rollno: rollno,
             medication: medicine,
-            remark: val
-        }).then((res)=>{
+            remark: val,
+            Doctor: doctor,
+            appt_slot: slot,
+        }).then((res) => {
             console.log(res);
             history.push('/doctor_appt');
-        }).catch((err)=>{
+        }).catch((err) => {
             console.log(err);
         })
     }
+    
     const handleClick = () => {
         var name = document.getElementById('name').value;
         var dosage = document.getElementsByName('btnradio');
@@ -61,19 +67,19 @@ const Conduct_appointment = () => {
                 </div>
             </div>
             <div className="btn-group my-3" role="group" aria-label="Basic radio toggle button group">  
-                <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autocomplete="off" value="qD"/>
+                <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" value="qD"/>
                 <label className="btn btn-outline-primary" htmlFor="btnradio1">qD</label>
 
-                <input type="radio" className="btn-check" name="btnradio" id="btnradio2" autocomplete="off" value="BID"/>
+                <input type="radio" className="btn-check" name="btnradio" id="btnradio2" autoComplete="off" value="BID"/>
                 <label className="btn btn-outline-primary" htmlFor="btnradio2">BID</label>
 
-                <input type="radio" className="btn-check" name="btnradio" id="btnradio3" autocomplete="off" value="TID"/>
+                <input type="radio" className="btn-check" name="btnradio" id="btnradio3" autoComplete="off" value="TID"/>
                 <label className="btn btn-outline-primary" htmlFor="btnradio3">TID</label>
 
-                <input type="radio" className="btn-check" name="btnradio" id="btnradio4" autocomplete="off" value="BBF"/>
+                <input type="radio" className="btn-check" name="btnradio" id="btnradio4" autoComplete="off" value="BBF"/>
                 <label className="btn btn-outline-primary" htmlFor="btnradio4">BBF</label>
 
-                <input type="radio" className="btn-check" name="btnradio" id="btnradio5" autocomplete="off" value="BD"/>
+                <input type="radio" className="btn-check" name="btnradio" id="btnradio5" autoComplete="off" value="BD"/>
                 <label className="btn btn-outline-primary" htmlFor="btnradio5">BD</label>
             </div>
 
