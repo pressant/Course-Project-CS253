@@ -13,12 +13,17 @@ export default function Home(props) {
     history.push("/login")
    }
 	return (
-		<>
-		<Link to="student/request"><button>Request Appointment</button></Link>
-		<br/>
-		<Link to="student/upcoming"><button>View Upcoming Appointments</button></Link>
-		<Link to="student/history"><button>View Medical History</button></Link>
-		<Link to="student/doctors"><button>View Doctor Schedules</button></Link>
-		</>
+		<div className="student_home">
+			<table>
+				<tr>
+					<td><Link to="student/request"><button>Request Appointment</button></Link></td>
+					<td><Link to="student/upcoming"><button>View Upcoming Appointments</button></Link></td>
+				</tr>
+				<tr>
+					<td><Link to="student/history"><button>View Medical History</button></Link></td>
+					<td><Link to="student/doctors"><button>View Doctor Schedules</button></Link></td>
+				</tr>
+			</table>
+		</div>
 	)
 }

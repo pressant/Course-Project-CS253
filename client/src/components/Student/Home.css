@@ -1,6 +1,5 @@
 .student_home {
     margin-top: 15vh;
-    height: 85vh;
 }
 
 .student_home button {
@@ -12,11 +11,11 @@
     width : 40vw;
     margin: 0.5rem;
     border-radius: 8px;
+    margin-bottom: 5vh;
     outline: none;
     cursor: pointer;
 }
 .student_home table   {
     width: 100vw;
-    height: 80vh;
     text-align: center;
 }
