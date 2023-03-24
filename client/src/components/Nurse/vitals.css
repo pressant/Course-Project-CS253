@@ -1,44 +1,27 @@
-.user_pr{
-    margin-left: 500px;
-    margin-right:500px;
-    
+.nurse_vitals  button {
+    background: #ff9900;
+    border: 1px solid #ff9900;
+    color: #fff;
+    font-size: 1.25rem;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
 }
-#user1{
-    padding-top: 20px;
-    float:right;
-}
-.heade{
-    height:125px;
-    font-size: 34px;
-    text-align: center;
+
+.nurse_vitals {
+    width: 800px;
+    border-radius: 8px;
+    padding: 1rem;
     align-items: center;
-    background-color: #e0e0eb;
+    text-align: center;
 }
-.bode{
-    height:180px;
-    background-color: #e0e0eb;
+
+.nurse_vitals .heading {
+    background-color: #ffaa00;
 }
-.vitalinfo{
-    margin-left: 424px;
-    justify-content: space-between;
-}
-.entry{
-    width:180px;
-    margin-right: 20px;
-    margin-left:20px;
-}
-.butt{
-    margin-left:270px;
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    /* padding: 15px 32px; */
-    /* text-align: center; */
-    
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    height:34px;
-    width:95px;
-   
+
+.nurse_vitals h4 {
+    /* background-color: #ffaa00; */
 }

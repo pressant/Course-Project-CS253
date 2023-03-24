@@ -36,8 +36,7 @@ const InitialNurse = () => {
    }
 
     return (
-        <>
-        <div className='nurse_initial'>
+        <div className='nurse'>
             <div className="container text-center my-5">
                 <h1>Add Vital Information</h1>
                 <div className="input-group input-group-lg my-5">
@@ -49,7 +48,6 @@ const InitialNurse = () => {
                 </div>
             </div>
         </div>
-        </>
     );
 }
 

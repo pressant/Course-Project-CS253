@@ -22,21 +22,21 @@ const Vitals = () => {
     }
 
     return (
-        <div className="container">
+        <div className="container nurse_vitals">
             <div className="row justify-content-between my-3">
-                <div className="col-4">Name: Hardcoded</div>
-                <div className="col-4">Roll/PF Number: {state.id}</div>
+                <div className="col-4"><h4>Name: Hardcoded</h4></div>
+                <div className="col-5"><h4>Roll/PF Number: {state.id}</h4></div>
             </div>
             <div className="input-group input-group-lg my-5">
-                <span className="input-group-text" id="inputGroup-sizing-lg">Oxygen</span>
+                <span className="input-group-text heading" id="inputGroup-sizing-lg">Oxygen</span>
                 <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
             </div>
-            <div className="input-group input-group-lg my-5">
-                <span className="input-group-text" id="inputGroup-sizing-lg">Temperature</span>
+            <div className="input-group input-group-lg my-5 ">
+                <span className="input-group-text heading" id="inputGroup-sizing-lg">Temperature</span>
                 <input type="number" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
             </div>
             <div className="input-group input-group-lg my-5">
-                <span className="input-group-text" id="inputGroup-sizing-lg">Blood Pressure</span>
+                <span className="input-group-text heading" id="inputGroup-sizing-lg">Blood Pressure</span>
                 <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
             </div>
             <div className="d-grid gap-2 col-6 mx-auto">
