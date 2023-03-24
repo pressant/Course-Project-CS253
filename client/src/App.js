@@ -30,17 +30,11 @@ import pendingAppointments from './Data';
 import { ongoingAppointments, completedAppointments } from './Data';
 import UploadReports from './components/Receptionist/UploadReports';
 import AppointmentStatus from './components/Receptionist/AppointmentStatus';
+// import Search from './components/doctor/Veiw Appointments/Search';
 
 function App() {
 
-  const [ user, setLoginUser] = useState({identity:"doctor"})
-
-  // eslint-disable-next-line
-  // const [pendingAppt, setPendingAppt] = useState(pendingAppointments);
-  // eslint-disable-next-line
-  // const [ongoingAppt, setOngoingAppt] = useState(ongoingAppointments);
-  // eslint-disable-next-line
-  // const [completedAppt, setCompletedAppt] = useState(completedAppointments);
+  const [ user, setLoginUser ] = useState({identity:"doctor"})
 
   return (
     <div className="App">
@@ -75,6 +69,7 @@ function App() {
           <Route exact path="/doctor/conduct_appointment"> <Conductappointment/> </Route>
           <Route exact path="/receptionist/setschedule"><DoctorAppointments/></Route>
           <Route exact path="/receptionist/uploadreports"><UploadReports/></Route>
+          {/* <Route exact paht="/search"><Search/></Route> */}
         </Switch>
       </Router>
     </div>
