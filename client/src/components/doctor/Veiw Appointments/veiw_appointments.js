@@ -1,4 +1,3 @@
-import "./view_appointments.css"
 import React,{useState,useEffect} from 'react'
 import axios from "axios"
 import {global} from "../../login/login"

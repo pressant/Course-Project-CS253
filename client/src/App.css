@@ -9,3 +9,50 @@
     padding-top: 15vh;
     padding-bottom: 5vh;
 }
+
+.App .home_button {
+    background: #D9D9D9;
+    border: 1px solid #D9D9D9;
+    color: #000;
+    font-size: 1.25rem;
+    height : 20vh;
+    width : 40vw;
+    margin: 0.5rem;
+    border-radius: 8px;
+    margin-bottom: 5vh;
+    outline: none;
+    cursor: pointer;
+}
+
+
+.App .hc_card {
+    background-color: #D9D9D9;
+    margin: 10px;
+}
+
+.App .hc_card_header {
+    background-color: #ffc554;
+}
+
+.App .hc_card_title {
+    text-decoration: underline;
+}
+
+.App .hc_card_body {
+
+}
+
+.App .hc_card_text {
+
+}
+
+.App .hc_card_button {
+    background: #ff9900;
+    border: 1px solid #ff9900;
+    color: #fff;
+    padding: 0.1rem;
+    margin: 0.5rem 0;
+    border-radius: 8px;
+    outline: none;
+    cursor: pointer;
+}

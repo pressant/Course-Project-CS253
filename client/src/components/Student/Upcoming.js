@@ -21,11 +21,11 @@ export default function Upcoming(props) {
 						{app_t_arr.map((el) =>  {
 							return (
 								<div className="my-3">
-									<div className="card my-3 upcoming_card">
-										<div className="card-header upcoming_card_header"><h4>{el.rollno}</h4></div>
-										<div className="card-body">
-											<h5 className="card-title upcoming_card_title">{el.name}</h5>
-											<p className="card-text">{el.symptoms}</p>
+									<div className="card my-3 hc_card">
+										<div className="card-header hc_card_header"><h4>{el.rollno}</h4></div>
+										<div className="card-body hc_card_body">
+											<h5 className="card-title hc_card_title">{el.name}</h5>
+											<p className="card-text hc_card_text">{el.symptoms}</p>
 										</div>
 									</div>
 								</div>

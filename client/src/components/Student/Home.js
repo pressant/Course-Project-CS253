@@ -16,12 +16,12 @@ export default function Home(props) {
 		<div className="student_home">
 			<table>
 				<tr>
-					<td><Link to="student/request"><button>Request Appointment</button></Link></td>
-					<td><Link to="student/upcoming"><button>View Upcoming Appointments</button></Link></td>
+					<td><Link to="student/request"><button className="home_button">Request Appointment</button></Link></td>
+					<td><Link to="student/upcoming"><button className="home_button">View Upcoming Appointments</button></Link></td>
 				</tr>
 				<tr>
-					<td><Link to="student/history"><button>View Medical History</button></Link></td>
-					<td><Link to="student/doctors"><button>View Doctor Schedules</button></Link></td>
+					<td><Link to="student/history"><button className="home_button">View Medical History</button></Link></td>
+					<td><Link to="student/doctors"><button className="home_button">View Doctor Schedules</button></Link></td>
 				</tr>
 			</table>
 		</div>
