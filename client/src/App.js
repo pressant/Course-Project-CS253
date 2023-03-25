@@ -21,10 +21,10 @@ import StudentDoctors from "./components/Student/Doctors";
 import InitialReceptionist from './components/Receptionist/InitialReceptionist';
 import AppointmentsRequests from './components/Receptionist/AppointmentsRequests';
 import DoctorAllotment from './components/Receptionist/DoctorAllotment';
-
+import Notfound from './Notfound';
 import Conductappointment from './components/doctor/Veiw Appointments/Conduct_appointment';
 
-import DoctorAppointments from './components/Receptionist/DoctorAppointments';
+import DoctorAppointments from './components/Receptionist/Setschedule';
 
 import pendingAppointments from './Data';
 import { ongoingAppointments, completedAppointments } from './Data';
@@ -70,6 +70,7 @@ function App() {
           <Route exact path="/receptionist/setschedule"><DoctorAppointments/></Route>
           <Route exact path="/receptionist/uploadreports"><UploadReports/></Route>
           {/* <Route exact paht="/search"><Search/></Route> */}
+          <Route path='*' ><Notfound/></Route>
         </Switch>
       </Router>
     </div>

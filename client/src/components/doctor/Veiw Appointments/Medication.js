@@ -32,7 +32,7 @@ const Conduct_appointment = (props) => {
             appt_slot: slot,
         }).then((res) => {
             console.log(res);
-            history.push('/doctor_appt');
+            history.push('/doctor/view_appointment');
         }).catch((err) => {
             console.log(err);
         })
