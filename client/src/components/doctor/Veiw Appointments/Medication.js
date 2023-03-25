@@ -1,6 +1,9 @@
 import React,{useState} from 'react'
 import axios from 'axios'
 import {useHistory } from 'react-router-dom'
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
+import medicines from './Medicines';
 
 const Conduct_appointment = (props) => {
 
@@ -39,7 +42,7 @@ const Conduct_appointment = (props) => {
     }
     
     const handleClick = () => {
-        var name = document.getElementById('name').value;
+        var name = document.getElementById('combo-box-demo').value;
         var dosage = document.getElementsByName('btnradio');
         var dose;
         var days = document.getElementById('days').value;
@@ -53,18 +56,14 @@ const Conduct_appointment = (props) => {
             }
         }
         setMedicine([...medicine, {name_of_medicine: name, dosage: dose, days: days}]);
-        document.getElementById('name').value = "";
         document.getElementById('days').value = 0;
     }
 
     return (
         <div className="col-7 text-center">
             <h2 className="mb-5">Medication</h2>
-            <div className="container my-3">
-                <div className="input-group mb-3">
-                    <span className="input-group-text" id="inputGroup-sizing-default">Medicine Name</span>
-                    <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="name"/>
-                </div>
+            <div className="container my-3 d-flex justify-content-center">
+                <Autocomplete disablePortal id="combo-box-demo" options={medicines} sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label="Medicines" />} />
             </div>
             <div className="btn-group my-3" role="group" aria-label="Basic radio toggle button group">  
                 <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" value="qD"/>
@@ -84,7 +83,7 @@ const Conduct_appointment = (props) => {
             </div>
 
             <div className="row my-3">
-                <div className="col-5 align-center">
+                <div className="col-5 d-flex align-items-start justify-content-center" >
                     Days:
                 </div>
                 <div className="col-5">
@@ -104,11 +103,11 @@ const Conduct_appointment = (props) => {
                 <div className="col-6">
                     <h4 className="justify-content-center">Remarks</h4>
                 </div>
-                <div className="col-6">
+                <div className="col-6 my-3">
                     {
                         medicine?.map((element) => {
                             return(
-                                <div className="row mx-3">
+                                <div className="row mx-2">
                                     {element.name_of_medicine} {element.dosage}-{element.days}
                                 </div>
                             );

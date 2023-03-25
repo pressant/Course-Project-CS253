@@ -26,11 +26,8 @@ import Conductappointment from './components/doctor/Veiw Appointments/Conduct_ap
 
 import DoctorAppointments from './components/Receptionist/Setschedule';
 
-import pendingAppointments from './Data';
-import { ongoingAppointments, completedAppointments } from './Data';
 import UploadReports from './components/Receptionist/UploadReports';
 import AppointmentStatus from './components/Receptionist/AppointmentStatus';
-// import Search from './components/doctor/Veiw Appointments/Search';
 
 function App() {
 
@@ -53,9 +50,9 @@ function App() {
           <Route exact path="/doctor/view_appointment"><Veiwappointments/></Route>
           <Route exact path="/nurse/"><InitialNurse name="abcd" id={420}/></Route>
           <Route exact path="/nurse/vitals"><Vitals/></Route>
-          <Route exact path="/pharmacy/"><InitialPharmacy prescriptions={ongoingAppointments}/></Route>
-          <Route exact path="/pharmacy/prescription"><Prescription/></Route>
-          <Route exact path="/pharmacy/completedprescription"><CompletedPrescription prescriptions={completedAppointments}/></Route>
+          <Route exact path="/pharmacy/"><InitialPharmacy/></Route>
+          <Route exact path="/pharmacy/pendingprescription"><Prescription/></Route>
+          <Route exact path="/pharmacy/completedprescription"><CompletedPrescription/></Route>
           <Route exact path="/student"> <StudentHome /></Route>
           <Route exact path="/student/request"><StudentRequest /></Route>
           <Route exact path="/student/upcoming"><StudentUpcoming /></Route>
@@ -63,13 +60,14 @@ function App() {
           <Route exact path="/student/doctors"><StudentDoctors /></Route>
           <Route exact path="/receptionist/"><InitialReceptionist/></Route>
           <Route exact path="/receptionist/"><InitialReceptionist/></Route>
-          <Route exact path="/receptionist/appointments"><AppointmentsRequests prescriptions={pendingAppointments}/></Route>
-          <Route exact path="/receptionist/appointmentstatus"><AppointmentStatus prescriptions={ongoingAppointments}/></Route>
+          <Route exact path="/receptionist/appointments"><AppointmentsRequests/></Route>
+          <Route exact path="/receptionist/appointmentstatus"><AppointmentStatus/></Route>
+          <Route exact path="/receptionist/appointments"><AppointmentsRequests/></Route>
+          <Route exact path="/receptionist/appointmentstatus"><AppointmentStatus/></Route>
           <Route exact path="/receptionist/doctorallotment"><DoctorAllotment/></Route>
           <Route exact path="/doctor/conduct_appointment"> <Conductappointment/> </Route>
           <Route exact path="/receptionist/setschedule"><DoctorAppointments/></Route>
           <Route exact path="/receptionist/uploadreports"><UploadReports/></Route>
-          {/* <Route exact paht="/search"><Search/></Route> */}
           <Route path='*' ><Notfound/></Route>
         </Switch>
       </Router>
