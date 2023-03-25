@@ -23,7 +23,7 @@ const Appointment = (props) => {
             <div className="card-header hc_card_header">{prescription.id}</div>
             <div className="card-body hc_card_body">
                 <h5 className="card-title hc_card_title">{prescription.name}</h5>
-                <p className="card-text hc_card_text">{prescription.description}</p>
+                <p className="card-text hc_card_text"><span className="appointment_description">{prescription.description}</span></p>
                 <button className="btn btn-dark btn-sm hc_card_button" onClick={handleClick}>
                     Conduct Appointment
                 </button>

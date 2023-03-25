@@ -56,3 +56,10 @@
     outline: none;
     cursor: pointer;
 }
+
+.App .appointment_description {
+    display: block;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}

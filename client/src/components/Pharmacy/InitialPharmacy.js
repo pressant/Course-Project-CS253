@@ -21,10 +21,10 @@ const InitialPharmacy = (props) => {
             <div className="">
                 <table>
                     <tr>
-                        <td><Link to="/pharmacy/pendingprescription"><button className="home_button">View Pending Appointments</button></Link></td>
+                        <td><Link to="/pharmacy/pendingprescription"><button className="home_button">View Pending Prescriptions</button></Link></td>
                     </tr>
                     <tr>
-                        <td><Link to="/pharmacy/completedprescription"><button className="home_button">View Completed Appointments</button></Link></td>
+                        <td><Link to="/pharmacy/completedprescription"><button className="home_button">View Completed Prescriptions</button></Link></td>
                     </tr>
                 </table>
             </div>

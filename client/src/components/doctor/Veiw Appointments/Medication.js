@@ -4,6 +4,7 @@ import {useHistory } from 'react-router-dom'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import medicines from './Medicines';
+import "./Medication.css"
 
 const Conduct_appointment = (props) => {
 
@@ -63,9 +64,9 @@ const Conduct_appointment = (props) => {
         <div className="col-7 text-center">
             <h2 className="mb-5">Medication</h2>
             <div className="container my-3 d-flex justify-content-center">
-                <Autocomplete disablePortal id="combo-box-demo" options={medicines} sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label="Medicines" />} />
+                <Autocomplete className='btn-group white_background' disablePortal id="combo-box-demo" options={medicines} sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label="Medicines" />} />
             </div>
-            <div className="btn-group my-3" role="group" aria-label="Basic radio toggle button group">  
+            <div className="btn-group my-3 white_background" role="group" aria-label="Basic radio toggle button group">  
                 <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" value="qD"/>
                 <label className="btn btn-outline-primary" htmlFor="btnradio1">qD</label>
 
