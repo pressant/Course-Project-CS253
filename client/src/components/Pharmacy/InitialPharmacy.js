@@ -1,3 +1,4 @@
+import "./InitialPharmacy.css"
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Patient from "./Patient";
@@ -18,7 +19,7 @@ const InitialPharmacy = (props) => {
    }
     return (
         <>
-        <div className="container my-5">
+        <div className="container my-5 initial_pharmacy">
             <div className="row justify-content-between">
                 <div className="col-6">
                     <h2>Pending Prescriptions</h2>
