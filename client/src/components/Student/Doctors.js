@@ -4,8 +4,7 @@ import axios from 'axios';
 
 
 export default function Doctors() {
-	
-	let doctor_list= new Array();
+	let doctor_list = [];
 	var idx = 0;
 	
 	const rrr = () => {
