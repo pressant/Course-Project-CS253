@@ -8,6 +8,7 @@ import mongoose from "mongoose"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import cookieParser from "cookie-parser"
+// import multer from "multer"
 
 const app = express()
 app.use(express.json())
@@ -444,6 +445,26 @@ app.get("/student_history:roll", (req, res) => {
     })
 })
 
+
+// const Medical_history = new mongoose.Schema({
+//     name: String,
+//     rollno:String,
+//     count:Number,
+//     medical_history:[{
+//         date: Date,
+//         doctor: String,
+//         medication:[{name_of_medicine:String,
+//                     dosage:String,
+//                     days:Number}],
+//         vitals_Blood_pressure: String,
+//         vitals_Oxygen: String,
+//         vitals_temperature: Number,
+//         completed: Boolean,
+//         completed_doc: Boolean
+//     }],
+    
+// });
+
 app.get("/pharmacist", (req, res) => {
     Med.find((err, stuff) =>{
         if(err){
@@ -451,24 +472,42 @@ app.get("/pharmacist", (req, res) => {
             res.send(err);
         }
         else{
+            console.log("hello");
             const resp_arr = [];
             stuff.forEach(element => {
                 const hist = [];
                 element.medical_history.forEach(inner_el => {
+                    // console.log(inner_el._id);
                     if(inner_el.completed == false){
-                        hist.push(inner_el);
+                        const newPrescription = {
+                            doctor: inner_el.doctor,
+                            medication : inner_el.medication,
+                            UID: inner_el._id
+                        };
+                        // console.log("ok" + newPrescription.UID);
+                        hist.push(newPrescription);
                     }
                 });
                 if(hist.length != 0){
-                    const resp_obj = {
-                        rollno : element.rollno,
-                        name: element.name,
-                        medical_history : hist
-                    }
-                    resp_arr.push(resp_obj);
+                    hist.forEach(inner_el => {
+                        const prescriptionObj = {
+                            rollno : element.rollno,
+                            name: element.name,
+                            doctor: inner_el.doctor,
+                            medication : inner_el.medication,
+                            UID: inner_el.UID
+                        }
+                        resp_arr.push(prescriptionObj);
+                    });
+                    // const resp_obj = {
+                    //     rollno : element.rollno,
+                    //     name: element.name,
+                    //     medical_history : hist
+                    // }
+                    
                 }
             });
-            console.log(resp_arr);
+            // console.log(resp_arr);
             res.json(resp_arr);
         }
     })
@@ -515,6 +554,32 @@ app.get('/schedule',(req,res)=>{
     console.log('====================================');
     res.send(doctor_list);
 })
+
+// const pdfSchema = new mongoose.Schema({
+//     pdf : {
+//         data : Buffer,
+//         contentType : String
+//     },
+//     name : String  
+// });
+
+// const pdfModel = new mongoose.model("Pdf", pdfSchema);
+
+// const storage = multer.memoryStorage();
+
+// const upload = multer({storage: storage});
+
+// app.post("/report_upload", upload.single('file'), function(req, res){
+//     const newPdf = new pdfModel({
+//         pdf: {
+//             data : req.file.buffer,
+//             contentType : 'pdf'
+//         },
+//         name : req.body.rollno
+//     });
+
+//     newPdf.save();
+// });
 
 app.listen(9002,() => {
     console.log("BE started at port 9002")
