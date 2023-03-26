@@ -1,17 +1,29 @@
 
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import "./request.css"
 import { global } from "../login/login";
-
+let arr=[];
+let doctors=[];
 export default function Request(props) {
+	const rrr=()=>{
+		axios.get('http://localhost:9002/doctor_on_schedule', (req, res) => {
+            arr=res.data;
+		})
+      let arr_length=arr.length;
+	  for(let i=0;i<arr_length;i++){
+		  doctors.push(arr[i].name_of_medicine);
+	  }
+	}
+	useEffect(() => {
+      document.onload = rrr();
+	}, []);
 	const history = useHistory()
 	const [appy_type,setappytype]=useState("");
     const [appt_slot,setapptslot]=useState("");
     const [doctor,setDoctor]=useState("shrey")
 
-	const doctors = ["Dr. A", "Dr. B", "Dr. C","Dr. D","Dr. E","Dr. E"];
     const [symptoms,updateSymptoms] = useState("")
 	let name=global[0];
 	let roll=global[2];
@@ -39,37 +51,11 @@ export default function Request(props) {
 			alert("Please fill all the fields")
 		}
 	}
-    const handleChange=(e)=>{
-		setappytype(e.target.value);
-    }
-	const habdleChange=(e)=>{
-		setapptslot(e.target.value);
-	}
-    const handleChange2=(e)=>{
-		setDoctor(e.target.value);
-	}	
 	return (
 		<>
 		
 		<div className="student_request col-6">
 			<h2><center>Request an appointment</center></h2>
-			{/* <div id="appt_type">
-				<input type="radio" id="opd" name="appt_type" value="OPD" onChange={handleChange}/>
-				<label for="opd">OPD</label>
-				<input type="radio" id="specialist" name="appt_type" value="Specialist" onChange={handleChange}  />
-				<label for="specialist">Specialist</label>
-			</div> */}
-			{/* <div className="row">
-				Type of appointment
-			</div>
-			<div className="btn-group" role="group" aria-label="Basic radio toggle button group">
-			<input type="radio" className="btn-check" name="btnradio" id="opd" autocomplete="off"/>
-			<label className="btn btn-outline-primary" for="opd">OPD</label>
-
-			<input type="radio" className="btn-check" name="btnradio" id="specialist" autocomplete="off"/>
-			<label className="btn btn-outline-primary" for="specialist">Specialist</label>
-			</div> */}
-
 			<div className="card mx-auto my-4" style={{maxWidth: "18rem"}}>
 			<div className="card-header">Appointment Type</div>
 				<div className="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -80,14 +66,6 @@ export default function Request(props) {
 					<label className="btn btn-outline-primary" for="specialist">Specialist</label>
 				</div> 
 			</div>
-
-			{/* <div id="appt_slot">
-				<input type="radio" id="morning" name="appt_slot" value="Morning" onChange={habdleChange} />
-				<label for="morning">Morning</label>
-				<input type="radio" id="evening" name="appt_slot" value="Evening" onChange={habdleChange} />
-				<label for="evening">Evening</label>
-			</div> */}
-
 <div className="card mx-auto my-4" style={{maxWidth: "18rem"}}>
   <div className="card-header">Preferred Slot</div>
   <div className="btn-group" role="group" aria-label="Basic radio toggle button group">
@@ -98,19 +76,6 @@ export default function Request(props) {
 			<label className="btn btn-outline-primary" for="evening">Evening</label>
 			</div> 
 </div>
-
-
-
-			{/* <div id="appt_doctor">
-				{doctors.map((doctor) => (
-					<>
-						<input type="radio" id={doctor} name="appt_doctor" value={doctor} onChange={handleChange2}  />
-						<label for={doctor}>{doctor}</label>
-					</>
-				))}
-			</div> */}
-
-			
          <div class="text-center">
 					<div className="btn-group-vertical my-4" role="group" aria-label="Vertical button group">
 						<div className="btn-group" role="group">
