@@ -14,7 +14,7 @@ app.use(express.json())
 app.use(express.urlencoded({extended: true}))
 app.use(cors())
 app.use(cookieParser())
-
+let doctor_list=[];
 //mongodb+srv://CS:5i4tDRJZM5W78xgn@cluster0.5ebvu5n.mongodb.net/
 //mongodb+srv://aniketsborkar:AeQrXz4v5Go8WTKP@cluster0.ukqevpn.mongodb.net/test
 mongoose.connect("mongodb+srv://aniketsborkar:AeQrXz4v5Go8WTKP@cluster0.ukqevpn.mongodb.net/test", {
@@ -492,6 +492,20 @@ app.post("/dispense", (req, res) => {
             res.send("ok");
         }
     });
+})
+
+app.post('/doctor_schedule',(req,res)=>{
+    const Doctor_list=req.body;
+    doctor_list.length=0;
+    doctor_list.push(Doctor_list);
+    res.json({message:"Done Scheduling"})
+})
+
+app.get('/schedule',(req,res)=>{
+    console.log('====================================');
+    console.log(doctor_list);
+    console.log('====================================');
+    res.send(doctor_list);
 })
 
 app.listen(9002,() => {
