@@ -1,6 +1,17 @@
-import React from 'react'
-
+import React,{useState} from 'react'
+import axios from 'axios';
 const UploadReports = () => {
+let array=[]
+   const func=()=>{
+    axios.post("/report_upload", upload.array('files', 12), (req, res)=>{
+        console.log(res.body);
+    });
+    
+ }
+
+const [name, setName] = useState('');
+const [roll, setRoll] = useState('');
+
     return (
         <div className="container">
             <h1 className="text-center my-5">Upload Medical Reports</h1>
@@ -16,6 +27,9 @@ const UploadReports = () => {
                 <div class="row justify-content-between my-3 align-items-center">
                     <div class="col-4">
                         Name:
+                        <input value={name} onChange={e=>{
+                            setName(e.target.value);
+                        }}></input>
                     </div>
                     <div class="col-8">
                         <input class="form-control" type="file" id="formFileMultiple" multiple/>
@@ -24,6 +38,9 @@ const UploadReports = () => {
                 <div class="row justify-content-between my-3 align-items-center">
                     <div class="col-4">
                         Roll/PF Number: 
+                        <input value={roll} onChange={e=>{
+                            setRoll(e.target.value);
+                        }}></input>
                     </div>
                     <div class="col-8 text-center">
                         <button type="submit" class="btn btn-primary mb-3">Upload</button>

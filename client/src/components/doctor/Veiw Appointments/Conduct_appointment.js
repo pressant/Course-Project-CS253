@@ -2,15 +2,19 @@ import React, { useState } from 'react'
 import Medication from './Medication';
 import DiagnosticTest from './DiagnosticTest';
 import MedHistory from './MedHistory';
-import { useLocation } from "react-router-dom";
+import { useLocation,useHistory } from "react-router-dom";
 
 const Conduct_appointment = () => {
-
+    const history = useHistory();
     const [view, setView] = useState("med");
     const { state } = useLocation();
 
     const handleClick = (event) => {
         setView(event.target.id);
+    }
+    const handleClick2 = (event) => {
+        
+        history.push("/doctor/appointments");
     }
 
     return (
@@ -23,7 +27,11 @@ const Conduct_appointment = () => {
             {view === 'med' && <Medication doctor={state.doctor} slot={state.slot} rollno={state.id}/>}
             {view === 'hist' && <MedHistory rollno={state.id}/>}
             {view === 'test' && <DiagnosticTest/>}
+
+
+            <div className='cotainer'><button type="button" id="unknown" className="btn btn-dark col-12 my-5" style={{height: "100px"}} onClick={handleClick2}>Complete Appointment</button></div>
         </div>
+
     );
 }
 
