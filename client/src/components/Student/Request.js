@@ -9,7 +9,7 @@ export default function Request(props) {
 	const history = useHistory()
 	const [appy_type,setappytype]=useState("OPD");
     const [appt_slot,setapptslot]=useState("Morning");
-    const [doctor,setDoctor]=useState("Dr. A")
+    const [doctor,setDoctor]=useState("shrey")
 
 	const doctors = ["Dr. A", "Dr. B", "Dr. C","Dr. D","Dr. E","Dr. E"];
     const [symptoms,updateSymptoms] = useState("")
@@ -21,7 +21,9 @@ export default function Request(props) {
 		history.push("/login")
 	}
     const requested=()=>{
-
+        if(doctor==="shrey"){
+			alert("Please select a doctor")
+		}
 		const {name,roll,appy_type,appt_slot,symptoms,doctor}=Request;
 		console.log(Request);
         if(name!=="" && roll!=="" && appy_type!=="" && appt_slot!=="" && symptoms!=="" && doctor!==""){

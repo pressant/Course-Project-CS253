@@ -32,6 +32,10 @@ const Register = () => {
 
     const register = () => {
         const { name, email,rollno,identity, password, reEnterPassword } = user
+        if(password!==reEnterPassword){
+            alert("Password not matched")
+            return;
+        }
         console.log(user);
         if( name && email && password&&rollno&&identity && (password === reEnterPassword)){
             axios.post("http://localhost:9002/register", user)
@@ -52,7 +56,7 @@ const Register = () => {
             <input type="text" name="name" value={user.name} placeholder="Your Name" onChange={ handleChange }></input>
             <input type="email" name="email" value={user.email} placeholder="Your Email" onChange={ handleChange }></input>
             <input type="text" name="rollno" value={user.rollno} placeholder="Your Roll No" onChange={ handleChange }></input>
-            <input type="text" name="bg" value={user.bg} placeholder="Your Bloood Group" onChange={ handleChange }></input>
+            <input type="text" name="bg" value={user.bg} placeholder="Your Blood Group" onChange={ handleChange }></input>
             <select placeholder="Identity" onChange={Change} >
 <option id="identity">Please Select your Identity</option>
 <option  value="student">Student</option>
