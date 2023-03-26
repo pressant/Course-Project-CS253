@@ -558,7 +558,8 @@ app.get('/schedule',(req,res)=>{
 const pdfSchema = new mongoose.Schema({
     pdf : {
         data : Buffer,
-        contentType : String
+        contentType : String,
+        name : String
     },
     rollno : String  
 });
@@ -578,7 +579,8 @@ app.post("/report_upload", upload.array('files', 12), function(req, res){
         const newPdf = new pdfModel({
             pdf: {
                 data : file.buffer,
-                contentType : 'pdf'
+                contentType : 'pdf',
+                name: file.originalname
             },
             rollno : req.body.rollno
         });
@@ -596,6 +598,34 @@ app.get("/report:roll", (req, res) =>{
         }
         else{
             // console.log(typeof(stuff[0]));
+            const pdfsArr = [];
+            stuff.forEach(element => {
+                const pdfObj = {
+                    pdfname: element.pdf.name,
+                    rollno: element.rollno
+                }
+                pdfsArr.push(pdfObj);
+            });
+            res.json(pdfsArr);
+        }
+    })
+});
+
+app.get("/report/:roll/:pdfname", (req, res) => {
+    console.log(req.params['roll']);
+    console.log(req.params['pdfname']);
+    const filter = {
+        rollno: req.params['roll'],
+        "pdf.name" : req.params['pdfname']
+    }
+
+    pdfModel.find(filter, (err, stuff) => {
+        console.log(stuff);
+        if(err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
             res.json(stuff);
         }
     })
