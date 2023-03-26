@@ -7,8 +7,8 @@ import { global } from "../login/login";
 
 export default function Request(props) {
 	const history = useHistory()
-	const [appy_type,setappytype]=useState("OPD");
-    const [appt_slot,setapptslot]=useState("Morning");
+	const [appy_type,setappytype]=useState("");
+    const [appt_slot,setapptslot]=useState("");
     const [doctor,setDoctor]=useState("shrey")
 
 	const doctors = ["Dr. A", "Dr. B", "Dr. C","Dr. D","Dr. E","Dr. E"];
@@ -21,10 +21,10 @@ export default function Request(props) {
 		history.push("/login")
 	}
     const requested=()=>{
-       
 		const {name,roll,appy_type,appt_slot,symptoms,doctor}=Request;
-		if(doctor==="shrektgy"){
+		if(doctor==="shrey"){
 			alert("Please select a doctor")
+			return;
 		}
 		console.log(Request);
         if(name!=="" && roll!=="" && appy_type!=="" && appt_slot!=="" && symptoms!=="" && doctor!==""){

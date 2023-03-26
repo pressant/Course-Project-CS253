@@ -8,7 +8,7 @@ import mongoose from "mongoose"
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken"
 import cookieParser from "cookie-parser"
-// import multer from "multer"
+import multer from "multer"
 
 const app = express()
 app.use(express.json())
@@ -555,31 +555,51 @@ app.get('/schedule',(req,res)=>{
     res.send(doctor_list);
 })
 
-// const pdfSchema = new mongoose.Schema({
-//     pdf : {
-//         data : Buffer,
-//         contentType : String
-//     },
-//     name : String  
-// });
+const pdfSchema = new mongoose.Schema({
+    pdf : {
+        data : Buffer,
+        contentType : String
+    },
+    rollno : String  
+});
 
-// const pdfModel = new mongoose.model("Pdf", pdfSchema);
+const pdfModel = new mongoose.model("Pdf", pdfSchema);
 
-// const storage = multer.memoryStorage();
+const storage = multer.memoryStorage();
 
-// const upload = multer({storage: storage});
+const upload = multer({storage: storage});
 
-// app.post("/report_upload", upload.single('file'), function(req, res){
-//     const newPdf = new pdfModel({
-//         pdf: {
-//             data : req.file.buffer,
-//             contentType : 'pdf'
-//         },
-//         name : req.body.rollno
-//     });
+app.post("/report_upload", upload.array('files', 12), function(req, res){
 
-//     newPdf.save();
-// });
+    console.log(req.body.rollno);
+
+    req.files.forEach(file =>{
+        console.log(file);
+        const newPdf = new pdfModel({
+            pdf: {
+                data : file.buffer,
+                contentType : 'pdf'
+            },
+            rollno : req.body.rollno
+        });
+        newPdf.save();
+    })
+
+});
+
+app.get("/report:roll", (req, res) =>{
+    console.log(req.params.roll);
+    pdfModel.find({rollno: req.params.roll}, (err, stuff) =>{
+        if(err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            // console.log(typeof(stuff[0]));
+            res.json(stuff);
+        }
+    })
+})
 
 app.listen(9002,() => {
     console.log("BE started at port 9002")

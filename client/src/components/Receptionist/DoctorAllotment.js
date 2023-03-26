@@ -5,9 +5,11 @@ import axios from 'axios'
 const doctors = ["Dr. A", "Dr. B", "Dr. C","Dr. D","Dr. E","Dr. F"];
 
 const DoctorAllotment = (props) => {
-    const [doctor,setDoctor]=useState("Dr. A")
     const location = useLocation();
     const state = location.state;
+    const [doctor,setDoctor]=useState(state.preferredDoctor)
+    
+    
     const history = useHistory();
 
 
