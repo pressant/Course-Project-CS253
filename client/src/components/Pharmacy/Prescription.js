@@ -10,6 +10,10 @@ const Prescription = () => {
         
     };
 
+    const handlePrint = () => {
+        window.print();
+    }
+
     return (
         <div className="container mt-5">
             <div className="row justify-content-between">
@@ -19,9 +23,9 @@ const Prescription = () => {
             </div>
             <div className="text-center mt-5">
                 <div className="row">
-                    <div className="col">Name: name</div>
-                    <div className="col">Prescription ID: prescriptionId</div>
-                    <div className="col">Roll/PF Number: id</div>
+                    <div className="col">Name: {state.name}</div>
+                    <div className="col">Doctor: {state.doctor}</div>
+                    <div className="col">Roll/PF Number: {state.id}</div>
                 </div>
             </div>
             <table className="table table-bordered mt-5">
@@ -56,6 +60,12 @@ const Prescription = () => {
             <button type="button" className="btn btn-dark btn-lg mt-5" onClick={handleClick}>
                 Dispense
             </button>
+            <div className="container text-center">
+                <button type="button" className="btn btn-dark btn-lg mt-5" onClick={handlePrint}>
+                    Print Receipt
+                </button>
+
+            </div>
         </div>
     );
 };
