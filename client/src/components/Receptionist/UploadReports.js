@@ -2,12 +2,12 @@ import React,{useState} from 'react'
 import axios from 'axios';
 const UploadReports = () => {
 let array=[]
-   const func=()=>{
-    axios.post("/report_upload", upload.array('files', 12), (req, res)=>{
-        console.log(res.body);
-    });
+//    const func=()=>{
+//     axios.post("/report_upload", upload.array('files', 12), (req, res)=>{
+//         console.log(res.body);
+//     });
     
- }
+ 
 
 const [name, setName] = useState('');
 const [roll, setRoll] = useState('');
