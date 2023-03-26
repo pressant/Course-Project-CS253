@@ -257,6 +257,7 @@ const Medical_history = new mongoose.Schema({
         medication:[{name_of_medicine:String,
                     dosage:String,
                     days:Number}],
+        tests: [String],
         vitals_Blood_pressure: String,
         vitals_Oxygen: String,
         vitals_temperature: Number,
@@ -355,6 +356,7 @@ app.post("/submitted", (req, res) =>{
         }
     })
 });
+
 app.get("/new:roll", (req, res)=> {
     Appointment.find({rollno:req.params.roll}, (err, request) => {
         if(request){
@@ -414,22 +416,69 @@ app.post("/doctor_prescribe", (req, res) => {
             // stuff.medical_history[stuff.count].completed = true;
             stuff.count = stuff.count + 1;
             stuff.save();
-            Appointment.findOneAndDelete({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot}, (err, deleted_stuff) => {
-                console.log("hemlo");
-                console.log({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot});
-                console.log(deleted_stuff);
-                if(err){
-                    console.log(err);
-                    res.send(err);
-                }
-                else{
-                    res.send("ok");
-                }
-            });
+            // Appointment.findOneAndDelete({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot}, (err, deleted_stuff) => {
+            //     console.log("hemlo");
+            //     console.log({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot});
+            //     console.log(deleted_stuff);
+            //     if(err){
+            //         console.log(err);
+            //         res.send(err);
+            //     }
+            //     else{
+            //         res.send("ok");
+            //     }
+            // });
         }
     })
 
 
+})
+
+app.post("/doctor_test", (req,res) => {
+    const tests = req.body.tests;
+    const doctor = req.body.doctor;
+    const rollno = req.body.rollno;
+    const newTestHistory = {
+        date: Date(),
+        doctor: doctor,
+        tests: tests,
+        completed: true,
+        completed_doc: true
+    };
+
+    Med.findOne({rollno: rollno}, (err, stuff) => {
+        if(err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            if(stuff){
+                console.log(newTestHistory);
+                stuff.medical_history.push(newTestHistory);
+                stuff.count = stuff.count + 1;
+                stuff.save();
+            }
+        }
+    });
+    
+    res.json({message: "Done"});
+});
+
+
+app.post("/complete_appt", (req, res) => {
+    const {rollno, name_doc, appt_slot} =req.body;
+    Appointment.findOneAndDelete({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot}, (err, deleted_stuff) => {
+        console.log("hemlo");
+        console.log({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot});
+        console.log(deleted_stuff);
+        if(err){
+            console.log(err);
+            res.send(err);
+        }
+        else{
+            if(deleted_stuff) res.send("ok");
+        }
+    });
 })
     
 app.get("/student_history:roll", (req, res) => {
@@ -561,7 +610,8 @@ const pdfSchema = new mongoose.Schema({
         contentType : String,
         name : String
     },
-    rollno : String  
+    rollno : String,
+    date: Date  
 });
 
 const pdfModel = new mongoose.model("Pdf", pdfSchema);
@@ -582,7 +632,8 @@ app.post("/report_upload", upload.array('files', 12), function(req, res){
                 contentType : 'pdf',
                 name: file.originalname
             },
-            rollno : req.body.rollno
+            rollno : req.body.rollno,
+            date : Date()
         });
         newPdf.save();
     })
@@ -602,7 +653,8 @@ app.get("/report:roll", (req, res) =>{
             stuff.forEach(element => {
                 const pdfObj = {
                     pdfname: element.pdf.name,
-                    rollno: element.rollno
+                    rollno: element.rollno,
+                    date: element.date
                 }
                 pdfsArr.push(pdfObj);
             });
