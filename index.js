@@ -631,6 +631,9 @@ app.get("/report/:roll/:pdfname", (req, res) => {
     })
 })
 
+app.get('/doctor_on_schedule',(req,res)=>{
+    res.send(doctor_list);
+})
 app.listen(9002,() => {
     console.log("BE started at port 9002")
 })
