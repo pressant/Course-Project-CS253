@@ -7,14 +7,15 @@ const MedHistory = (props) => {
     const [showModal, setShowModal] = useState(false);
     const [popup, setPopup] = useState(false);
     const{ rollno } = props;
-    let hist=[];
+    const [hist,sethist]=useState([]);
     useEffect(() => {
-        document.onload = getHistory();
-    });
+        getHistory();
+    },[]);
     const getHistory = () => {
         axios.get("http://localhost:9002/student_history"+rollno).then((res) => {
             console.log(res.data.request);
-            hist=res.data.request;
+            sethist(res.data.request);
+
         }).catch((err) => {
             console.log(err);
         })
@@ -30,12 +31,11 @@ const MedHistory = (props) => {
                     }}>
                         <div className="card-header text-center">{element.date}</div>
                         <div className="card-body">
-                            <h5 className="card-title">{element.name}</h5>
-                            <h5 className="card-title">{element.doctor}</h5>
+                            <h5 className="card-title">{element.date}</h5>
                             <div className="card-text">{
-                                element.medication.map((med) => (
+                                element.medication?.map((med) => (
                                     <div key={med.index}>
-                                        <div>{med.name}</div>
+                                        <div>{med.name_of_medicine}</div>
                                         <div>{med.days}</div>
                                         <div>{med.dosage}</div>
                                     </div>
