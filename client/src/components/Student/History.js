@@ -9,11 +9,12 @@ export default function History(props) {
 	const [history, setHistory] = useState([]);
     useEffect(() => {
 		document.onload=getHistory();
-	}, []);
+	});
      var a=global[2];
 	const getHistory = () => {
         axios.get("http://localhost:9002/student_history"+a).then((res) => {
 			console.log(res.data.request[0].medication);
+			setHistory(res.data.request[0].medication);
 		}).catch((err) => {
 			console.log(err);
 		})
