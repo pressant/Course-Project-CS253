@@ -33,7 +33,7 @@ const MedHistory = (props) => {
                             <h5 className="card-title">{element.name}</h5>
                             <h5 className="card-title">{element.doctor}</h5>
                             <div className="card-text">{
-                                element.medication.map((med) => (
+                                element.medication?.map((med) => (
                                     <div key={med.index}>
                                         <div>{med.name}</div>
                                         <div>{med.days}</div>

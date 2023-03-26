@@ -13,8 +13,8 @@ export default function History(props) {
      var a=global[2];
 	const getHistory = () => {
         axios.get("http://localhost:9002/student_history"+a).then((res) => {
-			console.log(res.data.request[0].medication);
-			setHistory(res.data.request[0].medication);
+			console.log(res.data.request);
+			setHistory(res.data.request);
 		}).catch((err) => {
 			console.log(err);
 		})
@@ -22,8 +22,8 @@ export default function History(props) {
 
 	return (
 		<div className="student_history">
-		<h2>Your medical history:{history}</h2>
-		<h2>{history}</h2>
+		
+		
 		</div>
 	)
 }
