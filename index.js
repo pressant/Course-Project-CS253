@@ -12,7 +12,10 @@ import cookieParser from "cookie-parser"
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use(cors())
+app.use(cors({
+    origin : "http://localhost:3000",
+    credentials : true
+}))
 app.use(cookieParser())
 
 //mongodb+srv://CS:5i4tDRJZM5W78xgn@cluster0.5ebvu5n.mongodb.net/
@@ -74,7 +77,7 @@ app.post("/login", async (req, res)=> {
 
                     // console.log(accessToken)
                     // console.log(newLoggedUser)
-                    res.cookie('jwt', refreshToken, {httpOnly : true, maxAge : 7 * 24 * 60 * 60 * 1000})
+                    res.cookie('jwt', refreshToken, {httpOnly : true, sameSite : 'None', maxAge : 7 * 24 * 60 * 60 * 1000})
                     res.json({ message: "Login Successfull", user: user, accessToken })
                     
                     // res.send({message: "Login Successfull", user: user})
@@ -150,11 +153,11 @@ app.get("/logout", async (req, res) => {
             res.send({message : err.message})
         }
         if(!user){
-            res.clearCookie('jwt', {httpOnly : true, maxAge : 7 * 24 * 60 * 60 * 1000})
+            res.clearCookie('jwt', {httpOnly : true, sameSite : 'None', maxAge : 7 * 24 * 60 * 60 * 1000})
             res.sendStatus(204)     // No content
         }
         await loggedUser.deleteOne({refreshToken : refreshToken})
-        res.clearCookie('jwt', {httpOnly : true, maxAge : 7 * 24 * 60 * 60 * 1000})     // secure : true on production for both creating and clearing cookie
+        res.clearCookie('jwt', {httpOnly : true, sameSite : 'None', maxAge : 7 * 24 * 60 * 60 * 1000})     // secure : true on production for both creating and clearing cookie
         res.sendStatus(204)
     })
 })
@@ -164,7 +167,7 @@ const verifyJWT = (req, res, next) => {
     if(!authHeader?.startsWith("Bearer ")) res.sendStatus(401)
     const token = authHeader.split(' ')[1]
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-        if(err) res.sendStatus(403)         // Invalid token
+        if(err || !decoded) return res.sendStatus(403)         // Invalid token
         req.user = decoded.email
         req.identity = decoded.identity
         console.log(req.user)
@@ -184,7 +187,11 @@ const verifyIdentity = (...allowedIdentity) => {
     }
 }
 
-// app.use(verifyJWT)
+app.use(verifyJWT)
+
+// app.get("/student", (req, res)=>{
+//     res.sendStatus(200)
+// })
 
 const student_request_schema = new mongoose.Schema({
     name: String,
@@ -318,7 +325,7 @@ app.post("/submitted", (req, res) =>{
                 //made medical history record
                 if(stuff){
                     console.log("here");
-                    stuff.medical_history.push()
+                    stuff.medical_navigate()
                     // stuff.save();
                 }
                 else{
@@ -407,7 +414,7 @@ app.post("/doctor_prescribe", (req, res) => {
         };
         if(stuff){
             console.log(new_appt);
-            stuff.medical_history.push(new_appt);
+            stuff.medical_navigate(new_appt);
             // stuff.medical_history[stuff.count].medication = medication;
             // stuff.medical_history[stuff.count].remark = remark;
             // stuff.medical_history[stuff.count].completed = true;

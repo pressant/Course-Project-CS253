@@ -1,30 +1,22 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
-import { global } from '../login/login';
+import { useNavigate } from 'react-router-dom'
 
 const InitialReceptionist = () => {
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const handleViewReq = () => {
-    history.push('/receptionist/appointments');
+    navigate('/receptionist/appointments');
   }
   const handleViewStat = () => {
-    history.push('/receptionist/appointmentstatus');
+    navigate('/receptionist/appointmentstatus');
   }
   const handleReports = () => {
-    history.push('/receptionist/uploadreports');
+    navigate('/receptionist/uploadreports');
   }
   const handleSchedule = () => {
-    history.push('/receptionist/setschedule');
+    navigate('/receptionist/setschedule');
   }
-  var k=0;
-   if(global[1]==='receptionist'){
-    k=1;
-   }
-   if(k===0){
-    history.push("/login")
-   }
 
   return (
     <>

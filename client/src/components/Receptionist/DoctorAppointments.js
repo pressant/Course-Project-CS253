@@ -51,6 +51,7 @@ const DoctorAppointments = () => {
 	const [edited_schedule, setEdSched] = useState({});
 
 	//get list of doctors
+	// eslint-disable-next-line
 	const doctors = ["Dr. A", "Dr. B", "Dr. C"];
 	//get current schedule, if any
 	const get_schedule = () => {

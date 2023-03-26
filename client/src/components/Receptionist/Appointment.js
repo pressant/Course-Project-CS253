@@ -1,12 +1,12 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Appointment = (props) => {
-    const history = useHistory();
+    const navigate = useNavigate();
     let prescription = props.prescription;
 
     const handleClick = () => {
-        history.push({
+        navigate({
             pathname: "/receptionist/doctorallotment",
             state: {
                 name: prescription.name,

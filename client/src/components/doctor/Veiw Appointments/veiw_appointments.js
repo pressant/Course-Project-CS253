@@ -1,20 +1,21 @@
 import "./view_appointments.css"
 import React,{useState,useEffect} from 'react'
 import axios from "axios"
-import {global} from "../../login/login"
 import Appointment from './Appointment'
+import useAuth from "../../../hooks/useAuth"
 
 
 const Veiw_appointments = () => {
 
     const [app_t_arr, setAppts] = useState([]);
+    const {auth} = useAuth();
 
     useEffect(() => {
         document.onload = abcd();
     })
 
     const abcd=()=>{
-        axios.get("http://localhost:9002/doctor"+global[2]).then((res) => {
+        axios.get("http://localhost:9002/doctor"+auth.user.rollno).then((res) => {
         setAppts(res.data.request);
         }).catch((err) => {
         console.log(err);});

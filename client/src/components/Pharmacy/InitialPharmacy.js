@@ -1,21 +1,15 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Patient from "./Patient";
-import { global } from "../login/login";
 
 const InitialPharmacy = (props) => {
     // eslint-disable-next-line
-    const history=useHistory();
+    const navigate=useNavigate();
+    // eslint-disable-next-line
     const [pending, setPending] = useState(props.prescriptions);
     // pending is an array which stores all pending prescriptions
     // Use setPending to change pending
-    var k=0;
-   if(global[1]==='pharmacy'){
-    k=1;
-   }
-   if(k===0){
-    history.push("/login")
-   }
+
     return (
         <>
         <div className="container my-5">

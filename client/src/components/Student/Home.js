@@ -1,28 +1,21 @@
 import "./Home.css"
 import React from "react";
-import {Link,useHistory} from "react-router-dom";
-import { global } from "../login/login";
+import {Link} from "react-router-dom";
 
 export default function Home(props) {
-	const history= useHistory();
-	var k=0;
-   if(global[1]==='student'){
-    k=1;
-   }
-   if(k===0){
-    history.push("/login")
-   }
 	return (
 		<div className="student_home">
 			<table>
+			<tbody>
 				<tr>
-					<td><Link to="student/request"><button>Request Appointment</button></Link></td>
-					<td><Link to="student/upcoming"><button>View Upcoming Appointments</button></Link></td>
+					<td><Link to="request"><button>Request Appointment</button></Link></td>
+					<td><Link to="upcoming"><button>View Upcoming Appointments</button></Link></td>
 				</tr>
 				<tr>
-					<td><Link to="student/history"><button>View Medical History</button></Link></td>
-					<td><Link to="student/doctors"><button>View Doctor Schedules</button></Link></td>
+					<td><Link to="history"><button>View Medical History</button></Link></td>
+					<td><Link to="doctors"><button>View Doctor Schedules</button></Link></td>
 				</tr>
+			</tbody>
 			</table>
 		</div>
 	)

@@ -4,6 +4,7 @@ import { Button, Modal } from 'react-bootstrap';
 const MedHistory = (props) => {
     
     const [showModal, setShowModal] = useState(false);
+    // eslint-disable-next-line
     const{ rollno } = props;
 
     const hist = [

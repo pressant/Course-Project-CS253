@@ -1,24 +1,25 @@
 
 import React,{useState} from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./request.css"
-import { global } from "../login/login";
+import useAuth from "../../hooks/useAuth";
 
 export default function Request(props) {
-	const history = useHistory()
+	const navigate = useNavigate()
 	const [appy_type,setappytype]=useState("OPD");
     const [appt_slot,setapptslot]=useState("Morning");
     const [doctor,setDoctor]=useState("Dr. A")
+	const {auth} = useAuth();
 
 	const doctors = ["Dr. A", "Dr. B", "Dr. C","Dr. D","Dr. E","Dr. E"];
     const [symptoms,updateSymptoms] = useState("")
-	let name=global[0];
-	let roll=global[2];
+	let name=auth.user.name;
+	let roll=auth.user.rollno;
 	const Request=[name,roll,appy_type,appt_slot,symptoms,doctor];
-    let role=global[1];
+    let role=auth.user.identity;
 	if(role!=="student"){
-		history.push("/login")
+		navigate("/login")
 	}
     const requested=()=>{
 
@@ -29,7 +30,7 @@ export default function Request(props) {
 			axios.post("http://localhost:9002/request_student", Request)
 			.then( res => {
 				alert(res.data.message)
-				history.push("/student")
+				navigate("/student")
 			})
 		}
 		else{

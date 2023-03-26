@@ -1,6 +1,6 @@
 import React,{useState} from 'react'
 import { useLocation } from 'react-router-dom'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import axios from 'axios'
 const doctors = ["Dr. A", "Dr. B", "Dr. C","Dr. D","Dr. E","Dr. F"];
 
@@ -8,7 +8,7 @@ const DoctorAllotment = (props) => {
     const [doctor,setDoctor]=useState("Dr. A")
     const location = useLocation();
     const state = location.state;
-    const history = useHistory();
+    const navigate = useNavigate();
 
 
     const handleChange2=(e)=>{
@@ -22,7 +22,7 @@ const DoctorAllotment = (props) => {
             axios.post("http://localhost:9002/submitted", arr)
             .then( res => {
                 alert(res.data.message)
-                history.push("/receptionist/appointments")
+                navigate("/receptionist/appointments")
             })
         } else {
             alert("invlid input")

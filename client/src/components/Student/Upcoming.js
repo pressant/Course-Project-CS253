@@ -1,15 +1,16 @@
 import "./Upcoming.css"
 import React,{useState,useEffect} from "react";
 import axios from "axios";
-import {global} from "../login/login";
+import useAuth from "../../hooks/useAuth";
 
 export default function Upcoming(props) {
+	const {auth} = useAuth();
 	useEffect(() => {
         document.onload = rrr1();
     })
 	const [app_t_arr, setAppts] = useState([])
     const rrr1 = () => {
-		axios.get("http://localhost:9002/new"+global[2]).then((res) => {
+		axios.get("http://localhost:9002/new"+auth.user.rollno).then((res) => {
 			setAppts(res.data.request);
 		}).catch((err) => {
 			console.log(err);})

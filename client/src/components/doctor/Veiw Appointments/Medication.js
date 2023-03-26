@@ -1,10 +1,10 @@
 import React,{useState} from 'react'
 import axios from 'axios'
-import {useHistory } from 'react-router-dom'
+import {useNavigate } from 'react-router-dom'
 
 const Conduct_appointment = (props) => {
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const [medicine, setMedicine] = useState([]);
     const [val, setVal] = useState("");
     const { doctor, slot, rollno } = props;
@@ -32,7 +32,7 @@ const Conduct_appointment = (props) => {
             appt_slot: slot,
         }).then((res) => {
             console.log(res);
-            history.push('/doctor_appt');
+            navigate('/doctor_appt');
         }).catch((err) => {
             console.log(err);
         })
