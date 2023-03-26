@@ -32,7 +32,7 @@ const Conduct_appointment = (props) => {
             rollno: rollno,
             medication: medicine,
             remark: val,
-            Doctor: doctor,
+            doctor: doctor,
             appt_slot: slot,
         }).then((res) => {
             console.log(res);
@@ -43,28 +43,37 @@ const Conduct_appointment = (props) => {
     }
     
     const handleClick = () => {
-        var name = document.getElementById('combo-box-demo').value;
-        var dosage = document.getElementsByName('btnradio');
-        var dose;
         var days = document.getElementById('days').value;
-        for(var i = 0; i < dosage.length; i++)
+        if(days != 0)
         {
-            if(dosage[i].checked)
+            var name = document.getElementById('combo-box-demo').value;
+            var dosage = document.getElementsByName('btnradio');
+            var dose;
+            for(var i = 0; i < dosage.length; i++)
             {
-                dose = dosage[i].value;
-                dosage[i].checked = false;
-                break;
+                if(dosage[i].checked)
+                {
+                    dose = dosage[i].value;
+                    dosage[i].checked = false;
+                    break;
+                }
             }
+            setMedicine([...medicine, {name_of_medicine: name, dosage: dose, days: days}]);
+            document.getElementById('days').value = 0;
         }
-        setMedicine([...medicine, {name_of_medicine: name, dosage: dose, days: days}]);
-        document.getElementById('days').value = 0;
+    }
+
+    const handleDelete = (index) => {
+        const med = [...medicine];
+        med.splice(index, 1);
+        setMedicine(med);
     }
 
     return (
         <div className="col-7 text-center">
             <h2 className="mb-5">Medication</h2>
             <div className="container my-3 d-flex justify-content-center">
-                <Autocomplete className='btn-group white_background' disablePortal id="combo-box-demo" options={medicines} sx={{ width: 300 }} renderInput={(params) => <TextField {...params} label="Medicines" />} />
+                <Autocomplete className='btn-group white_background' disablePortal id="combo-box-demo" options={medicines} sx={{ width: "80%" }} renderInput={(params) => <TextField {...params} label="Medicines" />} />
             </div>
             <div className="btn-group my-3 white_background" role="group" aria-label="Basic radio toggle button group">  
                 <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" value="qD"/>
@@ -84,7 +93,7 @@ const Conduct_appointment = (props) => {
             </div>
 
             <div className="row my-3">
-                <div className="col-5 d-flex align-items-start justify-content-center" >
+                <div className="col-5 mt-2" >
                     Days:
                 </div>
                 <div className="col-5">
@@ -104,12 +113,17 @@ const Conduct_appointment = (props) => {
                 <div className="col-6">
                     <h4 className="justify-content-center">Remarks</h4>
                 </div>
-                <div className="col-6 my-3">
+                <div className="card col-6" style={{height: "160px"}}>
                     {
-                        medicine?.map((element) => {
+                        medicine?.map((element, index) => {
                             return(
-                                <div className="row mx-2">
-                                    {element.name_of_medicine} {element.dosage}-{element.days}
+                                <div className="row" key={index}>
+                                    <div className="text-center col-10">
+                                        {element.name_of_medicine} {element.dosage}-{element.days}
+                                    </div>
+                                    <div className="col-2 text-center">
+                                        <button type="button" class="btn-close" aria-label="Close" onClick={()=>handleDelete(index)}/>
+                                    </div>
                                 </div>
                             );
                         })
