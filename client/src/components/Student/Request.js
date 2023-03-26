@@ -24,6 +24,7 @@ export default function Request(props) {
 		const {name,roll,appy_type,appt_slot,symptoms,doctor}=Request;
 		if(doctor==="shrey"){
 			alert("Please select a doctor")
+			return;
 		}
 		console.log(Request);
         if(name!=="" && roll!=="" && appy_type!=="" && appt_slot!=="" && symptoms!=="" && doctor!==""){
