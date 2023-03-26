@@ -21,10 +21,10 @@ export default function Request(props) {
 		history.push("/login")
 	}
     const requested=()=>{
-        if(doctor==="shrey"){
+		const {name,roll,appy_type,appt_slot,symptoms,doctor}=Request;
+		if(doctor==="shrey"){
 			alert("Please select a doctor")
 		}
-		const {name,roll,appy_type,appt_slot,symptoms,doctor}=Request;
 		console.log(Request);
         if(name!=="" && roll!=="" && appy_type!=="" && appt_slot!=="" && symptoms!=="" && doctor!==""){
 			console.log(name);
