@@ -3,16 +3,3 @@
     flex-direction: row;
     flex-wrap: wrap;    
 }
-
-.upcoming_card {
-    background-color: #ffffff;
-    margin: 10px;
-}
-
-.upcoming_card_header {
-    background-color: #ffc554;
-}
-
-.upcoming_card_title {
-    text-decoration: underline;
-}

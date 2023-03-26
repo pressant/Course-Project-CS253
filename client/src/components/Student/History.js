@@ -10,11 +10,10 @@ export default function History(props) {
     useEffect(() => {
 		document.onload=getHistory();
 	}, []);
-
+     var a=global[2];
 	const getHistory = () => {
-        axios.get("http://localhost:9002/student_history"+global.rollno).then((res) => {
-			console.log(res);
-			setHistory(res.data);
+        axios.get("http://localhost:9002/student_history"+a).then((res) => {
+			console.log(res.data.request[0].medication);
 		}).catch((err) => {
 			console.log(err);
 		})
@@ -22,7 +21,7 @@ export default function History(props) {
 
 	return (
 		<div className="student_history">
-		<h2>Your medical history:</h2>
+		<h2>Your medical history:{history}</h2>
 		<h2>{history}</h2>
 		</div>
 	)

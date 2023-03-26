@@ -20,12 +20,12 @@ const Entry_page = () => {
    }
     return (
         <>
-        <div className="Entry_page">
-        <h1>Doctor Entry page</h1>
-        <button onClick={schedule} >Schedule</button>
-        <br/>
-        <button onClick={appointments}>Veiw Appointments</button>
-        </div>
+            <div className="Entry_page">
+                <h1>Doctor Entry page</h1>
+                <button className="home_button" onClick={schedule}>Schedule</button>
+                <br/>
+                <button className="home_button" onClick={appointments}>Veiw Appointments</button>
+            </div>
         </>
     );
 }

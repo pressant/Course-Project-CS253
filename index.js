@@ -413,23 +413,29 @@ app.post("/doctor_prescribe", (req, res) => {
             // stuff.medical_history[stuff.count].completed = true;
             stuff.count = stuff.count + 1;
             stuff.save();
+            Appointment.findOneAndDelete({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot}, (err, deleted_stuff) => {
+                console.log("hemlo");
+                console.log({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot});
+                console.log(deleted_stuff);
+                if(err){
+                    console.log(err);
+                    res.send(err);
+                }
+                else{
+                    res.send("ok");
+                }
+            });
         }
     })
 
-    Appointment.findOneAndDelete({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot}, (err) => {
-        if(err){
-            console.log(err);
-            res.send(err);
-        }
-        else{
-            res.send("ok");
-        }
-    });
 
 })
     
 app.get("/student_history:roll", (req, res) => {
-    Med.findOne({rollno: req.params.roll}, (err, stuff) => {
+    console.log(req.params.roll);
+
+    Med.findOne({rollno: 'abcd'}, (err, stuff) => {
+        console.log(stuff);
         if(stuff){
             res.send({message: "Medical history", request: stuff.medical_history})
           } else {

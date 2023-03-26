@@ -1,5 +1,5 @@
 .container {
-	width: 80vw;
+	width: 90vw;
 	display:grid;
 	grid-template-columns:300px 100px 100px 100px;
 }

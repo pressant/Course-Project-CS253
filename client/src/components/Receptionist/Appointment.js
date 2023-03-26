@@ -20,12 +20,12 @@ const Appointment = (props) => {
 
     return (
         <div className="my-3">
-            <div className="card my-3">
-                <div className="card-header">{prescription.id}</div>
-                <div className="card-body">
-                    <h5 className="card-title">{prescription.name}</h5>
-                    <p className="card-text">{prescription.description}</p>
-                    <button className="btn btn-dark btn-sm" onClick={handleClick}>
+            <div className="card my-3 hc_card">
+                <div className="card-header hc_card_header">{prescription.id}</div>
+                <div className="card-body hc_card_body">
+                    <h5 className="card-title hc_card_title">{prescription.name}</h5>
+                    <p className="card-text hc_card_text"><span className="appointment_description">{prescription.description}</span></p>
+                    <button className="btn btn-dark btn-sm hc_card_button" onClick={handleClick}>
                         Allot Doctor
                     </button>
                 </div>

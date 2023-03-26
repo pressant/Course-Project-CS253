@@ -1,3 +1,4 @@
+import "./Prescriptions.css"
 import React from "react";
 import { useLocation } from "react-router-dom";
 
@@ -18,9 +19,9 @@ const Prescription = () => {
             </div>
             <div className="text-center mt-5">
                 <div className="row">
-                    <div className="col">Name: {state.name}</div>
-                    <div className="col">Prescription ID: {state.prescriptionId}</div>
-                    <div className="col">Roll/PF Number: {state.id}</div>
+                    <div className="col">Name: name</div>
+                    <div className="col">Prescription ID: prescriptionId</div>
+                    <div className="col">Roll/PF Number: id</div>
                 </div>
             </div>
             <table className="table table-bordered mt-5">
@@ -34,7 +35,7 @@ const Prescription = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {state.medicines?.map((element) => {
+                    {/* {state.medicines?.map((element) => {
                         idx++;
                         return (
                             <tr>
@@ -49,7 +50,7 @@ const Prescription = () => {
                                 </td>
                             </tr>
                         );
-                    })}
+                    })} */}
                 </tbody>
             </table>
             <button type="button" className="btn btn-dark btn-lg mt-5" onClick={handleClick}>

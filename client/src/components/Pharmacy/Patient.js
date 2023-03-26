@@ -16,14 +16,8 @@ const Patient = (props) => {
             }
         });
     };
-  
-            
-
 
     return (
-
-    
-        
         <div className="my-3">
             <div className="card my-3">
                 <div className="card-header">{prescription.id}</div>

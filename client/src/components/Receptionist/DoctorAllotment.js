@@ -32,13 +32,13 @@ const DoctorAllotment = (props) => {
     return (
         <div className="container">
             <div className="row justify-content-between">
-                <div className="col-4">Name: {state.name}</div>
-                <div className="col-4 text-center">Roll/PF Number: {state.id}</div>
+                <div className="col-4"><h3>Name: {state.name}</h3></div>
+                <div className="col-5 text-center"><h3>Roll/PF Number:<br></br>{state.id}</h3></div>
             </div>
             <div className="row text-center my-5">
                 <h2>Description</h2>
             </div>
-            <span className="d-block p-2 bg-dark text-white text-center">{state.description}</span>
+            <span className="d-block p-2 bg-white text-center">{state.description}</span>
             <div className="row justify-content-between my-5">
                 <div className="col-4">Preferred Doctor: {state.preferredDoctor}</div>
                 <div className="col-4">Preferred Slot: {state.slot}</div>
