@@ -1,4 +1,4 @@
-import "./doctors.css";
+import styles from "./Doctors.module.css"
 import React,{useEffect} from "react";
 import axios from 'axios';
 
@@ -32,31 +32,28 @@ export default function Doctors() {
                     </form>
                 </div>
             </div>
-            <table className="table table-bordered mt-5">
-                <thead className="table-dark">
-                    <tr>
-                        <th className="text-center" scope="col">#</th>
-                        <th className="text-center" scope="col">Doctor Name</th>
-                        <th className="text-center" scope="col">Slot</th>
-                        <th className="text-center" scope="col">Specialization</th>
-                        <th className="text-center" scope="col">Room No.</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {doctor_list?.map((element) => {
-                        idx++;
-                        return(
-							<tr key={idx}>
-								<td scope="row">{idx}</td>
-								<td>{element.name_of_medicine}</td>
-								<td>{element.dosage}</td>
-								<td>{element.specialization}</td>
-								<td>{element.Room_no}</td>
-							</tr>
-                        );
-                    })}
-                </tbody>
-            </table>
+			<div className={`container ${styles.doctors}`}>
+				<div className="row">
+					<div className="col">#</div>
+					<div className="col">Doctor Name</div>
+					<div className="col">Slot</div>
+					<div className="col">Specialization</div>
+					<div className="col">Room No.</div>
+				</div>
+				{doctor_list.map((element) => {
+						idx++;
+						return (
+							<div className="row">
+								<div className="col">{idx}</div>
+								<div className="col">{element.name_of_medicine}</div>
+								<div className="col">{element.dosage}</div>
+								<div className="col">{element.specialization}</div>
+								<div className="col">{element.Room_no}</div>
+							</div>
+						);
+					})
+				}
+			</div>	
         </div>
 	);
 }

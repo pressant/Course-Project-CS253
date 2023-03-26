@@ -33,7 +33,7 @@ const Login = ({ setLoginUser}) => {
                 
             }
             else if(res.data.user.identity==='pharmacy'){   
-                history.push("/pharmacist")
+                history.push("/pharmacy")
         
             }
             else if(res.data.user.identity==='receptionist'){
