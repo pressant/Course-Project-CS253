@@ -21,6 +21,19 @@
     font-size: 1rem;
 }
 
+
+.register > select {
+    border-radius: 8px;
+    border: 2px solid #dddfe2;
+    outline: none;
+    color: #1d2129;
+    margin: 0.5rem 0;
+    padding: 0.5rem 0.75rem;
+    width: 92%;
+    font-size: 1rem;
+}
+
+
 .register > .button {
     background: #ff9900;
     border: 1px solid #ff9900;
