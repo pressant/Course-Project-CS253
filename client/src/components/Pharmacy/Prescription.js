@@ -11,14 +11,22 @@ const Prescription = () => {
     };
 
     const handlePrint = () => {
+        const buttons = document.getElementsByTagName("button");
+
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].style.display = "none";
+        }
         window.print();
+        for (let i = 0; i < buttons.length; i++) {
+            buttons[i].style.display = "";
+        }
     }
 
     return (
         <div className="container mt-5">
             <div className="row justify-content-between">
                 <div className="col-6">
-                    <h1>Dispense Medicines</h1>
+                    <h1>Prescription</h1>
                 </div>
             </div>
             <div className="text-center mt-5">
@@ -89,7 +97,6 @@ const Prescription = () => {
                 <button type="button" className="btn btn-dark btn-lg mt-5" onClick={handlePrint}>
                     Print Receipt
                 </button>
-
             </div>
         </div>
     );

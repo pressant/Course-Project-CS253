@@ -9,9 +9,7 @@ const DoctorAllotment = (props) => {
     const state = location.state;
     const [doctor,setDoctor]=useState(state.preferredDoctor)
     
-    
     const history = useHistory();
-
 
     const handleChange2=(e)=>{
 		setDoctor(e.target.value);

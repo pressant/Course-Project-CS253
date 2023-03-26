@@ -592,8 +592,13 @@ app.post("/dispense", (req, res) => {
 app.post('/doctor_schedule',(req,res)=>{
     console.log(req.body );
     const Doctor_list=req.body;
+<<<<<<< Updated upstream
     // doctor_list.length=0;
     doctor_list= Doctor_list;
+=======
+    doctor_list = Doctor_list;
+    console.log(doctor_list);
+>>>>>>> Stashed changes
     res.json({message:"Done Scheduling"})
 })
 
