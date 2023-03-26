@@ -21,13 +21,14 @@ const InitialPharmacy = () => {
     const rrr = () =>{
         axios.get('http://localhost:9002/pharmacist') 
         .then(res => {
-            setPending(res.data.request);
-            console.log(res.data.request);
+            setPending(res.data);
+            console.log(res.data);
         })
         .catch(err => {
             console.log(err);
         })
     }
+
     useEffect(() => {
         document.onload = rrr();
     },[]);
