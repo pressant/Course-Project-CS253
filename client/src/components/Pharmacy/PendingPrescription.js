@@ -1,20 +1,22 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
-import Patient from "./Patient";
+import { useLocation } from "react-router-dom";
+import Prescription from "./Prescription";
 
-const PendingPrescription = (props) => {
+const PendingPrescription = () => {
     // eslint-disable-next-line
     // const history=useHistory();
-    // const [pending, setPending] = useState(props.prescriptions);
     // pending is an array which stores all pending prescriptions
     // Use setPending to change pending
-//     var k=0;
-//    if(global[1]==='pharmacy'){
-//     k=1;
-//    }
-//    if(k===0){
-//     history.push("/login")
-//    }
+    //     var k=0;
+    //    if(global[1]==='pharmacy'){
+        //     k=1;
+        //    }
+        //    if(k===0){
+            //     history.push("/login")
+            //    }
+            
+    const { state } = useLocation();
+
     return (
         <div className="container my-5">
             <div className="row justify-content-between">
@@ -32,10 +34,10 @@ const PendingPrescription = (props) => {
             </div>
             <div className="container">
                 <div className="row">
-                    {pending?.map((element) => {
+                    {state?.map((element) => {
                         return (
                             <div className="col-md-4" key={element.id}>
-                                <Patient prescription={element}/>
+                                <Prescription prescription={element}/>
                             </div>
                         );
                     })}

@@ -468,6 +468,7 @@ app.get("/pharmacist", (req, res) => {
                     resp_arr.push(resp_obj);
                 }
             });
+            console.log(resp_arr);
             res.json(resp_arr);
         }
     })
@@ -501,6 +502,7 @@ app.post("/dispense", (req, res) => {
 })
 
 app.post('/doctor_schedule',(req,res)=>{
+    console.log(req.body );
     const Doctor_list=req.body;
     doctor_list.length=0;
     doctor_list.push(Doctor_list);

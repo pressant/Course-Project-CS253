@@ -1,60 +1,64 @@
-import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import React, { useState,useEffect } from "react";
+import { useHistory } from "react-router-dom";
 import Patient from "./Patient";
 import { global } from "../login/login";
+import axios from "axios";
 
-const InitialPharmacy = (props) => {
-    // eslint-disable-next-line
-    const history=useHistory();
-    const [pending, setPending] = useState(props.prescriptions);
-    // pending is an array which stores all pending prescriptions
-    // Use setPending to change pending
+const InitialPharmacy = () => {
+
+    const history = useHistory();
+    const [pending, setPending] = useState([]);
     var k=0;
-   if(global[1]==='pharmacy'){
-    k=1;
-   }
-   if(k===0){
-    history.push("/login")
-   }
+
+    if(global[1]==='pharmacy'){
+        k=1;
+    }
+
+    if(k===0){
+        history.push("/login")
+    }
+    
+    const rrr = () =>{
+        axios.get('http://localhost:9002/pharmacist') 
+        .then(res => {
+            setPending(res.data.request);
+            console.log(res.data.request);
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+    useEffect(() => {
+        document.onload = rrr();
+    },[]);
+    
     return (
-        <>
-            <div className="">
-                <table>
-                    <tr>
-                        <td><Link to="/pharmacy/pendingprescription"><button className="home_button">View Pending Prescriptions</button></Link></td>
-                    </tr>
-                    <tr>
-                        <td><Link to="/pharmacy/completedprescription"><button className="home_button">View Completed Prescriptions</button></Link></td>
-                    </tr>
-                </table>
+        <div className="container my-5">
+            <div className="row justify-content-between">
+                <div className="col-6">
+                    <h2>Pending Prescriptions</h2>
+                </div>
+                <div className="col-5">
+                    <form className="d-flex" role="search">
+                        <input className="form-control me-2" type="number" placeholder="Roll/PF Number" aria-label="Search"/>
+                        <button className="btn btn-outline-success" type="submit">
+                            Search
+                        </button>
+                    </form>
+                </div>
             </div>
-            {/* <div className="container my-5">
-                <div className="row justify-content-between">
-                    <div className="col-6">
-                        <h2>Pending Prescriptions</h2>
-                    </div>
-                    <div className="col-5">
-                        <form className="d-flex" role="search">
-                            <input className="form-control me-2" type="number" placeholder="Roll/PF Number" aria-label="Search"/>
-                            <button className="btn btn-outline-success" type="submit">
-                                Search
-                            </button>
-                        </form>
-                    </div>
+            <div className="container">
+                <div className="row">
+                    {pending?.map((element) => {
+                        return (
+                            <div className="col-md-4" key={element.id}>
+                                <Patient prescription={element}/>
+                            </div>
+                        );
+                    })}
                 </div>
-                <div className="container">
-                    <div className="row">
-                        {pending?.map((element) => {
-                            return (
-                                <div className="col-md-4" key={element.id}>
-                                    <Patient prescription={element}/>
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
-            </div> */}
-        </>
+            </div>
+        </div>
     );
 };
 

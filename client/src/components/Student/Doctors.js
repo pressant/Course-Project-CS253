@@ -1,33 +1,62 @@
-import "./doctors.css"
+import "./doctors.css";
 import React,{useEffect} from "react";
-import {Link,useHistory} from "react-router-dom";
 import axios from 'axios';
-let doctor_list=[];
+
+
 export default function Doctors() {
-   const history=useHistory();
-   const rrr=()=>{
+	
+	let doctor_list= new Array();
+	var idx = 0;
+	
+	const rrr = () => {
 		axios.get('http://localhost:9002/schedule').then((res)=>{
-			   doctor_list.push(res.data)
-			   console.log(doctor_list);
+			doctor_list.push(res.data)
+			console.log(typeof(doctor_list) === 'Array');
 		})
 	}
-   useEffect(() => {
-	document.onload = rrr();
-},[])
 
-	// const doctors = [{name:"Dr. A", specialization:"ABCD", room:"A123", time:"12 pm - 5 pm"}, {name:"Dr. B", specialization:"BCDE", room:"A234", time:"1 pm - 5 pm"}];
-
+	useEffect(() => {
+		document.onload = rrr();
+	},[]);
 
 	return (
-		<>
-		<div className="student_doctors">
-			<h2>Doctors available today:</h2>
-			{doctor_list.map((doctor) => (
-				<div>
-					{Object.keys(doctor).map((key) => (<span><strong>{key[0].toUpperCase() + key.slice(1, key.length).toLowerCase() + ":"}</strong> {doctor[key]} </span>))}
-				</div>
-			))}
-		</div>
-		</>
-	)
+		<div className="container mt-5">
+            <div className="row justify-content-between">
+                <div className="col-6">
+                    <h2>Doctors Schedule</h2>
+                </div>
+                <div className="col-5">
+                    <form className="d-flex" role="search">
+                        <input className="form-control me-2" type="number" placeholder="Roll/PF Number" aria-label="Search"/>
+                        <button className="btn btn-outline-success" type="submit">Search</button>
+                    </form>
+                </div>
+            </div>
+            <table className="table table-bordered mt-5">
+                <thead className="table-dark">
+                    <tr>
+                        <th className="text-center" scope="col">#</th>
+                        <th className="text-center" scope="col">Doctor Name</th>
+                        <th className="text-center" scope="col">Slot</th>
+                        <th className="text-center" scope="col">Specialization</th>
+                        <th className="text-center" scope="col">Room No.</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {doctor_list[0]?.map((element) => {
+                        idx++;
+                        return(
+							<tr key={idx}>
+								<td scope="row">{idx}</td>
+								<td>{element.name_of_medicine}</td>
+								<td>{element.dosage}</td>
+								<td>{element.specialization}</td>
+								<td>{element.Room_no}</td>
+							</tr>
+                        );
+                    })}
+                </tbody>
+            </table>
+        </div>
+	);
 }

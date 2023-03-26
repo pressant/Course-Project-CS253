@@ -11,7 +11,7 @@ import InitialNurse from "./components/Nurse/InitialNurse"
 import Vitals from "./components/Nurse/Vitals"
 import InitialPharmacy from "./components/Pharmacy/InitialPharmacy"
 import Prescription from "./components/Pharmacy/Prescription"
-import CompletedPrescription from "./components/Pharmacy/CompletedPrescription"
+// import CompletedPrescription from "./components/Pharmacy/CompletedPrescription"
 import Navbar from './components/Navbar';
 import StudentHome from "./components/Student/Home";
 import StudentRequest from "./components/Student/Request";
@@ -51,8 +51,8 @@ function App() {
           <Route exact path="/nurse/"><InitialNurse name="abcd" id={420}/></Route>
           <Route exact path="/nurse/vitals"><Vitals/></Route>
           <Route exact path="/pharmacy/"><InitialPharmacy/></Route>
-          <Route exact path="/pharmacy/pendingprescription"><Prescription/></Route>
-          <Route exact path="/pharmacy/completedprescription"><CompletedPrescription/></Route>
+          <Route exact path="/pharmacy/prescription"><Prescription/></Route>
+          {/* <Route exact path="/pharmacy/completedprescription"><CompletedPrescription/></Route> */}
           <Route exact path="/student"> <StudentHome /></Route>
           <Route exact path="/student/request"><StudentRequest /></Route>
           <Route exact path="/student/upcoming"><StudentUpcoming /></Route>

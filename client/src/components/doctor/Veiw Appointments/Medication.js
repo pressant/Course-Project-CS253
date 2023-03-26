@@ -44,7 +44,7 @@ const Conduct_appointment = (props) => {
     
     const handleClick = () => {
         var days = document.getElementById('days').value;
-        if(days != 0)
+        if(days !== 0)
         {
             var name = document.getElementById('combo-box-demo').value;
             var dosage = document.getElementsByName('btnradio');
