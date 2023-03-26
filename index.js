@@ -543,8 +543,8 @@ app.post("/dispense", (req, res) => {
 app.post('/doctor_schedule',(req,res)=>{
     console.log(req.body );
     const Doctor_list=req.body;
-    doctor_list.length=0;
-    doctor_list.push(Doctor_list);
+    // doctor_list.length=0;
+    doctor_list= Doctor_list;
     res.json({message:"Done Scheduling"})
 })
 

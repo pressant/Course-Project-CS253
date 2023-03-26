@@ -10,8 +10,9 @@ export default function Doctors() {
 	
 	const rrr = () => {
 		axios.get('http://localhost:9002/schedule').then((res)=>{
-			doctor_list.push(res.data)
-			console.log(typeof(doctor_list) === 'Array');
+			doctor_list = res.data;
+            console.log(doctor_list);
+			console.log(typeof(doctor_list) === Array);
 		})
 	}
 
@@ -43,7 +44,7 @@ export default function Doctors() {
                     </tr>
                 </thead>
                 <tbody>
-                    {doctor_list[0]?.map((element) => {
+                    {doctor_list?.map((element) => {
                         idx++;
                         return(
 							<tr key={idx}>
