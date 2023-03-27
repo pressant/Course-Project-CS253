@@ -1,18 +1,18 @@
 import React,{useEffect, useState} from 'react'
 import Appointment from './Appointment'
 import axios from 'axios';
-
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const AppointmentsRequests = () => {
 	const [app_t_arr, setAppts] = useState([])
-
+    const axiosPrivate = useAxiosPrivate();
     
     useEffect(() => {
         document.onload = rrr();
-    },[])
+    }, [])
 
     const rrr = () =>{
-        axios.get('http://localhost:9002/upcoming_student') 
+        axiosPrivate.get('/upcoming_student') 
         .then(res => {
             setAppts(res.data.request);
             console.log(res.data.request);

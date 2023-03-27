@@ -3,16 +3,19 @@ import React from "react";
 import { useEffect,useState } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 export default function History(props) {
 	const {auth} = useAuth();
 	const [history, setHistory] = useState([]);
+	const axiosPrivate = useAxiosPrivate();
+
     useEffect(() => {
 		document.onload=getHistory();
 	}, []);
 
 	const getHistory = () => {
-        axios.get("http://localhost:9002/student_history"+auth.user.rollno).then((res) => {
+        axiosPrivate.get("/student_history"+auth.user.rollno).then((res) => {
 			console.log(res);
 			setHistory(res.data);
 		}).catch((err) => {

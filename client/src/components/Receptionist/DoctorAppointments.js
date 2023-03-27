@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import styles from "./DoctorAppointments.module.css";
 import axios from "axios";
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 // const DoctorAppointments = () => {
 //     return (
@@ -49,13 +50,14 @@ const DoctorAppointments = () => {
 	const [editing, setEditing] = useState(false);
 	const [current_schedule, setCurrSched] = useState({});
 	const [edited_schedule, setEdSched] = useState({});
+	const axiosPrivate = useAxiosPrivate();
 
 	//get list of doctors
 	// eslint-disable-next-line
 	const doctors = ["Dr. A", "Dr. B", "Dr. C"];
 	//get current schedule, if any
 	const get_schedule = () => {
-		axios.get("http://localhost:9002/docschedule").then((response) => {
+		axiosPrivate.get("/docschedule").then((response) => {
 		// console.log(response)
 		setCurrSched(response.data);
 		setEdSched(response.data);
