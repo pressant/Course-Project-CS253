@@ -4,11 +4,15 @@ import { useEffect,useState } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { useNavigate, useLocation } from 'react-router-dom';
+
 
 export default function History(props) {
 	const {auth} = useAuth();
 	const [history, setHistory] = useState([]);
 	const axiosPrivate = useAxiosPrivate();
+	const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
 		document.onload=getHistory();
@@ -20,6 +24,7 @@ export default function History(props) {
 			setHistory(res.data);
 		}).catch((err) => {
 			console.log(err);
+			navigate("/login", {state : {from : location}, replace : true});
 		})
 	}
 

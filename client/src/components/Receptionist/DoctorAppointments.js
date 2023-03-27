@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import styles from "./DoctorAppointments.module.css";
 import axios from "axios";
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { useNavigate, useLocation } from 'react-router-dom';
+
 
 // const DoctorAppointments = () => {
 //     return (
@@ -51,6 +53,8 @@ const DoctorAppointments = () => {
 	const [current_schedule, setCurrSched] = useState({});
 	const [edited_schedule, setEdSched] = useState({});
 	const axiosPrivate = useAxiosPrivate();
+	const navigate = useNavigate();
+    const location = useLocation();
 
 	//get list of doctors
 	// eslint-disable-next-line
@@ -73,7 +77,10 @@ const DoctorAppointments = () => {
 			if (response.data === "Updated") setCurrSched(edited_schedule);
 			else console.log("Error - unrecognised response to post request to http://localhost:9002/docschedule, please check")
 		})
-		.catch((err) => (console.log(err)));
+		.catch((err) => {
+			console.log(err)
+			navigate("/login", {state : {from : location}, replace : true});
+		});
 	}
 	
 	const cancelAssn = () => {

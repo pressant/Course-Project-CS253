@@ -3,10 +3,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Upcoming(props) {
   const { auth } = useAuth();
   const axiosPrivate = useAxiosPrivate();
+  const navigate = useNavigate();
+  const location = useLocation();
   const [app_t_arr, setAppts] = useState([]);
 
   useEffect(() => {
@@ -20,6 +23,7 @@ export default function Upcoming(props) {
       })
       .catch((err) => {
         console.log(err);
+        navigate("/login", {state : {from : location}, replace : true});
       });
   };
   return (

@@ -2,10 +2,13 @@ import React,{useEffect, useState} from 'react'
 import Appointment from './Appointment'
 import axios from 'axios';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 const AppointmentsRequests = () => {
 	const [app_t_arr, setAppts] = useState([])
     const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    const location = useLocation();
     
     useEffect(() => {
         document.onload = rrr();
@@ -19,7 +22,8 @@ const AppointmentsRequests = () => {
         })
         .catch(err => {
             console.log(err);
-        })
+            navigate("/login", {state : {from : location}, replace : true});
+    })
     }
     return (
         <div>

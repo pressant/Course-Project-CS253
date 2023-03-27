@@ -4,12 +4,16 @@ import axios from "axios"
 import Appointment from './Appointment'
 import useAuth from "../../../hooks/useAuth"
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate"
+import { useNavigate, useLocation } from 'react-router-dom';
+
 
 const Veiw_appointments = () => {
 
     const [app_t_arr, setAppts] = useState([]);
     const {auth} = useAuth();
     const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         document.onload = abcd();
@@ -19,7 +23,9 @@ const Veiw_appointments = () => {
         axiosPrivate.get("/doctor"+auth.user.rollno).then((res) => {
         setAppts(res.data.request);
         }).catch((err) => {
-        console.log(err);});
+        console.log(err);
+        navigate("/login", {state : {from : location}, replace : true});
+    });
     }
 
     return (
