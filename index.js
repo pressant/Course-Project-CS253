@@ -52,6 +52,7 @@ app.post("/login", async (req, res)=> {
             if(user){
                 console.log(user);
                 const isMatch = await bcrypt.compare(password, user.password)
+                console.log(isMatch);
                 if(isMatch) {
                     const accessToken = jwt.sign(
                         {email, identity : user.identity},
@@ -513,7 +514,12 @@ app.get("/student_history:roll", (req, res) => {
 //     }],
     
 // });
-
+app.get("/ongoing_appointments", (req, res) => {
+	Appointment.find({}, (err, results) => {
+		console.log(results);
+		res.send(results);
+	})
+})
 app.get("/pharmacist", (req, res) => {
     Med.find((err, stuff) =>{
         if(err){
@@ -592,13 +598,10 @@ app.post("/dispense", (req, res) => {
 app.post('/doctor_schedule',(req,res)=>{
     console.log(req.body );
     const Doctor_list=req.body;
-<<<<<<< Updated upstream
     // doctor_list.length=0;
     doctor_list= Doctor_list;
-=======
     doctor_list = Doctor_list;
     console.log(doctor_list);
->>>>>>> Stashed changes
     res.json({message:"Done Scheduling"})
 })
 

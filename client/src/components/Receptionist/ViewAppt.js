@@ -12,7 +12,7 @@ const ViewAppt = (props) => {
                     <h5 className="card-title">{prescription.name}</h5>
                     <p className="card-text">{prescription.description}</p>
                     <button className="btn btn-dark btn-sm">
-                        View Prescription
+                        View Appointment Details
                     </button>
                 </div>
             </div>
