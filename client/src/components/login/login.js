@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "./login.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Login = ({ setLoginUser }) => {
   const { setAuth } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const from = location.state?.from?.pathname || "/";
 
   const [user, setUser] = useState({
     email: "",
@@ -25,19 +27,11 @@ const Login = ({ setLoginUser }) => {
       .post("http://localhost:9002/login", user, {withCredentials : true})
       .then((res) => {
         alert(res.data.message);
-        console.log(res.data);
+        // console.log(res.data);
         if (res.data.message === "Login Successfull") {
           setAuth({"user":res.data.user, "identity":res.data.user.identity, "accessToken":res.data.accessToken});
-          if (res.data.user.identity === "doctor") {
-          } else if (res.data.user.identity === "nurse") {
-            navigate("/nurse");
-          } else if (res.data.user.identity === "pharmacy") {
-            navigate("/pharmacy");
-          } else if (res.data.user.identity === "receptionist") {
-            navigate("/receptionist");
-          } else if (res.data.user.identity === "student") {
-            navigate("/student");
-          }
+          if(from === "/") navigate("/" + res.data.user.identity);
+          else navigate(from , {replace : true});
         } else {
           alert("Invalid");
         }

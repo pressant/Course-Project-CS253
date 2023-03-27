@@ -50,25 +50,33 @@ function App() {
           </Route>
           <Route path="/login" element={<Login setLoginUser={setLoginUser}/>}></Route>
           <Route path="/register" element={<Register />}></Route>
-          <Route element={<RequireAuth />}>
+          <Route element={<RequireAuth allowedRoles={["doctor"]}/>}>
             <Route exact path="/doctor" element={<Doctor/>}></Route>
             <Route exact path="/doctor/schedule" element={<Schedule/>}></Route>
             <Route exact path="/doctor/view_appointment" element={<Veiwappointments/>}></Route>
+            <Route exact path="/doctor/conduct_appointment" element={ <Conductappointment/> }></Route>
+          </Route>
+          <Route element={<RequireAuth allowedRoles={["nurse"]}/>}>
             <Route exact path="/nurse/" element={<InitialNurse name="abcd" id={420}/>}></Route>
             <Route exact path="/nurse/vitals" element={<Vitals/>}></Route>
+          </Route>
+          <Route element={<RequireAuth allowedRoles={["pharmacy"]}/>}>
             <Route exact path="/pharmacy/" element={<InitialPharmacy prescriptions={ongoingAppointments}/>}></Route>
             <Route exact path="/pharmacy/prescription" element={<Prescription/>}></Route>
             <Route exact path="/pharmacy/completedprescription" element={<CompletedPrescription prescriptions={completedAppointments}/>}></Route>
+          </Route>
+          <Route element={<RequireAuth allowedRoles={["student"]}/>}>
             <Route exact path="/student" element={ <StudentHome />}></Route>
             <Route exact path="/student/request" element={<StudentRequest />}></Route>
             <Route exact path="/student/upcoming" element={<StudentUpcoming />}></Route>
             <Route exact path="/student/history" element={<StudentHistory />}></Route>
             <Route exact path="/student/doctors" element={<StudentDoctors />}></Route>
+          </Route>
+          <Route element={<RequireAuth allowedRoles={["receptionist"]}/>}>
             <Route exact path="/receptionist/" element={<InitialReceptionist/>}></Route>
             <Route exact path="/receptionist/appointments" element={<AppointmentsRequests prescriptions={pendingAppointments}/>}></Route>
             <Route exact path="/receptionist/appointmentstatus" element={<AppointmentStatus prescriptions={ongoingAppointments}/>}></Route>
             <Route exact path="/receptionist/doctorallotment" element={<DoctorAllotment/>}></Route>
-            <Route exact path="/doctor/conduct_appointment" element={ <Conductappointment/> }></Route>
             <Route exact path="/receptionist/setschedule" element={<DoctorAppointments/>}></Route>
             <Route exact path="/receptionist/uploadreports" element={<UploadReports/>}></Route>
             {/* <Route exact paht="/search"><Search/></Route> */}
