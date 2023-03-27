@@ -1,6 +1,5 @@
 import "./Upcoming.css";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -14,6 +13,7 @@ export default function Upcoming(props) {
 
   useEffect(() => {
     document.onload = rrr1();
+    // eslint-disable-next-line
   }, []);
   const rrr1 = () => {
     axiosPrivate

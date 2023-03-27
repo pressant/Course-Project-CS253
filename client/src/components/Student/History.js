@@ -1,7 +1,6 @@
 import "./History.css"
 import React from "react";
 import { useEffect,useState } from "react";
-import axios from "axios";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -16,6 +15,7 @@ export default function History(props) {
 
     useEffect(() => {
 		document.onload=getHistory();
+        // eslint-disable-next-line
 	}, []);
 
 	const getHistory = () => {

@@ -34,6 +34,7 @@ import AppointmentStatus from './components/Receptionist/AppointmentStatus';
 import RequireAuth from './components/RequireAuth';
 // import { AuthProvider } from './context/AuthProvider';
 import Layout from './components/Layout';
+import PersistLogin from './components/PersistLogin'
 
 function App() {
 
@@ -50,6 +51,7 @@ function App() {
           </Route>
           <Route path="/login" element={<Login setLoginUser={setLoginUser}/>}></Route>
           <Route path="/register" element={<Register />}></Route>
+          <Route element={<PersistLogin />}>
           <Route element={<RequireAuth allowedRoles={["doctor"]}/>}>
             <Route exact path="/doctor" element={<Doctor/>}></Route>
             <Route exact path="/doctor/schedule" element={<Schedule/>}></Route>
@@ -80,6 +82,7 @@ function App() {
             <Route exact path="/receptionist/setschedule" element={<DoctorAppointments/>}></Route>
             <Route exact path="/receptionist/uploadreports" element={<UploadReports/>}></Route>
             {/* <Route exact paht="/search"><Search/></Route> */}
+          </Route>
           </Route>
       </Route>
     </Routes>

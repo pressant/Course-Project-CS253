@@ -1,6 +1,5 @@
 import React,{useEffect, useState} from 'react'
 import Appointment from './Appointment'
-import axios from 'axios';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -12,6 +11,7 @@ const AppointmentsRequests = () => {
     
     useEffect(() => {
         document.onload = rrr();
+        // eslint-disable-next-line
     }, [])
 
     const rrr = () =>{

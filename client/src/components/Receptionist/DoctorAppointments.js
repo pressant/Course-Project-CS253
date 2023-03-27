@@ -68,6 +68,7 @@ const DoctorAppointments = () => {
 	}).catch((error) => (console.log(error)))}
 	useEffect(() => { //on mount: get schedule
 		get_schedule();
+        // eslint-disable-next-line
 	},[]);
 	
 	const saveAssn = () => {

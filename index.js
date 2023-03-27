@@ -134,10 +134,11 @@ app.get("/refresh", async (req, res) => {
 
     loggedUser.findOne({refreshToken : refreshToken}, async (err, user) => {
         if(!user) res.sendStatus(403)
+        const refreshUser = await User.findOne({email : user.email})
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
             if(err || user.email !== decoded.email) return res.sendStatus(403)
             const accessToken = jwt.sign({email : decoded.email, identity : decoded.identity}, process.env.ACCESS_TOKEN_SECRET, {expiresIn : "10s"})
-            res.json({accessToken})
+            res.json({user : refreshUser, accessToken})
         })
     })
 })

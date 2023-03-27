@@ -1,6 +1,5 @@
 import "./view_appointments.css"
 import React,{useState,useEffect} from 'react'
-import axios from "axios"
 import Appointment from './Appointment'
 import useAuth from "../../../hooks/useAuth"
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate"
@@ -17,6 +16,7 @@ const Veiw_appointments = () => {
 
     useEffect(() => {
         document.onload = abcd();
+    // eslint-disable-next-line
     }, [])
 
     const abcd=()=>{

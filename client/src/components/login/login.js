@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./login.css";
 import axios from "axios";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Login = ({ setLoginUser }) => {
