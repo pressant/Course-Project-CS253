@@ -11,7 +11,6 @@ import InitialNurse from "./components/Nurse/InitialNurse"
 import Vitals from "./components/Nurse/Vitals"
 import InitialPharmacy from "./components/Pharmacy/InitialPharmacy"
 import Prescription from "./components/Pharmacy/Prescription"
-// import CompletedPrescription from "./components/Pharmacy/CompletedPrescription"
 import Navbar from './components/Navbar';
 import StudentHome from "./components/Student/Home";
 import StudentRequest from "./components/Student/Request";
@@ -28,9 +27,7 @@ import DoctorAppointments from './components/Receptionist/Setschedule';
 
 import UploadReports from './components/Receptionist/UploadReports';
 import AppointmentStatus from './components/Receptionist/AppointmentStatus';
-// import Search from './components/doctor/Veiw Appointments/Search';
 import RequireAuth from './components/RequireAuth';
-// import { AuthProvider } from './context/AuthProvider';
 import Layout from './components/Layout';
 import PersistLogin from './components/PersistLogin'
 
@@ -63,7 +60,6 @@ function App() {
           <Route element={<RequireAuth allowedRoles={["pharmacy"]}/>}>
             <Route exact path="/pharmacy/" element={<InitialPharmacy />}></Route>
             <Route exact path="/pharmacy/prescription" element={<Prescription/>}></Route>
-            {/* <Route exact path="/pharmacy/completedprescription" element={<CompletedPrescription/>}></Route> */}
           </Route>
           <Route element={<RequireAuth allowedRoles={["student"]}/>}>
             <Route exact path="/student" element={ <StudentHome />}></Route>
@@ -79,9 +75,8 @@ function App() {
             <Route exact path="/receptionist/doctorallotment" element={<DoctorAllotment/>}></Route>
             <Route exact path="/receptionist/setschedule" element={<DoctorAppointments/>}></Route>
             <Route exact path="/receptionist/uploadreports" element={<UploadReports/>}></Route>
-            <Route path='*' element={<Notfound/>} />
-            {/* <Route exact paht="/search"><Search/></Route> */}
           </Route>
+            <Route path='*' element={<Notfound/>} />
           </Route>
       </Route>
     </Routes>

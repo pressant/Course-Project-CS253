@@ -1,17 +1,18 @@
 import React,{useState} from 'react'
-import axios from 'axios'
 import {useNavigate } from 'react-router-dom'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
-import medicines from './Medicines';
+import { medicines } from './Medicines';
 import "./Medication.css"
+// import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 
 const Conduct_appointment = (props) => {
 
+    // const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const [medicine, setMedicine] = useState([]);
     const [val, setVal] = useState("");
-    const { doctor, slot, rollno } = props;
+    const { onPrecriptionAdd, doctor, slot, rollno } = props;
 
     const handleMinus = () => {
         var input = document.getElementById('days');
@@ -23,23 +24,30 @@ const Conduct_appointment = (props) => {
         input.value = parseInt(input.value) + 1;
     }
 
-    const changed = (e) => [
+    const changed = (e) => {
         setVal(e.target.value)
-    ]
+    }
 
     const handlePrescribe = () => {
-        axios.post('http://localhost:9002/doctor_prescribe', {
+        // axiosPrivate.post('/doctor_prescribe', {
+            // rollno: rollno,
+            // medication: medicine,
+            // remark: val,
+            // doctor: doctor,
+            // appt_slot: slot,
+        // }).then((res) => {
+        //     console.log(res);
+        //     navigate('/doctor_appt');
+        // }).catch((err) => {
+        //     console.log(err);
+        // })
+        onPrecriptionAdd({
             rollno: rollno,
             medication: medicine,
             remark: val,
             doctor: doctor,
-            appt_slot: slot,
-        }).then((res) => {
-            console.log(res);
-            navigate('/doctor_appt');
-        }).catch((err) => {
-            console.log(err);
-        })
+            appt_slot: slot
+        });
     }
     
     const handleClick = () => {
@@ -108,7 +116,7 @@ const Conduct_appointment = (props) => {
             <button className="btn btn-dark my-3" onClick={handleClick}>Add Medicine</button>
             <div className="row my-3">
                 <div className="col-6">
-                    <h4>Current Prescription</h4>
+                    <h4>Prescribed Medicines</h4>
                 </div>
                 <div className="col-6">
                     <h4 className="justify-content-center">Remarks</h4>

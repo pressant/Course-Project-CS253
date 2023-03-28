@@ -1,4 +1,4 @@
-const medicines = [
+export const medicines = [
     {label: 'Paracetamol'},
     {label: 'Ibuprofen'},
     {label: 'Co-codamol'},
@@ -33,4 +33,23 @@ const medicines = [
     {label: 'Levofloxacin'},
   ];
 
-  export default medicines;
+  export const tests = [
+    {label: 'ANA Test'},
+    {label: 'Amylase Test'},
+    {label: 'Biopsy'},
+    {label: 'Blood Test'},
+    {label: 'CBC'},
+    {label: 'Colonoscopy'},
+    {label: 'CRP Test'},
+    {label: 'CT scan'},
+    {label: 'Electrocardiogram'},
+    {label: 'Electroencephalogram'},
+    {label: 'Eye test'},
+    {label: 'Gastroscopy'},
+    {label: 'HbA1c'},
+    {label: 'Hearing test'},
+    {label: 'MRI scan'},
+    {label: 'PET scan'},
+    {label: 'Ultrasound'},
+    {label: 'X-ray'},
+  ];

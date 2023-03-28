@@ -1,15 +1,16 @@
 import React,{useState} from 'react'
-import axios from 'axios'
 import {useNavigate } from 'react-router-dom'
 import "./Setschedule.css"
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 
 const DoctorAppointment = (props) => {
 
+    const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const [medicine, setMedicine] = useState([]);
 
 	const handlePrescribe=()=>{
-		axios.post("http://localhost:9002/doctor_schedule", medicine)
+		axiosPrivate.post("/doctor_schedule", medicine)
             .then( res => {
                 alert(res.data.message)
                 navigate("/receptionist")

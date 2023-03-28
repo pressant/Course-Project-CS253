@@ -9,7 +9,7 @@ export default function Home(props) {
 			<tbody>
 				<tr>
 					<td><Link to="request"><button>Request Appointment</button></Link></td>
-					<td><Link to="upcoming"><button>View Upcoming Appointments</button></Link></td>
+					<td><Link to="upcoming"><button>View ointments</button></Link></td>
 				</tr>
 				<tr>
 					<td><Link to="history"><button>View Medical History</button></Link></td>

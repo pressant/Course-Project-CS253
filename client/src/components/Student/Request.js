@@ -1,6 +1,4 @@
-
 import React,{useState,useEffect} from "react";
-import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./request.css"
 import useAuth from "../../hooks/useAuth";
@@ -9,24 +7,26 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
-
-let arr=[];
-let doctors=[];
 export default function Request(props) {
+
+	const [isLoading, setIsLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();
 	useEffect(() => {
-	  document.onload = rrr();
+		document.onload = rrr();
 	}, []);
 
+	let arr=[];
+	let doctors=[];
+
 	const rrr=()=>{
-		axiosPrivate.get('/doctor_on_schedule', (req, res) => {
-            arr=res.data;
-			console.log(arr);
+		axiosPrivate.get('/doc_on_schedule').then((res) => {
+            arr = res.data;
+			let arr_length=arr.length;
+			for(let i=0;i<arr_length;i++){
+				doctors.push(arr[i].name_of_medicine);
+			}
+			setIsLoading(false);
 		})
-      let arr_length=arr.length;
-	  for(let i=0;i<arr_length;i++){
-		  doctors.push(arr[i].name_of_medicine);
-	  }
 	}
 
 	const navigate = useNavigate()
@@ -47,7 +47,7 @@ export default function Request(props) {
     const handleRequest = () => {
 		const {name,roll,type,slot,description,doctor} = Request;
 		console.log(Request);
-        if(name !== "" && roll !== "" && type !== "" && slot !== "" && description !== "" && doctor !== ""){
+        if(name !== undefined && roll !== undefined && type !== undefined && slot !== undefined && description !== undefined && doctor !== undefined){
 			console.log(name);
 			axiosPrivate.post("/request_student", Request)
 			.then( res => {
@@ -100,9 +100,9 @@ export default function Request(props) {
 				<FormControl sx={{ m: 3, minWidth: 200 }}>
 					<InputLabel id="demo-simple-select-autowidth-label">Preferred Doctor</InputLabel>
 					<Select labelId="demo-simple-select-autowidth-label" id="demo-simple-select-autowidth-label" value={doc} label="Doctor" onChange={handleChange}>
-						{
-							doctors?.map((item, index) => {
-								return(<MenuItem value={item}>{item}</MenuItem>);
+						{/* {console.log(doctors)} */}
+							{isLoading ? "Loading" : doctors?.map((item, index) => {
+								return(<MenuItem value={item} key={index}>{item}</MenuItem>);
 							})
 						}
 					</Select>
@@ -110,7 +110,7 @@ export default function Request(props) {
 			</div>
 			<center>
 				<div className="text-center" id="patient_symptoms">
-					<textarea rows="3" input type="text" id="symptoms" name="symptoms" value={symptoms} onChange={e => {updateSymptoms(e.target.value)}} placeholder="Symptoms" required/>
+					<textarea rows="3" input type="text" id="symptoms" name="symptoms" value={symptoms} onChange={e => {updateSymptoms(e.target.value)}} placeholder="Symptoms"/>
 				</div>
 			</center>
 			<div className="text-center">

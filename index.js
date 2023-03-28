@@ -374,20 +374,20 @@ app.get("/new:roll", (req, res)=> {
     Appointment.find({rollno:req.params.roll}, (err, request) => {
         if(request){
             res.send({message: "Upcoming appointments", request: request})
-          } else {
+        } else {
             res.send({message: "No appointments"})
-          }
+        }
     })
 })
 
 app.get("/doctor:name", (req, res) =>{
-     Appointment.find({Doctor:req.params.name}, (err, request) => {
+    Appointment.find({Doctor:req.params.name}, (err, request) => {
         if(request){
             res.send({message: "Upcoming appointments", request: request})
-          } else {
+        } else {
             res.send({message: "No appointments"})
-          }
-        })
+        }
+    })
 });
 
 
@@ -395,17 +395,17 @@ app.get("/doctor:name", (req, res) =>{
 app.post("/nurse", (req, res) => {
     console.log(req.body);
     Med.findOne({rollno: req.body.rollno}, (err, stuff) => {
-                   if(stuff){
-                    stuff.medical_history[stuff.count].vitals_Blood_pressure = req.body.vitals_Blood_pressure;
-                    stuff.medical_history[stuff.count].vitals_Oxygen = req.body.vitals_Oxygen;
-                    stuff.medical_history[stuff.count].vitals_temperature = req.body.vitals_temperature;
-                   }
-                   stuff.save(err => {
-                          if(err){
-                            console.log(err);
-                            res.send(err);
-                          }
-                     })
+        if(stuff){
+        stuff.medical_history[stuff.count].vitals_Blood_pressure = req.body.vitals_Blood_pressure;
+        stuff.medical_history[stuff.count].vitals_Oxygen = req.body.vitals_Oxygen;
+        stuff.medical_history[stuff.count].vitals_temperature = req.body.vitals_temperature;
+        }
+        stuff.save(err => {
+            if(err){
+            console.log(err);
+            res.send(err);
+            }
+        })
     })
 })
 
@@ -452,7 +452,7 @@ app.post("/doctor_test", (req,res) => {
     const doctor = req.body.doctor;
     const rollno = req.body.rollno;
     const newTestHistory = {
-        date: Date(),
+        date: new Date(),
         doctor: doctor,
         tests: tests,
         completed: true,
@@ -612,7 +612,6 @@ app.post('/doctor_schedule',(req,res)=>{
     const Doctor_list=req.body;
     // doctor_list.length=0;
     doctor_list= Doctor_list;
-    doctor_list = Doctor_list;
     console.log(doctor_list);
     res.json({message:"Done Scheduling"})
 })
@@ -653,7 +652,7 @@ app.post("/report_upload", upload.array('files', 12), function(req, res){
                 name: file.originalname
             },
             rollno : req.body.rollno,
-            date : Date()
+            date : new Date()
         });
         newPdf.save();
     })
@@ -703,8 +702,8 @@ app.get("/report/:roll/:pdfname", (req, res) => {
     })
 })
 
-app.get('/doctor_on_schedule',(req,res)=>{
-    res.send(doctor_list);
+app.get('/doc_on_schedule', (req,res)=>{
+    res.json(doctor_list);
 })
 app.listen(9002,() => {
     console.log("BE started at port 9002")
