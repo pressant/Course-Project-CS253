@@ -26,7 +26,6 @@ const Appointment = (props) => {
                 <div className="d-flex justify-content-center">
                     <button className="btn btn-dark btn-sm position-absolute bottom-0 mb-3" onClick={handleClick}>
                         Conduct Appointment
-                        {console.log(prescription.doctor)}
                     </button>
                 </div>
             </div>

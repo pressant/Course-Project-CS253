@@ -8,16 +8,18 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 let arr=[];
 let doctors=[];
 export default function Request(props) {
+	const axiosPrivate = useAxiosPrivate();
 	useEffect(() => {
 	  document.onload = rrr();
 	}, []);
 
 	const rrr=()=>{
-		axios.get('http://localhost:9002/doctor_on_schedule', (req, res) => {
+		axiosPrivate.get('/doctor_on_schedule', (req, res) => {
             arr=res.data;
 			console.log(arr);
 		})
@@ -47,7 +49,7 @@ export default function Request(props) {
 		console.log(Request);
         if(name !== "" && roll !== "" && type !== "" && slot !== "" && description !== "" && doctor !== ""){
 			console.log(name);
-			axios.post("http://localhost:9002/request_student", Request)
+			axiosPrivate.post("/request_student", Request)
 			.then( res => {
 				alert(res.data.message)
 				navigate("/student")
