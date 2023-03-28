@@ -1,13 +1,12 @@
 import React from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Appointment = (props) => {
-    const history = useHistory();
+    const navigate = useNavigate();
     let prescription = props.prescription;
 
     const handleClick = () => {
-        history.push({
-            pathname: "/doctor/conduct_appointment",
+        navigate("/doctor/conduct_appointment",{
             state: {
                 name: prescription.name,
                 id: prescription.id,
@@ -27,6 +26,7 @@ const Appointment = (props) => {
                 <div className="d-flex justify-content-center">
                     <button className="btn btn-dark btn-sm position-absolute bottom-0 mb-3" onClick={handleClick}>
                         Conduct Appointment
+                        {console.log(prescription.doctor)}
                     </button>
                 </div>
             </div>

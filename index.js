@@ -13,7 +13,10 @@ import multer from "multer"
 const app = express()
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
-app.use(cors())
+app.use(cors({
+    origin : "http://localhost:3000",
+    credentials : true
+}))
 app.use(cookieParser())
 let doctor_list=[];
 //mongodb+srv://CS:5i4tDRJZM5W78xgn@cluster0.5ebvu5n.mongodb.net/
@@ -50,19 +53,19 @@ app.post("/login", async (req, res)=> {
     User.findOne({ email: email}, async (err, user) => {
         try {
             if(user){
-                console.log(user);
+                // console.log(user);
                 const isMatch = await bcrypt.compare(password, user.password)
                 console.log(isMatch);
                 if(isMatch) {
                     const accessToken = jwt.sign(
                         {email, identity : user.identity},
                         process.env.ACCESS_TOKEN_SECRET,
-                        {expiresIn : '600s'}
+                        {expiresIn : '10s'}
                     )
                     const refreshToken = jwt.sign(
                         {email},
                         process.env.REFRESH_TOKEN_SECRET,
-                        {expiresIn : '7d'}
+                        {expiresIn : '30s'}
                     )
                     const newLoggedUser = new loggedUser({
                         email,
@@ -74,9 +77,9 @@ app.post("/login", async (req, res)=> {
                         }
                     })
 
-                    // console.log(accessToken)
+                    // console.log(user)
                     // console.log(newLoggedUser)
-                    res.cookie('jwt', refreshToken, {httpOnly : true, maxAge : 7 * 24 * 60 * 60 * 1000})
+                    res.cookie('jwt', refreshToken, {httpOnly : true, sameSite : 'Strict', maxAge : 30 * 1000})
                     res.json({ message: "Login Successfull", user: user, accessToken })
                     
                     // res.send({message: "Login Successfull", user: user})
@@ -127,16 +130,17 @@ app.post("/register", async (req, res)=> {
 
 app.get("/refresh", async (req, res) => {
     const cookies = req.cookies
-    if(!(cookies?.jwt)) return res.sendStatus(401)
+    if(!cookies?.jwt) return res.sendStatus(401)
     const refreshToken = cookies.jwt
     console.log(refreshToken)
 
     loggedUser.findOne({refreshToken : refreshToken}, async (err, user) => {
         if(!user) res.sendStatus(403)
+        const refreshUser = await User.findOne({email : user.email})
         jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
             if(err || user.email !== decoded.email) return res.sendStatus(403)
-            const accessToken = jwt.sign({email : decoded.email, identity : decoded.identity}, process.env.ACCESS_TOKEN_SECRET, {expiresIn : "600s"})
-            res.json({accessToken})
+            const accessToken = jwt.sign({email : decoded.email, identity : decoded.identity}, process.env.ACCESS_TOKEN_SECRET, {expiresIn : "10s"})
+            res.json({user : refreshUser, accessToken})
         })
     })
 })
@@ -152,11 +156,11 @@ app.get("/logout", async (req, res) => {
             res.send({message : err.message})
         }
         if(!user){
-            res.clearCookie('jwt', {httpOnly : true, maxAge : 7 * 24 * 60 * 60 * 1000})
+            res.clearCookie('jwt', {httpOnly : true, sameSite : 'Strict', maxAge : 30 * 1000})
             res.sendStatus(204)     // No content
         }
         await loggedUser.deleteOne({refreshToken : refreshToken})
-        res.clearCookie('jwt', {httpOnly : true, maxAge : 7 * 24 * 60 * 60 * 1000})     // secure : true on production for both creating and clearing cookie
+        res.clearCookie('jwt', {httpOnly : true, sameSite : 'Strict', maxAge : 30 * 1000})     // secure : true on production for both creating and clearing cookie
         res.sendStatus(204)
     })
 })
@@ -166,7 +170,7 @@ const verifyJWT = (req, res, next) => {
     if(!authHeader?.startsWith("Bearer ")) res.sendStatus(401)
     const token = authHeader.split(' ')[1]
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, decoded) => {
-        if(err) res.sendStatus(403)         // Invalid token
+        if(err || !decoded) return res.sendStatus(403)         // Invalid token
         req.user = decoded.email
         req.identity = decoded.identity
         console.log(req.user)
@@ -186,7 +190,15 @@ const verifyIdentity = (...allowedIdentity) => {
     }
 }
 
-// app.use(verifyJWT)
+app.use(verifyJWT)
+
+// app.get("/student", (req, res)=>{
+//     res.sendStatus(200)
+// })
+
+// app.get("/testing", (req, res) => {
+//     res.json({"abcd" : "abcd"});
+// })
 
 const student_request_schema = new mongoose.Schema({
     name: String,
@@ -321,7 +333,7 @@ app.post("/submitted", (req, res) =>{
                 //made medical history record
                 if(stuff){
                     console.log("here");
-                    stuff.medical_history.push()
+                    stuff.medical_navigate()
                     // stuff.save();
                 }
                 else{
@@ -411,7 +423,7 @@ app.post("/doctor_prescribe", (req, res) => {
         };
         if(stuff){
             console.log(new_appt);
-            stuff.medical_history.push(new_appt);
+            stuff.medical_navigate(new_appt);
             // stuff.medical_history[stuff.count].medication = medication;
             // stuff.medical_history[stuff.count].remark = remark;
             // stuff.medical_history[stuff.count].completed = true;

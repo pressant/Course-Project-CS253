@@ -1,22 +1,31 @@
-import React,{ useState, useEffect } from 'react'
-import axios from "axios"
-import { global } from "../../login/login"
+// import "./view_appointments.css"
+import React,{useState,useEffect} from 'react'
 import Appointment from './Appointment'
+import useAuth from "../../../hooks/useAuth"
+import useAxiosPrivate from "../../../hooks/useAxiosPrivate"
+import { useNavigate, useLocation } from 'react-router-dom';
 
 
 const Veiw_appointments = () => {
 
     const [app_t_arr, setAppts] = useState([]);
+    const {auth} = useAuth();
+    const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         document.onload = abcd();
-    })
+    // eslint-disable-next-line
+    }, [])
 
     const abcd=()=>{
-        axios.get("http://localhost:9002/doctor"+global[2]).then((res) => {
+        axiosPrivate.get("/doctor"+auth.user.rollno).then((res) => {
         setAppts(res.data.request);
         }).catch((err) => {
-        console.log(err);});
+        console.log(err);
+        navigate("/login", {state : {from : location}, replace : true});
+    });
     }
 
     return (

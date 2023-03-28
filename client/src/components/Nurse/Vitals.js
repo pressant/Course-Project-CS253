@@ -1,11 +1,11 @@
 import React from 'react' 
 // import { useDispatch } from 'react-redux';
-import { useLocation,useHistory } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import './vitals.css'
 import axios from 'axios';
 
 const Vitals = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const location = useLocation();
     // const dispatch = useDispatch();
     const state = location.state;
@@ -15,7 +15,7 @@ const Vitals = () => {
     const handleClick = () => {
         axios.post("http://localhost:9002/nurse", {roll:state.id,vitals_Oxgen:"Abcd",vitals_Temperature:98,vitals_BloodPressure:"Abcd"})
             .then( res => {
-                history.push("/nurse")
+                navigate("/nurse")
             }).catch(err => {
                 console.log(err);
             })

@@ -1,9 +1,9 @@
 
 import React,{useState,useEffect} from "react";
 import axios from "axios";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./request.css"
-import { global } from "../login/login";
+import useAuth from "../../hooks/useAuth";
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
@@ -27,19 +27,19 @@ export default function Request(props) {
 	  }
 	}
 
-	const history = useHistory()
+	const navigate = useNavigate()
 	const [appy_type,setAppyType]=useState("");
     const [appt_slot,setApptSlot]=useState("");
     const [doc,setDoc]=useState("")
+	const {auth} = useAuth();
 
     const [symptoms,updateSymptoms] = useState("")
-	let name=global[0];
-	let roll=global[2];
-    let role=global[1];
-	let Request=[name, roll, appy_type, appt_slot, symptoms, doc];
-	
+	let name=auth.user.name;
+	let roll=auth.user.rollno;
+	const Request=[name,roll,appy_type,appt_slot,symptoms,doc];
+    let role=auth.user.identity;
 	if(role!=="student"){
-		history.push("/login")
+		navigate("/login")
 	}
 
     const handleRequest = () => {
@@ -50,6 +50,7 @@ export default function Request(props) {
 			axios.post("http://localhost:9002/request_student", Request)
 			.then( res => {
 				alert(res.data.message)
+				navigate("/student")
 			})
 		}
 		else{

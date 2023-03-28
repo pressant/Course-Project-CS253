@@ -1,18 +1,20 @@
 import React, { useState } from 'react';
 import Popup from './Popup';
 import { useEffect } from 'react';
-import axios from 'axios';
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
+// import axios from 'axios';
 const MedHistory = (props) => {
-    
+    const axiosPrivate = useAxiosPrivate();
     const [showModal, setShowModal] = useState(false);
     const [popup, setPopup] = useState(false);
+    // eslint-disable-next-line
     const{ rollno } = props;
     const [hist,sethist]=useState([]);
     useEffect(() => {
         getHistory();
     },[]);
     const getHistory = () => {
-        axios.get("http://localhost:9002/student_history"+rollno).then((res) => {
+        axiosPrivate.get("/student_history"+rollno).then((res) => {
             console.log(res.data.request);
             sethist(res.data.request);
 

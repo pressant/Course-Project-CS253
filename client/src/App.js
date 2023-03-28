@@ -1,8 +1,8 @@
 import './App.css'
 import Homepage from "./components/homepage/homepage"
-import {Login,global} from "./components/login/login"
+import {Login} from "./components/login/login"
 import Register from "./components/register/register"
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom" ;
+import { Routes, Route } from 'react-router-dom'
 import { useState } from 'react';
 import Doctor from './components/doctor/Entry_page';
 import Schedule from './components/doctor/Schedule';
@@ -28,50 +28,64 @@ import DoctorAppointments from './components/Receptionist/Setschedule';
 
 import UploadReports from './components/Receptionist/UploadReports';
 import AppointmentStatus from './components/Receptionist/AppointmentStatus';
+// import Search from './components/doctor/Veiw Appointments/Search';
+import RequireAuth from './components/RequireAuth';
+// import { AuthProvider } from './context/AuthProvider';
+import Layout from './components/Layout';
+import PersistLogin from './components/PersistLogin'
 
 function App() {
 
   const [ user, setLoginUser ] = useState({identity:"doctor"})
 
   return (
-    <div className="App">
-      <Navbar/>
-      <Router>
-        <Switch>
-          <Route exact path="/">
-            {
+    <>
+    <Navbar />
+    <Routes>
+      <Route path='/' element={<Layout />}>
+      <Route exact path="/" element={
               user && user._id ? <Homepage setLoginUser={setLoginUser} /> : <Login setLoginUser={setLoginUser}/>
-            }
+            }>
           </Route>
-          <Route path="/login"><Login setLoginUser={setLoginUser}/></Route>
-          <Route path="/register"><Register /></Route>
-          <Route exact path="/doctor"><Doctor/></Route>
-          <Route exact path="/doctor/schedule"><Schedule/></Route>
-          <Route exact path="/doctor/view_appointment"><Veiwappointments/></Route>
-          <Route exact path="/nurse/"><InitialNurse name="abcd" id={420}/></Route>
-          <Route exact path="/nurse/vitals"><Vitals/></Route>
-          <Route exact path="/pharmacy/"><InitialPharmacy/></Route>
-          <Route exact path="/pharmacy/prescription"><Prescription/></Route>
-          {/* <Route exact path="/pharmacy/completedprescription"><CompletedPrescription/></Route> */}
-          <Route exact path="/student"> <StudentHome /></Route>
-          <Route exact path="/student/request"><StudentRequest /></Route>
-          <Route exact path="/student/upcoming"><StudentUpcoming /></Route>
-          <Route exact path="/student/history"><StudentHistory /></Route>
-          <Route exact path="/student/doctors"><StudentDoctors /></Route>
-          <Route exact path="/receptionist/"><InitialReceptionist/></Route>
-          <Route exact path="/receptionist/"><InitialReceptionist/></Route>
-          <Route exact path="/receptionist/appointments"><AppointmentsRequests/></Route>
-          <Route exact path="/receptionist/appointmentstatus"><AppointmentStatus/></Route>
-          <Route exact path="/receptionist/appointments"><AppointmentsRequests/></Route>
-          <Route exact path="/receptionist/appointmentstatus"><AppointmentStatus/></Route>
-          <Route exact path="/receptionist/doctorallotment"><DoctorAllotment/></Route>
-          <Route exact path="/doctor/conduct_appointment"> <Conductappointment/> </Route>
-          <Route exact path="/receptionist/setschedule"><DoctorAppointments/></Route>
-          <Route exact path="/receptionist/uploadreports"><UploadReports/></Route>
-          <Route path='*' ><Notfound/></Route>
-        </Switch>
-      </Router>
-    </div>
+          <Route path="/login" element={<Login setLoginUser={setLoginUser}/>}></Route>
+          <Route path="/register" element={<Register />}></Route>
+          <Route element={<PersistLogin />}>
+          <Route element={<RequireAuth allowedRoles={["doctor"]}/>}>
+            <Route exact path="/doctor" element={<Doctor/>}></Route>
+            <Route exact path="/doctor/schedule" element={<Schedule/>}></Route>
+            <Route exact path="/doctor/view_appointment" element={<Veiwappointments/>}></Route>
+            <Route exact path="/doctor/conduct_appointment" element={ <Conductappointment/> }></Route>
+          </Route>
+          <Route element={<RequireAuth allowedRoles={["nurse"]}/>}>
+            <Route exact path="/nurse/" element={<InitialNurse name="abcd" id={420}/>}></Route>
+            <Route exact path="/nurse/vitals" element={<Vitals/>}></Route>
+          </Route>
+          <Route element={<RequireAuth allowedRoles={["pharmacy"]}/>}>
+            <Route exact path="/pharmacy/" element={<InitialPharmacy />}></Route>
+            <Route exact path="/pharmacy/prescription" element={<Prescription/>}></Route>
+            {/* <Route exact path="/pharmacy/completedprescription" element={<CompletedPrescription/>}></Route> */}
+          </Route>
+          <Route element={<RequireAuth allowedRoles={["student"]}/>}>
+            <Route exact path="/student" element={ <StudentHome />}></Route>
+            <Route exact path="/student/request" element={<StudentRequest />}></Route>
+            <Route exact path="/student/upcoming" element={<StudentUpcoming />}></Route>
+            <Route exact path="/student/history" element={<StudentHistory />}></Route>
+            <Route exact path="/student/doctors" element={<StudentDoctors />}></Route>
+          </Route>
+          <Route element={<RequireAuth allowedRoles={["receptionist"]}/>}>
+            <Route exact path="/receptionist/" element={<InitialReceptionist/>}></Route>
+            <Route exact path="/receptionist/appointments" element={<AppointmentsRequests/>}></Route>
+            <Route exact path="/receptionist/appointmentstatus" element={<AppointmentStatus/>}></Route>
+            <Route exact path="/receptionist/doctorallotment" element={<DoctorAllotment/>}></Route>
+            <Route exact path="/receptionist/setschedule" element={<DoctorAppointments/>}></Route>
+            <Route exact path="/receptionist/uploadreports" element={<UploadReports/>}></Route>
+            <Route path='*' element={<Notfound/>} />
+            {/* <Route exact paht="/search"><Search/></Route> */}
+          </Route>
+          </Route>
+      </Route>
+    </Routes>
+    </>
   );
 }
 

@@ -1,18 +1,18 @@
 import React,{useState} from 'react'
 import axios from 'axios'
-import {useHistory } from 'react-router-dom'
+import {useNavigate } from 'react-router-dom'
 import "./Setschedule.css"
 
 const DoctorAppointment = (props) => {
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const [medicine, setMedicine] = useState([]);
 
 	const handlePrescribe=()=>{
 		axios.post("http://localhost:9002/doctor_schedule", medicine)
             .then( res => {
                 alert(res.data.message)
-                history.push("/receptionist")
+                navigate("/receptionist")
             })
 			.catch((err)=>{
 				console.log(err);

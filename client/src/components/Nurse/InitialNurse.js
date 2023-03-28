@@ -1,22 +1,21 @@
 import React from 'react'
-import { useHistory } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import './nurse.css'
-import { global } from '../login/login'
 const InitialNurse = () => {
 
     // const { name, id } = useSelector((state) => state.appt);
-    const history = useHistory();
+    const navigate = useNavigate();
     var inputId;
 
     const handleClick = () => {
-        // history.push({
+        // navigate({
         //     pathname: '/nurse/vitals',
         //     state: {
         //         name: name,
         //         id: id
         //     },
         // });
-        history.push({
+        navigate({
             pathname: '/nurse/vitals',
             state: {
                 id: inputId
@@ -27,14 +26,6 @@ const InitialNurse = () => {
     const handleChange = (event) => {
         inputId = event.target.value;
     }
-   var k=0;
-   if(global[1]==='nurse'){
-    k=1;
-   }
-   if(k===0){
-    history.push("/login")
-   }
-
     return (
         <div className='nurse'>
             <div className="container text-center my-5">

@@ -1,22 +1,13 @@
 import React, { useState,useEffect } from "react";
-import { useHistory } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Patient from "./Patient";
-import { global } from "../login/login";
+// import { global } from "../login/login";
 import axios from "axios";
 
 const InitialPharmacy = () => {
 
-    const history = useHistory();
+    const navigate = useNavigate();
     const [pending, setPending] = useState([]);
-    var k=0;
-
-    if(global[1]==='pharmacy'){
-        k=1;
-    }
-
-    if(k===0){
-        history.push("/login")
-    }
     
     const rrr = () =>{
         axios.get('http://localhost:9002/pharmacist') 

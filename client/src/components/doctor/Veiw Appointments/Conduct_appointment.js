@@ -2,10 +2,10 @@ import React, { useState } from 'react'
 import Medication from './Medication';
 import DiagnosticTest from './DiagnosticTest';
 import MedHistory from './MedHistory';
-import { useLocation,useHistory } from "react-router-dom";
+import { useLocation,useNavigate } from "react-router-dom";
 
 const Conduct_appointment = () => {
-    const history = useHistory();
+    const navigate = useNavigate();
     const [view, setView] = useState("med");
     const { state } = useLocation();
 
@@ -14,7 +14,7 @@ const Conduct_appointment = () => {
     }
     const handleClick2 = (event) => {
         
-        history.push("/doctor/appointments");
+        navigate("/doctor/appointments");
     }
 
     return (
@@ -24,6 +24,7 @@ const Conduct_appointment = () => {
                 <button type="button" id="hist" className="btn btn-dark col-12 my-5" style={{height: "100px"}} onClick={handleClick}>Medical History</button>
                 <button type="button" id="test" className="btn btn-dark col-12 my-5" style={{height: "100px"}} onClick={handleClick}>Diagnostic Tests</button>
             </div>
+            {console.log(state.doctor)}
             {view === 'med' && <Medication doctor={state.doctor} slot={state.slot} rollno={state.id}/>}
             {view === 'hist' && <MedHistory rollno={state.id}/>}
             {view === 'test' && <DiagnosticTest/>}
