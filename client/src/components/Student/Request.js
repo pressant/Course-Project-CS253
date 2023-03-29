@@ -8,23 +8,26 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 export default function Request(props) {
-    let doctors=[];
+    
 	const [isLoading, setIsLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();
 	useEffect(() => {
-		document.onload = rrr();
-	}, [doctors]);
-
-	let arr=[];
+		document.onload = setTimeout(rrr, 1000);
+	}, []);
+    const [doctors, setDoctors] = useState([]);
+	
 	
 
 	const rrr=()=>{
 		axiosPrivate.get('/doc_on_schedule').then((res) => {
+			let doctor=[];
+			let arr=[];
             arr = res.data;
 			let arr_length=arr.length;
 			for(let i=0;i<arr_length;i++){
-				doctors.push(arr[i].name_of_medicine);
+				doctor.push(arr[i].name_of_medicine);
 			}
+			setDoctors(doctor);
 			setIsLoading(false);
 		})
 	}
