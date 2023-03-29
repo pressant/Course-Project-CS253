@@ -276,6 +276,7 @@ const Medical_history = new mongoose.Schema({
     count:Number,
     medical_history:[{
         date: Date,
+        remark: String,
         doctor: String,
         medication:[{name_of_medicine:String,
                     dosage:String,
@@ -508,7 +509,7 @@ app.post("/complete_appt", (req, res) => {
     const rollno = req.body[0].rollno;
     const doc_name = req.body[0].doctor;
     const appt_slot = req.body[0].appt_slot;
-    const remark = req.body[0].remark;
+    var remark = req.body[0].remark;
     var medication;
     var tests;
 
@@ -518,12 +519,14 @@ app.post("/complete_appt", (req, res) => {
     }
     if(req.body[0].tests) {
         tests = req.body[0].tests;
+        // remark = remark + "\n\n" + req.body[0].remark;
         console.log("tests there");
     }
 
     if(req.body.length > 1){
         if(req.body[req.body.length - 1].medication) medication = req.body[1].medication;
         if(req.body[req.body.length - 1].tests) tests = req.body[1].tests;
+        remark = remark + "\n\n" + req.body[req.body.length - 1].remark;
     }
 
     // const new_appt = {
@@ -541,6 +544,8 @@ app.post("/complete_appt", (req, res) => {
         remark: remark,
         completed_doc: true
     };
+
+    console.log(newTestHistory.remark);
 
     if(medication){
         console.log("medication added to object");
@@ -569,34 +574,34 @@ app.post("/complete_appt", (req, res) => {
                 if(len === stuff.count){
                     console.log("ok");
                     // console.log(req.body.vitals_Blood_pressure);
-                    stuff.medical_history.push(newTestHistory);
-                    res.send("Done.");
+                    stuff.medical_history[len - 1] = newTestHistory;
+                    // res.send("Done.");
+                    stuff.save(err => {
+                        if(err){
+                            console.log(err);
+                            res.send(err);
+                        }
+                        Appointment.findOneAndDelete({rollno: rollno, Doctor: doc_name, appt_slot: appt_slot}, (err, deleted_stuff) => {
+                            console.log("hemlo");
+                            console.log({rollno: rollno, Doctor: doc_name, appt_slot: appt_slot});
+                            console.log(deleted_stuff);
+                            if(err){
+                                console.log(err);
+                                res.send(err);
+                            }
+                            else{
+                                if(deleted_stuff) res.send("ok");
+                            }
+                        });
+                    });
                 }
                 else{
                     res.send("User must have a registered appointment to update vitals.");
                 }
-                stuff.save(err => {
-                    if(err){
-                    console.log(err);
-                    res.send(err);
-                    }
-                });
             }
         }
     })
 
-    Appointment.findOneAndDelete({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot}, (err, deleted_stuff) => {
-        console.log("hemlo");
-        console.log({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot});
-        console.log(deleted_stuff);
-        if(err){
-            console.log(err);
-            res.send(err);
-        }
-        else{
-            if(deleted_stuff) res.send("ok");
-        }
-    });
 })
     
 app.get("/student_history:roll", (req, res) => {
