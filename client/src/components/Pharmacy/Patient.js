@@ -4,14 +4,15 @@ import { useNavigate } from "react-router-dom";
 const Patient = (props) => {
     const navigate = useNavigate();
     let prescription = props.prescription;
-
+    console.log(prescription.doctor)
     const handleClick = () => {
         navigate("/pharmacist/prescription",{
             state: {
                 name: prescription.name,
                 id: prescription.rollno,
                 medicines: prescription.medication,
-                doctor: prescription.doctor
+                doctor: prescription.doctor,
+                uid: prescription.UID
             }
         });
     };

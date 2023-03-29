@@ -1,8 +1,6 @@
 import React, { useState,useEffect } from "react";
 // import { useNavigate } from "react-router-dom";
 import Patient from "./Patient";
-// import { global } from "../login/login";
-// import axios from "axios";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const InitialPharmacy = () => {
@@ -24,7 +22,6 @@ const InitialPharmacy = () => {
 
     useEffect(() => {
         document.onload = rrr();
-        // eslint-disable-next-line
     },[]);
     
     return (

@@ -23,13 +23,13 @@ const Conduct_appointment = () => {
         setView(event.target.id);
     }
     const handleClick2 = (event) => {
-        navigate("/doctor/appointments");
         axiosPrivate.post('/complete_appt', appt).then((res) => {
             console.log(res);
             navigate('/doctor_appt');
         }).catch((err) => {
             console.log(err);
         })
+        navigate("/doctor/view_appointment");
     }
 
     return (

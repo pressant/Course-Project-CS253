@@ -1,13 +1,24 @@
 import styles from "./prescriptions.module.css";
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const Prescription = () => {
+
+    const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
     const { state } = useLocation();
     let idx = 0;
 
     const handleClick = () => {
-        
+        axiosPrivate.post('/dispense',{
+            rollno: state.id,
+            UID: state.uid
+        }).then( res => {
+            navigate("/pharmacist")
+        }).catch(err => {
+            console.log(err);
+        })
     };
 
     const handlePrint = () => {
@@ -29,44 +40,42 @@ const Prescription = () => {
                     <h1>Prescription</h1>
                 </div>
             </div>
-            <div className="text-center mt-5">
+            <div className="text-center my-5 mb-3">
                 <div className="row">
-                    <div className="col">Name: {state.name}</div>
-                    <div className="col">Doctor: {state.doctor}</div>
-                    <div className="col">Roll/PF Number: {state.id}</div>
+                    <h4 className="col">Name: {state.name}</h4>
+                    <h4 className="col">Roll/PF Number: {state.id}</h4>
                 </div>
             </div>
-            {// <table className="table table-bordered mt-5">
-//                 <thead className="table-dark">
-//                     <tr>
-//                         <th scope="col">#</th>
-//                         <th scope="col">Medicine ID</th>
-//                         <th scope="col">Medicine Name</th>
-//                         <th scope="col">Dosage</th>
-//                         <th scope="col">Status</th>
-//                     </tr>
-//                 </thead>
-//                 <tbody>
-//                     {/* {state.medicines?.map((element) => {
-//                         idx++;
-//                         return (
-//                             <tr>
-//                                 <th scope="row">{idx}</th>
-//                                 <td>{element.id}</td>
-//                                 <td>{element.name}</td>
-//                                 <td>{element.dose}</td>
-//                                 <td style={{ justifyContent: "center", display: "flex" }}>
-//                                     <div className="form-check">
-//                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
-//                                     </div>
-//                                 </td>
-//                             </tr>
-//                         );
-//                     })} */}
-//                 </tbody>
-//             </table>
-}
-			<div className={`container ${styles.table}`}>
+            <table className="table table-bordered mt-5">
+                 <thead className="table-dark">
+                     <tr>
+                         <th scope="col" className="text-center">#</th>
+                         <th scope="col" className="text-center">Medicine ID</th>
+                         <th scope="col" className="text-center">Medicine Name</th>
+                         <th scope="col" className="text-center">Dosage</th>
+                         <th scope="col" className="text-center">Status</th>
+                     </tr>
+                 </thead>
+                 <tbody>
+                     {state.medicines?.map((element) => {
+                         idx++;
+                         return (
+                             <tr>
+                                 <th scope="row" className="text-center">{idx}</th>
+                                 <td className="text-center">{element._id}</td>
+                                 <td className="text-center">{element.name_of_medicine}</td>
+                                 <td className="text-center">{element.dosage}</td>
+                                 <td style={{ justifyContent: "center", display: "flex" }}>
+                                     <div className="form-check">
+                                         <input className="form-check-input" type="checkbox" value="" id="flexCheckDefault"/>
+                                     </div>
+                                 </td>
+                             </tr>
+                         );
+                     })}
+                 </tbody>
+             </table>
+			{/* <div className={`container ${styles.table}`}>
 				<div className="row">
 					<div className="col">#</div>
 					<div className="col">Medicine ID</div>
@@ -89,7 +98,7 @@ const Prescription = () => {
 						);
 					})
 				}
-			</div>	
+			</div>	 */}
             <button type="button" className="btn btn-dark btn-lg mt-5" onClick={handleClick}>
                 Dispense
             </button>

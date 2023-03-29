@@ -45,7 +45,7 @@ const DiagnosticTest = (props) => {
                 <div className="col-6">
                     <h4 className="justify-content-center">Remarks</h4>
                 </div>
-                <div className="card col-6" style={{height: "160px"}}>
+                <div className="card col-6" style={{height: "160px", overflow: "auto"}}>
                     {
                         test?.map((element, index) => {
                             return(

@@ -1,77 +1,47 @@
-import React from 'react' 
-// import { useDispatch } from 'react-redux';
+import React, { useState} from 'react' 
 import { useLocation,useNavigate } from 'react-router-dom';
 import './vitals.css'
-// import axios from 'axios';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const Vitals = () => {
+
+    const [oxy, setOxy] = useState('');
+    const [temp, setTemp] = useState('');
+    const [bp, setBp] = useState('');
     const navigate = useNavigate();
     const location = useLocation();
     const axiosPrivate = useAxiosPrivate();
-    // const dispatch = useDispatch();
     const state = location.state;
 
-
-
     const handleClick = () => {
-        axiosPrivate.post("/nurse", {roll:state.id,vitals_Oxgen:"Abcd",vitals_Temperature:98,vitals_BloodPressure:"Abcd"})
-            .then( res => {
-                navigate("/nurse")
-            }).catch(err => {
-                console.log(err);
-            })
+        axiosPrivate.post("/nurse", {roll:state.id,vitals_Oxgen:oxy,vitals_Temperature:temp,vitals_BloodPressure:bp})
+        .then( res => {
+            navigate("/nurse")
+        }).catch(err => {
+            console.log(err);
+        })
     }
 
     return (
         <div className="container nurse_vitals">
-            <div className="row justify-content-between my-3">
-                <div className="col-4"><h4>Name: Hardcoded</h4></div>
-                <div className="col-5"><h4>Roll/PF Number: {state.id}</h4></div>
+            <div className="row d-flex justify-content-center">
+                <div className="text-center"><h2>Roll/PF Number: {state.id}</h2></div>
             </div>
             <div className="input-group input-group-lg my-5">
                 <span className="input-group-text heading" id="inputGroup-sizing-lg">Oxygen</span>
-                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
+                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" onChange={(e) => setOxy(e.target.value)}/>
             </div>
             <div className="input-group input-group-lg my-5 ">
                 <span className="input-group-text heading" id="inputGroup-sizing-lg">Temperature</span>
-                <input type="number" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
+                <input type="number" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" onChange={(e) => setTemp(e.target.value)}/>
             </div>
             <div className="input-group input-group-lg my-5">
                 <span className="input-group-text heading" id="inputGroup-sizing-lg">Blood Pressure</span>
-                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" />
+                <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-lg" onChange={(e) => setBp(e.target.value)}/>
             </div>
             <div className="d-grid gap-2 col-6 mx-auto">
                 <button className="btn btn-primary" onClick={handleClick} type="button">Submit</button>
             </div>
-            {/* <div className="container">
-                <div className="card text-center user_pr">
-                    <div className="card-body bode">
-                        <h1>Name: {state.name}</h1>
-                        <br/>
-                        <h5 className="card-title">Roll/PF Number: {state.id}</h5>
-                    </div>
-                </div>
-                <br/>
-                <form className="vitalinfo">
-                    <div className="row ">
-                        <div className="form-group entry ">
-                            <label style= {{position: "relative"}} htmlFor="o2">Oxygen</label>
-                            <input type="text" name="oxy" className="form-control" id="o2" aria-describedby="emailHelp" placeholder="Enter % oxygen" required/>
-                        </div>
-                        <div className="form-group entry">
-                            <label htmlFor="temp">Temperature</label>
-                            <input type="text" name="tem" className="form-control" id="temp" placeholder="Enter in Fahrenheit" required/>
-                        </div>
-                        <div className="form-group entry">
-                            <label htmlFor="bp">BP</label>
-                            <input type="text" name="bp" className="form-control" id="bp" placeholder="High/Low format" required/>
-                        </div>
-                    </div>
-                    <br/>
-                    <button type="submit ml-600" className=" butt">Submit</button>
-                </form>
-            </div> */}
         </div>
     );
 }

@@ -29,18 +29,6 @@ const Conduct_appointment = (props) => {
     }
 
     const handlePrescribe = () => {
-        // axiosPrivate.post('/doctor_prescribe', {
-            // rollno: rollno,
-            // medication: medicine,
-            // remark: val,
-            // doctor: doctor,
-            // appt_slot: slot,
-        // }).then((res) => {
-        //     console.log(res);
-        //     navigate('/doctor_appt');
-        // }).catch((err) => {
-        //     console.log(err);
-        // })
         onPrecriptionAdd({
             rollno: rollno,
             medication: medicine,
@@ -51,21 +39,23 @@ const Conduct_appointment = (props) => {
     }
     
     const handleClick = () => {
-        var days = document.getElementById('days').value;
-        if(days !== 0)
+        var days;
+        var name;
+        var dose;
+        days = document.getElementById('days').value;
+        name = document.getElementById('combo-box-demo').value;
+        var dosage = document.getElementsByName('btnradio');
+        for(var i = 0; i < dosage.length; i++)
         {
-            var name = document.getElementById('combo-box-demo').value;
-            var dosage = document.getElementsByName('btnradio');
-            var dose;
-            for(var i = 0; i < dosage.length; i++)
+            if(dosage[i].checked)
             {
-                if(dosage[i].checked)
-                {
-                    dose = dosage[i].value;
-                    dosage[i].checked = false;
-                    break;
-                }
+                dose = dosage[i].value;
+                dosage[i].checked = false;
+                break;
             }
+        }
+        if(days !== "0" && dose !== undefined && name !== "")
+        {
             setMedicine([...medicine, {name_of_medicine: name, dosage: dose, days: days}]);
             document.getElementById('days').value = 0;
         }
@@ -121,7 +111,7 @@ const Conduct_appointment = (props) => {
                 <div className="col-6">
                     <h4 className="justify-content-center">Remarks</h4>
                 </div>
-                <div className="card col-6" style={{height: "160px"}}>
+                <div className="card col-6" style={{height: "160px", overflow: "auto"}}>
                     {
                         medicine?.map((element, index) => {
                             return(

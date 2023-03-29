@@ -655,7 +655,7 @@ app.get("/pharmacist", (req, res) => {
                 const hist = [];
                 element.medical_history.forEach(inner_el => {
                     // console.log(inner_el._id);
-                    if(inner_el.completed == false){
+                    if(inner_el.completed === false){
                         const newPrescription = {
                             doctor: inner_el.doctor,
                             medication : inner_el.medication,
@@ -667,6 +667,7 @@ app.get("/pharmacist", (req, res) => {
                 });
                 if(hist.length != 0){
                     hist.forEach(inner_el => {
+                        console.log(inner_el);
                         const prescriptionObj = {
                             rollno : element.rollno,
                             name: element.name,
