@@ -8,8 +8,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
+
 export default function Request(props) {
-    
 	const [isLoading, setIsLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();
 	useEffect(() => {
@@ -18,8 +18,6 @@ export default function Request(props) {
 	}, []);
     const [doctors, setDoctors] = useState([]);
 	
-	
-
 	const rrr=()=>{
 		axiosPrivate.get('/doc_on_schedule').then((res) => {
 			let doctor=[];
