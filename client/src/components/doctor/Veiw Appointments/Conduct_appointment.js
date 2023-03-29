@@ -3,8 +3,11 @@ import Medication from './Medication';
 import DiagnosticTest from './DiagnosticTest';
 import MedHistory from './MedHistory';
 import { useLocation,useNavigate } from "react-router-dom";
+import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 
 const Conduct_appointment = () => {
+
+    const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const [view, setView] = useState("med");
     const [appt, setAppt] = useState([]);
@@ -20,8 +23,13 @@ const Conduct_appointment = () => {
         setView(event.target.id);
     }
     const handleClick2 = (event) => {
-        
         navigate("/doctor/appointments");
+        axiosPrivate.post('/doctor_prescribe', appt).then((res) => {
+            console.log(res);
+            navigate('/doctor_appt');
+        }).catch((err) => {
+            console.log(err);
+        })
     }
 
     return (
@@ -35,7 +43,9 @@ const Conduct_appointment = () => {
             {view === 'med' && <Medication onPrecriptionAdd={handlePrescription} doctor={state.doctor} slot={state.slot} rollno={state.id}/>}
             {view === 'hist' && <MedHistory rollno={state.id}/>}
             {view === 'test' && <DiagnosticTest onPrecriptionAdd={handlePrescription}/>}
-            <div className='container'><button type="button" id="unknown" className="btn btn-dark col-12 my-5" style={{height: "100px"}} onClick={handleClick2}>Complete Appointment</button></div>
+            <div className='container d-flex justify-content-center'>
+                <button type="button" id="unknown" className="btn btn-dark col-6 my-5" style={{height: "100px"}} onClick={handleClick2}>Complete Appointment</button>
+            </div>
         </div>
 
     );

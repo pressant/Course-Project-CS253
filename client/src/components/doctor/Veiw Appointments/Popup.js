@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { styled } from '@mui/material/styles';
-// import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 
@@ -41,8 +40,28 @@ const Popup = (props) => {
                             </div>
                         </div>
                         <div className="card-body">
-                            <h5 className="card-title text-center">Light card title</h5>
-                            <p className="card-text">{props.details.description}</p>
+                            <h5 className="card-title">Symptoms:</h5>
+                            <p className="card-text">{props.details.symptoms}</p>
+                            <h5 className="card-title">Medication:</h5>
+                            <div className="container">
+                                {
+                                    props.details.medication?.map((med) => (
+                                        <div key={med.index}>
+                                            <div>{`${med.name_of_medicine} \t \t ${med.dosage} - ${med.days} days`}</div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                            <h5 className="card-title">Tests:</h5>
+                            <div className="container">
+                                {
+                                    props.details.tests?.map((med) => (
+                                        <div key={med.index}>
+                                            <div>{`${med.name_of_medicine} \t \t ${med.dosage} - ${med.days} days`}</div>
+                                        </div>
+                                    ))
+                                }
+                            </div>
                         </div>
                     </div>
                 </CenteredBox>

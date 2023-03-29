@@ -1,12 +1,13 @@
 import React, {useState, useEffect} from 'react'
 // import axios from "axios";
 import ViewAppt from './ViewAppt';
-import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const AppointmentStatus = (props) => {
+
+	const axiosPrivate = useAxiosPrivate();
 	const [appointments, setAppts] = useState([]);
 	const [query, setQuery] = useState("");
-	const axiosPrivate = useAxiosPrivate();
     // const prescriptions = props.prescriptions;
 	useEffect(() => { //on mount i.e. "on load": get ongoing appointments and display
 		const fxn = async () => {
@@ -26,7 +27,7 @@ const AppointmentStatus = (props) => {
 						<form className="d-flex" role="search">
 							<input className="form-control me-2" type="text" placeholder="Roll/PF Number" value={query} onChange={(event) => {
 								setQuery(event.target.value)
-								}} aria-label="Search"/>
+							}} aria-label="Search"/>
 						</form>
 					</div>
 				</div>
