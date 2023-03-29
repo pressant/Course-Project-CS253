@@ -117,6 +117,16 @@ app.post("/register", async (req, res)=> {
                     if(err) {
                         res.send(err)
                     } else {
+                        const med = new Med;
+                        med.count = 0;
+                        med.name = name;
+                        med.rollno = rollno;
+                        med.save(err => {
+                            if(err){
+                                console.log(err);
+                                res.send(err);
+                            }
+                        });
                         res.send( { message: "Successfully Registered, Please login now." })
                     }
                 })
@@ -333,20 +343,20 @@ app.post("/submitted", (req, res) =>{
                 //made medical history record
                 if(stuff){
                     console.log("here");
-                    stuff.medical_navigate()
-                    // stuff.save();
-                }
-                else{
-                    const med = new Med;
-                    med.count=0;
-                    med.name = appt_final.name;
-                    med.rollno = appt_final.rollno;
-                    med.save(err => {
+                    const newhistoryObj = {
+                        date: Date(),
+                        doctor: doctor_by_receptionist,
+                        completed: false,
+                        completed_doc: false
+                    }
+                    stuff.count = stuff.count + 1;
+                    stuff.medical_history.push(newhistoryObj);
+                    stuff.save(err => {
                         if(err){
                             console.log(err);
                             res.send(err);
                         }
-                    })
+                    });
                 }
             })
 
@@ -364,7 +374,8 @@ app.post("/submitted", (req, res) =>{
                     console.log(err);
                     res.send(err);
                 }
-            })
+            });
+
             res.send({message : "Done"});
         }
     })
@@ -397,71 +408,107 @@ app.post("/nurse", (req, res) => {
     Med.findOne({rollno: req.body.roll}, (err, stuff) => {
         if(stuff){
             console.log(stuff);
-        stuff.medical_history[stuff.count].vitals_Blood_pressure = req.body.vitals_Blood_pressure;
-        stuff.medical_history[stuff.count].vitals_Oxygen = req.body.vitals_Oxygen;
-        stuff.medical_history[stuff.count].vitals_temperature = req.body.vitals_temperature;
-        stuff.save(err => {
-            if(err){
-            console.log(err);
-            res.send(err);
+            const len = stuff.medical_history.length;
+            if(len === stuff.count){
+                console.log("ok");
+                // console.log(req.body.vitals_Blood_pressure);
+                stuff.medical_history[len-1].vitals_Blood_pressure = req.body.vitals_BloodPressure;
+                stuff.medical_history[len-1].vitals_Oxygen = req.body.vitals_Oxgen;
+                stuff.medical_history[len-1].vitals_temperature = req.body.vitals_Temperature;
+                res.send("Done.");
             }
-        })
-        }
-        else{
-            console.log("not foumd");
+            else{
+                res.send("User must have a registered appointment to update vitals.");
+            }
+            stuff.save(err => {
+                if(err){
+                console.log(err);
+                res.send(err);
+                }
+            });
         }
     })
 })
 
-app.post("/doctor_prescribe", (req, res) => {
-    const {rollno,medication,remark, name_doc, appt_slot} =req.body;
-    console.log(req.body);
-    Med.findOne({rollno: rollno}, (err, stuff) => {
-        const new_appt = {
-            date : new Date(),
-            doctor: name_doc,
-            medication: medication,
-            remark: remark,
-            completed: false,
-            completed_doc: true
-        };
-        if(stuff){
-            console.log(new_appt);
-            stuff.medical_navigate(new_appt);
-            // stuff.medical_history[stuff.count].medication = medication;
-            // stuff.medical_history[stuff.count].remark = remark;
-            // stuff.medical_history[stuff.count].completed = true;
-            stuff.count = stuff.count + 1;
-            stuff.save();
-            // Appointment.findOneAndDelete({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot}, (err, deleted_stuff) => {
-            //     console.log("hemlo");
-            //     console.log({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot});
-            //     console.log(deleted_stuff);
-            //     if(err){
-            //         console.log(err);
-            //         res.send(err);
-            //     }
-            //     else{
-            //         res.send("ok");
-            //     }
-            // });
-        }
-    })
+// app.post("/doctor_prescribe", (req, res) => {
+//     const {rollno,medication,remark, name_doc, appt_slot} =req.body;
+//     console.log(req.body);
+//     Med.findOne({rollno: rollno}, (err, stuff) => {
+//         const new_appt = {
+//             date : new Date(),
+//             doctor: name_doc,
+//             medication: medication,
+//             remark: remark,
+//             completed: false,
+//             completed_doc: true
+//         };
+//         if(stuff){
+//             console.log(new_appt);
+//             stuff.medical_navigate(new_appt);
+//             // stuff.medical_history[stuff.count].medication = medication;
+//             // stuff.medical_history[stuff.count].remark = remark;
+//             // stuff.medical_history[stuff.count].completed = true;
+//             stuff.count = stuff.count + 1;
+//             stuff.save();
+//             // Appointment.findOneAndDelete({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot}, (err, deleted_stuff) => {
+//             //     console.log("hemlo");
+//             //     console.log({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot});
+//             //     console.log(deleted_stuff);
+//             //     if(err){
+//             //         console.log(err);
+//             //         res.send(err);
+//             //     }
+//             //     else{
+//             //         res.send("ok");
+//             //     }
+//             // });
+//         }
+//     })
 
 
-})
+// })
 
-app.post("/doctor_test", (req,res) => {
-    const tests = req.body.tests;
-    const doctor = req.body.doctor;
-    const rollno = req.body.rollno;
-    const newTestHistory = {
-        date: new Date(),
-        doctor: doctor,
-        tests: tests,
-        completed: true,
-        completed_doc: true
-    };
+// app.post("/doctor_test", (req,res) => {
+//     const tests = req.body.tests;
+//     const doctor = req.body.doctor;
+//     const rollno = req.body.rollno;
+//     const newTestHistory = {
+//         date: new Date(),
+//         doctor: doctor,
+//         tests: tests,
+//         completed: true,
+//         completed_doc: true
+//     };
+
+//     Med.findOne({rollno: rollno}, (err, stuff) => {
+//         if(err){
+//             console.log(err);
+//             res.send(err);
+//         }
+//         else{
+//             if(stuff){
+//                 console.log(newTestHistory);
+//                 stuff.medical_history.push(newTestHistory);
+//                 stuff.count = stuff.count + 1;
+//                 stuff.save();
+//             }
+//         }
+//     });
+    
+//     res.json({message: "Done"});
+// });
+
+
+app.post("/complete_appt", (req, res) => {
+//     const {rollno,medication,remark, name_doc, appt_slot} =req.body;
+//     const tests = req.body.tests;
+    // const {rollno, name_doc, appt_slot} =req.body;
+    // const {rollno, name_doc, appt} = req.body[0];
+    const rollno = req.body[0].rollno;
+    const doc_name = req.body[0].doctor;
+    const appt_slot = req.body[0].appt_slot;
+    const remark = req.body[0].remark;
+    // const 
 
     Med.findOne({rollno: rollno}, (err, stuff) => {
         if(err){
@@ -470,20 +517,11 @@ app.post("/doctor_test", (req,res) => {
         }
         else{
             if(stuff){
-                console.log(newTestHistory);
-                stuff.medical_history.push(newTestHistory);
-                stuff.count = stuff.count + 1;
-                stuff.save();
+
             }
         }
-    });
-    
-    res.json({message: "Done"});
-});
+    })
 
-
-app.post("/complete_appt", (req, res) => {
-    const {rollno, name_doc, appt_slot} =req.body;
     Appointment.findOneAndDelete({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot}, (err, deleted_stuff) => {
         console.log("hemlo");
         console.log({rollno: rollno, Doctor: name_doc, appt_slot: appt_slot});
