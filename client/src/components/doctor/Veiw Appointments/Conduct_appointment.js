@@ -42,7 +42,7 @@ const Conduct_appointment = () => {
             {console.log(state.doctor)}
             {view === 'med' && <Medication onPrecriptionAdd={handlePrescription} doctor={state.doctor} slot={state.slot} rollno={state.id}/>}
             {view === 'hist' && <MedHistory rollno={state.id}/>}
-            {view === 'test' && <DiagnosticTest onPrecriptionAdd={handlePrescription}/>}
+            {view === 'test' && <DiagnosticTest onPrecriptionAdd={handlePrescription} doctor={state.doctor} slot={state.slot} rollno={state.id}/>}
             <div className='container d-flex justify-content-center'>
                 <button type="button" id="unknown" className="btn btn-dark col-6 my-5" style={{height: "100px"}} onClick={handleClick2}>Complete Appointment</button>
             </div>

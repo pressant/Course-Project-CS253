@@ -23,6 +23,9 @@ const Patient = (props) => {
                 <div className="card-header">{prescription.rollno}</div>
                 <div className="card-body">
                     <h5 className="card-title">{prescription.name}</h5>
+                    <div className="container">
+                        {prescription.description}
+                    </div>
                     <button className="btn btn-dark btn-sm" onClick={handleClick}>
                         View Prescription
                     </button>

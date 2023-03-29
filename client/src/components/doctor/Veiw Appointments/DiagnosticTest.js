@@ -25,6 +25,9 @@ const DiagnosticTest = (props) => {
 
     const handlePrescribe = () => {
         props.onPrecriptionAdd({
+            rollno: props.rollno,
+            doctor: props.doctor,
+            appt_slot: props.slot,
             tests: test,
             remark: val
         });

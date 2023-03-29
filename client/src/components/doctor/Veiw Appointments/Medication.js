@@ -31,10 +31,10 @@ const Conduct_appointment = (props) => {
     const handlePrescribe = () => {
         onPrecriptionAdd({
             rollno: rollno,
-            medication: medicine,
-            remark: val,
             doctor: doctor,
-            appt_slot: slot
+            appt_slot: slot,
+            medication: medicine,
+            remark: val
         });
     }
     

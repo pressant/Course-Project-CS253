@@ -13,7 +13,6 @@ const MedHistory = (props) => {
 
     useEffect(() => {
         getHistory();
-        // eslint-disable-next-line
     },[]);
 
     const getHistory = () => {

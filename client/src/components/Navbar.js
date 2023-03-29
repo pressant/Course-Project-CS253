@@ -1,19 +1,33 @@
 import "./Navbar.css"
 import React from 'react'
-// import logo from './logo.png'
 import logo from './logo_bg.png'
-// import { Icons } from './Icons';
 
 const Navbar = () => {
+
+    const handleLogout = () => {
+
+    }
+
     return (
-        <nav className="navbar fixed-top Navbar">
-            <div className="container-fluid">
+        <nav class="navbar navbar-expand fixed-top Navbar">
+            <div class="container-fluid">
                 <a className="navbar-brand" href="/">
-                <img src={logo} alt="E-Vaidya" className="d-inline-block"/>
-                {/* <i className="fa-solid fa-user"/> */}
-                E-Vaidya
-                </a>
-                {/* <Icons/> */}
+                    <img src={logo} alt="E-Vaidya" className="d-inline-block"/>
+                     E-Vaidya
+                 </a>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    <li class="nav-item">
+                    <a class="nav-link" href="#">About Us</a>
+                    </li>
+                </ul>
+                <form class="d-flex mx-5" role="search">
+                    <button class="btn btn-dark" type="submit">Logout</button>
+                </form>
+                </div>
             </div>
         </nav>
     );

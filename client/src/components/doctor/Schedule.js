@@ -30,7 +30,7 @@ export default function Schedule() {
                     </form>
                 </div>
             </div>
-			<div className={`container ${styles.doctors}`}>
+			<div className={`container ${styles.doctors} my-5`}>
 				<div className="row">
 					<div className="col">#</div>
 					<div className="col">Doctor Name</div>

@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 const Appointment = (props) => {
+    
     const navigate = useNavigate();
     let prescription = props.prescription;
 
