@@ -1,16 +1,18 @@
 import React, { useState,useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 import Patient from "./Patient";
 // import { global } from "../login/login";
-import axios from "axios";
+// import axios from "axios";
+import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const InitialPharmacy = () => {
 
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
+    const axiosPrivate = useAxiosPrivate();
     const [pending, setPending] = useState([]);
     
     const rrr = () =>{
-        axios.get('http://localhost:9002/pharmacist') 
+        axiosPrivate.get('/pharmacist') 
         .then(res => {
             setPending(res.data);
             console.log(res.data);
@@ -22,6 +24,7 @@ const InitialPharmacy = () => {
 
     useEffect(() => {
         document.onload = rrr();
+        // eslint-disable-next-line
     },[]);
     
     return (

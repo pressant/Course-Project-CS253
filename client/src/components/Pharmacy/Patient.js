@@ -6,13 +6,12 @@ const Patient = (props) => {
     let prescription = props.prescription;
 
     const handleClick = () => {
-        navigate({
-            pathname: "/pharmacy/prescription",
+        navigate("/pharmacist/prescription",{
             state: {
                 name: prescription.name,
                 id: prescription.rollno,
                 medicines: prescription.medication,
-                doctor: prescription.Doctor
+                doctor: prescription.doctor
             }
         });
     };

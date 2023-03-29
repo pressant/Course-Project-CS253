@@ -6,8 +6,7 @@ const Appointment = (props) => {
     let prescription = props.prescription;
 
     const handleClick = () => {
-        navigate({
-            pathname: "/receptionist/doctorallotment",
+        navigate("/receptionist/doctorallotment",{
             state: {
                 name: prescription.name,
                 id: prescription.id,

@@ -1,4 +1,5 @@
 import React,{useState,useEffect} from "react";
+// import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import "./request.css"
 import useAuth from "../../hooks/useAuth";
@@ -12,7 +13,8 @@ export default function Request(props) {
 	const [isLoading, setIsLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();
 	useEffect(() => {
-		document.onload = rrr();
+	  document.onload = rrr();
+	  // eslint-disable-next-line
 	}, []);
 
 	let arr=[];

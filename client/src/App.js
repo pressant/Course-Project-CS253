@@ -57,9 +57,9 @@ function App() {
             <Route exact path="/nurse/" element={<InitialNurse name="abcd" id={420}/>}></Route>
             <Route exact path="/nurse/vitals" element={<Vitals/>}></Route>
           </Route>
-          <Route element={<RequireAuth allowedRoles={["pharmacy"]}/>}>
-            <Route exact path="/pharmacy/" element={<InitialPharmacy />}></Route>
-            <Route exact path="/pharmacy/prescription" element={<Prescription/>}></Route>
+          <Route element={<RequireAuth allowedRoles={["pharmacist"]}/>}>
+            <Route exact path="/pharmacist/" element={<InitialPharmacy />}></Route>
+            <Route exact path="/pharmacist/prescription" element={<Prescription/>}></Route>
           </Route>
           <Route element={<RequireAuth allowedRoles={["student"]}/>}>
             <Route exact path="/student" element={ <StudentHome />}></Route>

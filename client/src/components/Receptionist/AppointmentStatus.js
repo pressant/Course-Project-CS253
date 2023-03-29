@@ -1,14 +1,16 @@
 import React, {useState, useEffect} from 'react'
-import axios from "axios";
+// import axios from "axios";
 import ViewAppt from './ViewAppt';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const AppointmentStatus = (props) => {
 	const [appointments, setAppts] = useState([]);
 	const [query, setQuery] = useState("");
-    const prescriptions = props.prescriptions;
+	const axiosPrivate = useAxiosPrivate();
+    // const prescriptions = props.prescriptions;
 	useEffect(() => { //on mount i.e. "on load": get ongoing appointments and display
 		const fxn = async () => {
-			 setAppts((await axios.get("http://localhost:9002/ongoing_appointments")).data);
+			 setAppts((await axiosPrivate.get("/ongoing_appointments")).data);
 		}
 		fxn();
 	}, [])

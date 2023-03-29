@@ -1,13 +1,15 @@
 import React,{useState} from 'react'
 import { useLocation } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios'
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+// import axios from 'axios'
 const doctors = ["Dr. A", "Dr. B", "Dr. C","Dr. D","Dr. E","Dr. F"];
 
 const DoctorAllotment = (props) => {
     const location = useLocation();
     const state = location.state;
     const [doctor,setDoctor]=useState(state.preferredDoctor)
+    const axiosPrivate = useAxiosPrivate();
     
     const navigate = useNavigate();
 
@@ -19,13 +21,13 @@ const DoctorAllotment = (props) => {
     const arr=[state.name,state.id,state.description,state.slot,doctor,state.preferredDoctor]
     const submited=(e)=>{
         if( doctor!==""){
-            axios.post("http://localhost:9002/submitted", arr)
+            axiosPrivate.post("/submitted", arr)
             .then( res => {
                 alert(res.data.message)
                 navigate("/receptionist/appointments")
             })
         } else {
-            alert("invlid input")
+            alert("invalid input")
         }
     }
 

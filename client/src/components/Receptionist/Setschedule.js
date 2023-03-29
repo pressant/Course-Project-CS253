@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+// import axios from 'axios'
 import {useNavigate } from 'react-router-dom'
 import "./Setschedule.css"
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
@@ -7,6 +8,7 @@ const DoctorAppointment = (props) => {
 
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
+    // const axiosPrivate = useAxiosPrivate();
     const [medicine, setMedicine] = useState([]);
 
 	const handlePrescribe=()=>{

@@ -12,6 +12,7 @@ const MedHistory = (props) => {
     const [hist,sethist]=useState([]);
     useEffect(() => {
         getHistory();
+        // eslint-disable-next-line
     },[]);
     const getHistory = () => {
         axiosPrivate.get("/student_history"+rollno).then((res) => {

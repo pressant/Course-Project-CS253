@@ -394,18 +394,22 @@ app.get("/doctor:name", (req, res) =>{
 
 app.post("/nurse", (req, res) => {
     console.log(req.body);
-    Med.findOne({rollno: req.body.rollno}, (err, stuff) => {
+    Med.findOne({rollno: req.body.roll}, (err, stuff) => {
         if(stuff){
+            console.log(stuff);
         stuff.medical_history[stuff.count].vitals_Blood_pressure = req.body.vitals_Blood_pressure;
         stuff.medical_history[stuff.count].vitals_Oxygen = req.body.vitals_Oxygen;
         stuff.medical_history[stuff.count].vitals_temperature = req.body.vitals_temperature;
-        }
         stuff.save(err => {
             if(err){
             console.log(err);
             res.send(err);
             }
         })
+        }
+        else{
+            console.log("not foumd");
+        }
     })
 })
 

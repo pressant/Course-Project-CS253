@@ -1,7 +1,7 @@
 import React,{useState} from 'react'
-import axios from 'axios';
+// import axios from 'axios';
 const UploadReports = () => {
-let array=[]
+// let array=[]
 //    const func=()=>{
 //     axios.post("/report_upload", upload.array('files', 12), (req, res)=>{
 //         console.log(res.body);

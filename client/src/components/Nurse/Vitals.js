@@ -2,18 +2,20 @@ import React from 'react'
 // import { useDispatch } from 'react-redux';
 import { useLocation,useNavigate } from 'react-router-dom';
 import './vitals.css'
-import axios from 'axios';
+// import axios from 'axios';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const Vitals = () => {
     const navigate = useNavigate();
     const location = useLocation();
+    const axiosPrivate = useAxiosPrivate();
     // const dispatch = useDispatch();
     const state = location.state;
 
 
 
     const handleClick = () => {
-        axios.post("http://localhost:9002/nurse", {roll:state.id,vitals_Oxgen:"Abcd",vitals_Temperature:98,vitals_BloodPressure:"Abcd"})
+        axiosPrivate.post("/nurse", {roll:state.id,vitals_Oxgen:"Abcd",vitals_Temperature:98,vitals_BloodPressure:"Abcd"})
             .then( res => {
                 navigate("/nurse")
             }).catch(err => {

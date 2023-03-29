@@ -15,9 +15,8 @@ const InitialNurse = () => {
         //         id: id
         //     },
         // });
-        navigate({
-            pathname: '/nurse/vitals',
-            state: {
+        navigate('/nurse/vitals',
+            {state: {
                 id: inputId
             }
         });
