@@ -1,19 +1,15 @@
 import styles from "./Doctors.module.css"
-import React,{useEffect} from "react";
-// import axios from 'axios';
+import React,{useEffect,useState} from "react";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
-
 export default function Doctors() {
+    const [doctor_list,set_doctor_list] = useState([]);
 	const axiosPrivate = useAxiosPrivate();
-	let doctor_list = [];
 	var idx = 0;
 	
 	const rrr = () => {
 		axiosPrivate.get('/schedule').then((res)=>{
-			doctor_list = res.data;
-            console.log(doctor_list);
-			console.log(typeof(doctor_list) === Array);
+			set_doctor_list(res.data);
 		})
 	}
 
