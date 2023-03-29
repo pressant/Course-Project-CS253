@@ -504,11 +504,58 @@ app.post("/complete_appt", (req, res) => {
 //     const tests = req.body.tests;
     // const {rollno, name_doc, appt_slot} =req.body;
     // const {rollno, name_doc, appt} = req.body[0];
+    console.log(req.body);
     const rollno = req.body[0].rollno;
     const doc_name = req.body[0].doctor;
     const appt_slot = req.body[0].appt_slot;
     const remark = req.body[0].remark;
-    // const 
+    var medication;
+    var tests;
+
+    if(req.body[0].medication) {
+        medication = req.body[0].medication; 
+        console.log("medication is there");
+    }
+    if(req.body[0].tests) {
+        tests = req.body[0].tests;
+        console.log("tests there");
+    }
+
+    if(req.body.length > 1){
+        if(req.body[req.body.length - 1].medication) medication = req.body[1].medication;
+        if(req.body[req.body.length - 1].tests) tests = req.body[1].tests;
+    }
+
+    // const new_appt = {
+        //             date : new Date(),
+        //             doctor: name_doc,
+        //             medication: medication,
+        //             remark: remark,
+        //             completed: false,
+        //             completed_doc: true
+        //         };
+
+    const newTestHistory = {
+        date: new Date(),
+        doctor: doc_name,
+        remark: remark,
+        completed_doc: true
+    };
+
+    if(medication){
+        console.log("medication added to object");
+        newTestHistory.medication = medication;
+        newTestHistory.completed = false;
+    }
+    else{
+        newTestHistory.completed = true;
+    }
+
+    if(tests){
+        console.log("tests added to obje");
+        newTestHistory.tests = tests;
+    }
+
 
     Med.findOne({rollno: rollno}, (err, stuff) => {
         if(err){
@@ -517,7 +564,23 @@ app.post("/complete_appt", (req, res) => {
         }
         else{
             if(stuff){
-
+                console.log(stuff);
+                const len = stuff.medical_history.length;
+                if(len === stuff.count){
+                    console.log("ok");
+                    // console.log(req.body.vitals_Blood_pressure);
+                    stuff.medical_history.push(newTestHistory);
+                    res.send("Done.");
+                }
+                else{
+                    res.send("User must have a registered appointment to update vitals.");
+                }
+                stuff.save(err => {
+                    if(err){
+                    console.log(err);
+                    res.send(err);
+                    }
+                });
             }
         }
     })
