@@ -315,7 +315,13 @@ const Med = new mongoose.model('Med', Medical_history);
 // const arr=[name,roll_id,description,slot,doctor_by_receptionist , doctor_by_student_choice]
 app.post("/submitted", (req, res) =>{
     console.log(req.body);
-    const [name,roll_id,description,slot,doctor_by_receptionist , doctor_by_student_choice] = req.body;
+    // const [name,roll_id,description,slot,doctor_by_receptionist , doctor_by_student_choice] = req.body;
+    var name = req.body[0];
+    var roll_id = req.body[1];
+    var description = req.body[2];
+    var slot = req.body[3];
+    var doctor_by_receptionist = req.body[4];
+    var doctor_by_student_choice = req.body[5];
     console.log(name);
     const appt_final = new Appointment;
     const filter = {
