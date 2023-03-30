@@ -428,6 +428,9 @@ app.post("/nurse", (req, res) => {
                 }
             });
         }
+        else{
+            res.send("User not found.");
+        }
     })
 })
 
@@ -607,7 +610,7 @@ app.post("/complete_appt", (req, res) => {
 app.get("/student_history:roll", (req, res) => {
     console.log(req.params.roll);
 
-    Med.findOne({rollno: 'abcd'}, (err, stuff) => {
+    Med.findOne({rollno: req.params.roll}, (err, stuff) => {
         console.log(stuff);
         if(stuff){
             res.send({message: "Medical history", request: stuff.medical_history})
@@ -639,7 +642,7 @@ app.get("/student_history:roll", (req, res) => {
 app.get("/ongoing_appointments", (req, res) => {
 	Appointment.find({}, (err, results) => {
 		console.log(results);
-		res.send(results);
+		res.json(results);
 	})
 })
 app.get("/pharmacist", (req, res) => {
