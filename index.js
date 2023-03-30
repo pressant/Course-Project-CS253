@@ -79,6 +79,7 @@ app.post("/login", async (req, res)=> {
 
                     // console.log(user)
                     // console.log(newLoggedUser)
+                    console.log(user.identity)
                     res.cookie('jwt', refreshToken, {httpOnly : true, sameSite : 'Strict', maxAge : 24 * 60 * 60 * 1000})
                     res.json({ message: "Login Successfull", user: user, accessToken })
                     

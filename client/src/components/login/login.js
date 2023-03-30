@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./login.css";
 import axios from "axios";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Navigate, useNavigate, useLocation } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 
 const Login = ({ setLoginUser }) => {
-  const { setAuth } = useAuth();
+  const { auth, setAuth } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
@@ -24,14 +24,20 @@ const Login = ({ setLoginUser }) => {
   };
   const login = () => {
     axios
-      .post("http://localhost:9002/login", user, {withCredentials : true})
+      .post("http://localhost:9002/login", user, { withCredentials: true })
       .then((res) => {
         alert(res.data.message);
         // console.log(res.data);
         if (res.data.message === "Login Successfull") {
-          setAuth({"user":res.data.user, "identity":res.data.user.identity, "accessToken":res.data.accessToken});
-          if(from === "/") navigate("/" + res.data.user.identity);
-          else navigate(from , {replace : true});
+          delete res.data.user.password;
+          console.log(res.data.user);
+          setAuth({
+            user: res.data.user,
+            identity: res.data.user.identity,
+            accessToken: res.data.accessToken,
+          });
+          if (from === "/") navigate("/" + res.data.user.identity);
+          else navigate(from, { replace: true });
         } else {
           alert("Invalid");
         }
@@ -39,17 +45,22 @@ const Login = ({ setLoginUser }) => {
   };
   const handleEnter = () => {
     login();
-}
+  };
 
   return (
-    <div className="login">
+    <>
+    { auth?.user
+        ? <Navigate to={`/${auth.user.identity}`} state={{from : location}} replace />
+        : <div className="login">
       <h1>Login</h1>
       <input
-        type="text"
+        type="email"
         name="email"
         value={user.email}
         onChange={handleChange}
         placeholder="Enter your Email"
+        autoComplete="off"
+        autoFocus
       ></input>
       <input
         type="password"
@@ -61,12 +72,22 @@ const Login = ({ setLoginUser }) => {
       <div className="button" onClick={login} onKeyDown={handleEnter}>
         Login
       </div>
-      <div>or</div>
-      <div className="button" onClick={() => navigate("/register")}>
-        Register
+      <div>
+        <p>Don't have an account?
+        <button
+          type="button"
+          class="btn btn-link"
+          onClick={() => navigate("/register")}
+        >
+          Register
+        </button>
+        </p>
       </div>
     </div>
+      }
+    </>
+    
   );
 };
 
-export { Login};
+export { Login };

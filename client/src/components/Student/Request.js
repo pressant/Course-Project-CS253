@@ -49,7 +49,7 @@ export default function Request(props) {
 
     const handleRequest = () => {
 		const [name,roll,type,slot,description,doctor] = Request;
-		console.log({name,roll,type,slot,description,doctor});
+		console.log(Request);
         if(name !== undefined && roll !== undefined && type !== undefined && slot !== undefined && description !== undefined && doctor !== undefined){
 			console.log(name);
 			axiosPrivate.post("/request_student", Request)
