@@ -43,8 +43,10 @@ const Login = ({ setLoginUser }) => {
         }
       });
   };
-  const handleEnter = () => {
-    login();
+  const handleEnter = (event) => {
+    if(event.keyCode === 13){
+      document.getElementById("loginButton").click();
+    }
   };
 
   return (
@@ -58,6 +60,7 @@ const Login = ({ setLoginUser }) => {
         name="email"
         value={user.email}
         onChange={handleChange}
+        onKeyDown={handleEnter}
         placeholder="Enter your Email"
         autoComplete="off"
         autoFocus
@@ -67,9 +70,10 @@ const Login = ({ setLoginUser }) => {
         name="password"
         value={user.password}
         onChange={handleChange}
+        onKeyDown={handleEnter}
         placeholder="Enter your Password"
       ></input>
-      <div className="button" onClick={login} onKeyDown={handleEnter}>
+      <div className="button" id="loginButton" onClick={login}>
         Login
       </div>
       <div>

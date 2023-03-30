@@ -9,6 +9,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 const Veiw_appointments = () => {
 
     const [app_t_arr, setAppts] = useState([]);
+    const [query, setQuery] = useState("")
     const {auth} = useAuth();
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
@@ -36,16 +37,13 @@ const Veiw_appointments = () => {
                 </div>
                 <div className="col-5">
                     <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="number" placeholder="Roll/PF Number" aria-label="Search"/>
-                        <button className="btn btn-outline-success" type="submit">
-                            Search
-                        </button>
+                        <input className="form-control me-2" type="text" placeholder="Roll/PF Number" onChange={event => setQuery(event.target.value)} aria-label="Search" autoFocus/>
                     </form>
                 </div>
             </div>
             <div className="container"> 
                 <div className="row">
-                    {app_t_arr.map((el) =>  {
+                    {app_t_arr.filter(element => element.rollno !== undefined).filter(element => element.rollno.startsWith(query)).map((el) =>  {
                         return(
                         <div className="col-md-4" key={app_t_arr.indexOf(el)}> 
                             <Appointment prescription={{

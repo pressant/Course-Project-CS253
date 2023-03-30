@@ -4,6 +4,7 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 export default function Doctors() {
     const [doctor_list,set_doctor_list] = useState([]);
+	const [query, setQuery] = useState("")
 	const axiosPrivate = useAxiosPrivate();
 	var idx = 0;
 	
@@ -26,8 +27,7 @@ export default function Doctors() {
                 </div>
                 <div className="col-5">
                     <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="number" placeholder="Roll/PF Number" aria-label="Search"/>
-                        <button className="btn btn-outline-success" type="submit">Search</button>
+                        <input className="form-control me-2" type="text" placeholder="Roll/PF Number" onChange={event => setQuery(event.target.value)} aria-label="Search"/>
                     </form>
                 </div>
             </div>

@@ -58,6 +58,12 @@ const Register = () => {
     console.log(user);
   };
 
+  const handleEnter = (event) => {
+    if(event.keyCode === 13){
+      document.getElementById("registerButton").click();
+    }
+  }
+
   return (
     <>
         {
@@ -72,6 +78,7 @@ const Register = () => {
         value={user.name}
         placeholder="Your Name"
         onChange={handleChange}
+        onKeyDown={handleEnter}
         autoComplete="off"
         autoFocus
       ></input>
@@ -81,6 +88,7 @@ const Register = () => {
         value={user.email}
         placeholder="Your Email"
         onChange={handleChange}
+        onKeyDown={handleEnter}
       ></input>
       <input
         type="text"
@@ -88,6 +96,7 @@ const Register = () => {
         value={user.rollno}
         placeholder="Your Roll No"
         onChange={handleChange}
+        onKeyDown={handleEnter}
       ></input>
       <input
         type="text"
@@ -95,8 +104,9 @@ const Register = () => {
         value={user.bg}
         placeholder="Your Blood Group"
         onChange={handleChange}
+        onKeyDown={handleEnter}
       ></input>
-      <select placeholder="Identity" onChange={Change}>
+      <select placeholder="Identity" onChange={Change} onKeyDown={handleEnter}>
         <option id="identity">Please Select your Identity</option>
         <option value="student">Student</option>
         <option value="doctor">Doctor</option>
@@ -110,6 +120,7 @@ const Register = () => {
         value={user.password}
         placeholder="Your Password"
         onChange={handleChange}
+        onKeyDown={handleEnter}
       ></input>
       <input
         type="password"
@@ -117,9 +128,10 @@ const Register = () => {
         value={user.reEnterPassword}
         placeholder="Re-enter Password"
         onChange={handleChange}
+        onKeyDown={handleEnter}
       ></input>
 
-      <div className="button" onClick={register}>
+      <div className="button" id="registerButton" onClick={register}>
         Register
       </div>
       <div>

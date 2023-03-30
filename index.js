@@ -101,7 +101,7 @@ app.post("/register", async (req, res)=> {
     User.findOne({email: email}, async (err, user) => {
         try {
             if(user){
-                res.send({message: "User already registerd"})
+                res.send({message: "A user already registerd with same email"})
             }
             else {
                 const hashedPassword = await bcrypt.hash(password, 10)
