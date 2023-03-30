@@ -33,8 +33,7 @@ export default function History(props) {
 			{
 				history?.map((element) => (
 				<div key={element.index}>
-					<div className="card my-3 mx-3 btn btn-light" key={element.index} onClick={() => {
-					}}>
+					<div className="card my-3 mx-3 btn btn-light" key={element.index} onClick={() => {}}>
 						<div className="card-header text-center">{element.date}</div>
 						<div className="card-body">
 							<h5 className="card-title">{element.date}</h5>
