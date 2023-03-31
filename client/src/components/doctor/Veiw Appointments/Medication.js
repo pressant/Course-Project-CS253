@@ -1,15 +1,11 @@
 import React,{useState} from 'react'
-import {useNavigate } from 'react-router-dom'
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import { medicines } from './Medicines';
 import "./Medication.css"
-// import useAxiosPrivate from '../../../hooks/useAxiosPrivate';
 
 const Conduct_appointment = (props) => {
 
-    // const axiosPrivate = useAxiosPrivate();
-    const navigate = useNavigate();
     const [medicine, setMedicine] = useState([]);
     const [val, setVal] = useState("");
     const { onPrecriptionAdd, doctor, slot, rollno } = props;

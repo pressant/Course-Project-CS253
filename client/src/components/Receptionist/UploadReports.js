@@ -1,52 +1,72 @@
 import React,{useState} from 'react'
-// import axios from 'axios';
-const UploadReports = () => {
-// let array=[]
-//    const func=()=>{
-//     axios.post("/report_upload", upload.array('files', 12), (req, res)=>{
-//         console.log(res.body);
-//     });
-    
- 
+import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 
-const [name, setName] = useState('');
-const [roll, setRoll] = useState('');
+const UploadReports = () => {
+
+    const axiosPrivate = useAxiosPrivate();
+    const [pdfs, setPdfs] = useState([]);
+    var count = 1;
+
+    const handleUpload = () => {
+        const name = document.getElementById("inputGroupFile02").value.split("\\").pop();;
+        if(name !== '') setPdfs([...pdfs, name]);
+        count++;
+        document.getElementById("inputGroupFile02").value = ''
+    }
+
+    const handleSubmit = () => {
+        
+    }
 
     return (
         <div className="container">
             <h1 className="text-center my-5">Upload Medical Reports</h1>
-            <form className="row justify-content-center text-center">
-                <div className="col-4">
-                    <input type="number" className="form-control" id="inputPassword2" placeholder="Enter Roll/PF Number"/>
-                </div>
-                <div className="col-3">
-                    <button type="submit" className="btn btn-primary mb-3">ENTER</button>
+            <form className="row justify-content-center">
+                <div className="col-5 my-2">
+                    <input type="number" className="form-control" id="inputRollNo" placeholder="Enter Roll/PF Number"/>
                 </div>
             </form>
-            <div className="container my-5">
-                <div className="row justify-content-between my-3 align-items-center">
-                    <div className="col-4">
-                        Name:
-                        <input value={name} onChange={e=>{
-                            setName(e.target.value);
-                        }}></input>
-                    </div>
+            <form action="http://localhost:9002/report_upload" method="post" encType="multipart/form-data">
+                <div className="row justify-content-center align-items-center">
                     <div className="col-8">
-                        <input className="form-control" type="file" id="formFileMultiple" multiple/>
+                        <div className="input-group my-5">
+                            <input type="file" className="form-control" id="inputGroupFile02"/>
+                        </div>
+                    </div>
+                    <div className="col-4 text-center">
+                        <label className="btn btn-dark" onClick={handleUpload}>Upload</label>
                     </div>
                 </div>
-                <div className="row justify-content-between my-3 align-items-center">
-                    <div className="col-4">
-                        Roll/PF Number: 
-                        <input value={roll} onChange={e=>{
-                            setRoll(e.target.value);
-                        }}></input>
-                    </div>
-                    <div className="col-8 text-center">
-                        <button type="submit" className="btn btn-primary mb-3">Upload</button>
+                <div className="container mt-2 mb-5">
+                    <table className="table">
+                        <thead className="table-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Report Name</th>
+                                <th scope="col">Report Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                pdfs?.map((item) => {
+                                    return(
+                                        <tr>
+                                            <th scope="row">{pdfs.indexOf(item) + 1}</th>
+                                            <td>{item}</td>
+                                            <td>
+                                                <input type="date" id="start" name="trip-start" min="1900-01-01" max="2040-12-31" required/>
+                                            </td>
+                                        </tr>
+                                    );
+                                })
+                            }
+                        </tbody>
+                    </table>
+                    <div className="text-center my-5">
+                        <button className="btn btn-lg btn-dark" type="submit" onClick={handleSubmit}>Submit</button>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     );
 }

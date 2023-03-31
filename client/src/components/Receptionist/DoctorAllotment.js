@@ -1,33 +1,48 @@
-import React,{useState} from 'react'
+import React,{useState, useEffect} from 'react'
 import { useLocation } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom'
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
-// import axios from 'axios'
-const doctors = ["Dr. A", "Dr. B", "Dr. C","Dr. D","Dr. E","Dr. F"];
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 
 const DoctorAllotment = (props) => {
+
     const location = useLocation();
     const state = location.state;
-    const [doctor,setDoctor]=useState(state.preferredDoctor)
+    const [doctors, setDoctors] = useState([]);
     const axiosPrivate = useAxiosPrivate();
+
+	useEffect(() => {
+	  document.onload = setTimeout(rrr, 1000);
+	}, []);
+	
+	const rrr=()=>{
+		axiosPrivate.get('/doc_on_schedule').then((res) => {
+			let doctor=[];
+			let arr=[];
+            arr = res.data;
+			let arr_length=arr.length;
+			for(let i=0;i<arr_length;i++){
+				doctor.push(arr[i].name_of_medicine);
+			}
+			setDoctors(doctor);
+		})
+	}
     
     const navigate = useNavigate();
 
-    const handleChange2=(e)=>{
-		setDoctor(e.target.value);
-	}	
-    console.log(state.slot,state.preferredDoctor);
-
-    const arr=[state.name,state.id,state.description,state.slot,doctor,state.preferredDoctor]
-    const submited=(e)=>{
-        if( doctor!==""){
+    
+    const submited = (e) => {
+        const doc = (document.getElementById('combo-box-demo').value);
+        const arr=[state.name,state.id,state.description,state.slot,doc,state.preferredDoctor];
+        if( doc !== ''){
             axiosPrivate.post("/submitted", arr)
             .then( res => {
-                alert(res.data.message)
+                alert(res.data.message);
                 navigate("/receptionist/appointments")
             })
         } else {
-            alert("invalid input")
+            alert("Invalid Input");
         }
     }
 
@@ -35,7 +50,7 @@ const DoctorAllotment = (props) => {
         <div className="container">
             <div className="row justify-content-between">
                 <div className="col-4"><h3>Name: {state.name}</h3></div>
-                <div className="col-5 text-center"><h3>Roll/PF Number:<br></br>{state.id}</h3></div>
+                <div className="col-7 text-center"><h3>Roll/PF Number:{state.id}</h3></div>
             </div>
             <div className="row text-center my-5">
                 <h2>Description</h2>
@@ -47,29 +62,11 @@ const DoctorAllotment = (props) => {
             </div>
             <div className="row justify-content-between">
                 <div className="col-6">
-                    {/* <div className="btn-group mx-5 justify-content-center">
-                        <button className="btn btn-secondary btn-lg" type="button" id="doc-allot">
-                            Assign Doctor
-                        </button>
-                        <button type="button" className="btn btn-lg btn-secondary dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span className="visually-hidden">Toggle Dropdown</span>
-                        </button>
-                        <ul className="dropdown-menu">
-                            <button className="dropdown-item" onClick={handleClick} id="list-docs">Dr. A</button>
-                            <button className="dropdown-item" onClick={handleClick} id="list-docs">Dr. B</button>
-                            <button className="dropdown-item" onClick={handleClick} id="list-docs">Dr. C</button>
-                        </ul>
-                    </div> */}
-                    <div id="appt_doctor">
-				{doctors.map((doctor) => (
-					<>
-						<input type="radio" id={doctor} name="appt_doctor" value={doctor} onChange={handleChange2}  />
-						<label for={doctor}>{doctor}</label>
-					</>
-				))}
-			</div>
+                    <div id="appt_doctor text-center">
+                        <Autocomplete className='btn-group white_background' disablePortal id="combo-box-demo" options={doctors} sx={{ width: "80%" }} renderInput={(params) => <TextField {...params} label="Doctors"/>} maxHeight={200} />
+			        </div>
                 </div>
-                <div className="col-4">
+                <div className="col-6 text-center">
                     <button type="button" className="btn btn-secondary btn-lg col-md-8" onClick={submited}>Approve Appointment Request</button>
                 </div>
             </div>
