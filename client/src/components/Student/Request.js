@@ -20,7 +20,7 @@ export default function Request(props) {
 	
 	const rrr=()=>{
 		axiosPrivate.get('/doc_on_schedule').then((res) => {
-			let doctor=[];
+			let doctor=['None'];
 			let arr=[];
             arr = res.data;
 			let arr_length=arr.length;

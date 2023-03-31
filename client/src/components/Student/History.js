@@ -4,6 +4,7 @@ import { useEffect,useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from 'react-router-dom';
+import Popup from "../doctor/Veiw Appointments/Popup";
 
 
 export default function History(props) {
@@ -12,6 +13,8 @@ export default function History(props) {
 	const axiosPrivate = useAxiosPrivate();
 	const navigate = useNavigate();
     const location = useLocation();
+	const [showModal, setShowModal] = useState(false);
+    const [popup, setPopup] = useState(false);
 
     useEffect(() => {
 		document.onload=getHistory();
@@ -28,29 +31,47 @@ export default function History(props) {
 		})
 	}
 
-	return (
-		<div className="col-7 mx-1" style={{ maxHeight: '600px', overflowY: 'scroll' }}>
-			{
-				history?.map((element) => (
-				<div key={element.index}>
-					<div className="card my-3 mx-3 btn btn-light" key={element.index} onClick={() => {}}>
-						<div className="card-header text-center">{element.date}</div>
-						<div className="card-body">
-							<h5 className="card-title">{element.date}</h5>
-							<div className="card-text">{
-								element.medication?.map((med) => (
-									<div key={med.index}>
-										<div>{med.name_of_medicine}</div>
-										<div>{med.days}</div>
-										<div>{med.dosage}</div>
-									</div>
-								))
-							}</div>
-						</div>
+	// return (
+	// 	<div className="col-7 mx-1" style={{ maxHeight: '600px', overflowY: 'scroll' }}>
+	// 		{
+	// 			history?.map((element) => (
+	// 			<div key={element.index}>
+	// 				<div className="card my-3 mx-3 btn btn-light" key={element.index}>
+	// 					<div className="card-header text-center">{Date(element.date)}</div>
+	// 					<div className="card-body">
+	// 						<h5 className="card-title">{element.date}</h5>
+	// 						<div className="card-text">{
+	// 							element.medication?.map((med) => (
+	// 								<div key={med.index}>
+	// 									<div>{med.name_of_medicine}</div>
+	// 									<div>{med.days}</div>
+	// 									<div>{med.dosage}</div>
+	// 								</div>
+	// 							))
+	// 						}</div>
+	// 					</div>
 						
-					</div>
-				</div>
-			))}
-		</div>
-	)
+	// 				</div>
+	// 			</div>
+	// 		))}
+	// 	</div>
+	// )
+	return (
+        <div className="col-7 mx-1" style={{ maxHeight: '600px', overflowY: 'scroll' }}>
+            {history?.map((element) => (
+                <div key={element.index}>
+                    <div className="card my-3 mx-3 btn btn-light" key={element.index} onClick={() => {
+                        setPopup(element);
+                        setShowModal(true);
+                    }}>
+                        <div className="card-header text-center">{Date(element.date)}</div>
+                        <div className="card-body">
+                            <h5 className="card-title">{element.symptoms}</h5>
+                        </div>
+                        <Popup open={showModal} details={popup}/>
+                    </div>
+                </div>
+            ))}
+        </div>
+    );
 }

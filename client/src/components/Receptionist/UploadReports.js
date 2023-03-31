@@ -5,17 +5,42 @@ const UploadReports = () => {
 
     const axiosPrivate = useAxiosPrivate();
     const [pdfs, setPdfs] = useState([]);
-    var count = 1;
+    const [files, setFiles] = useState([]);
+
+    const changeInput = (event) => {
+        let f = event.target.files;
+        setFiles([...files, f]);
+    } 
 
     const handleUpload = () => {
         const name = document.getElementById("inputGroupFile02").value.split("\\").pop();;
         if(name !== '') setPdfs([...pdfs, name]);
-        count++;
         document.getElementById("inputGroupFile02").value = ''
     }
 
-    const handleSubmit = () => {
-        
+    const handleSubmit = async() => {
+        let uploadedFiles = files;
+        let formData = new FormData();
+        formData.append("file", uploadedFiles);
+        formData.append("name", "Name");
+        // const res = await fetch('http://localhost:9002/report_upload', {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "multipart/form-data",
+        //     }
+        // })
+        axiosPrivate({
+            method: "POST",
+            url: "/report_upload",
+            data: formData,
+            headers: {
+                "Content-Type": "multipart/form-data"
+            }
+        }).then((res) => {
+
+        }).catch((err) => {
+            console.log(err.message);
+        })
     }
 
     return (
@@ -26,11 +51,11 @@ const UploadReports = () => {
                     <input type="number" className="form-control" id="inputRollNo" placeholder="Enter Roll/PF Number"/>
                 </div>
             </form>
-            <form action="http://localhost:9002/report_upload" method="post" encType="multipart/form-data">
+            <form>
                 <div className="row justify-content-center align-items-center">
                     <div className="col-8">
                         <div className="input-group my-5">
-                            <input type="file" className="form-control" id="inputGroupFile02"/>
+                            <input type="file" className="form-control" id="inputGroupFile02" multiple onChange={(e) => changeInput(e)}/>
                         </div>
                     </div>
                     <div className="col-4 text-center">

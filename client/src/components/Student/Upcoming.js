@@ -4,7 +4,7 @@ import useAuth from "../../hooks/useAuth";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 import { useNavigate, useLocation } from "react-router-dom";
 
-export default function Upcoming(props) {
+export default function Upcoming() {
     const { auth } = useAuth();
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
@@ -42,6 +42,7 @@ export default function Upcoming(props) {
                             {el.name}
                             </h5>
                             <p className="card-text hc_card_text"><span className="description">{el.symptoms}</span></p>
+                            <p>Appointed Doctor: {el.Doctor}</p>
                         </div>
                         </div>
                     </div>

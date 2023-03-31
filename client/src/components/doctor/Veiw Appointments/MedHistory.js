@@ -33,18 +33,9 @@ const MedHistory = (props) => {
                         setPopup(element);
                         setShowModal(true);
                     }}>
-                        <div className="card-header text-center">{element.date}</div>
+                        <div className="card-header text-center">{Date(element.date)}</div>
                         <div className="card-body">
                             <h5 className="card-title">{element.symptoms}</h5>
-                            <div className="card-text">{
-                                // element.medication?.map((med) => (
-                                //     <div key={med.index}>
-                                //         <div>{med.name_of_medicine}</div>
-                                //         <div>{med.days}</div>
-                                //         <div>{med.dosage}</div>
-                                //     </div>
-                                // ))
-                            }</div>
                         </div>
                         <Popup open={showModal} details={popup}/>
                     </div>

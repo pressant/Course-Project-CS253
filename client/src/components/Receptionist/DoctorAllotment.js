@@ -5,7 +5,7 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 
-const DoctorAllotment = (props) => {
+const DoctorAllotment = () => {
 
     const location = useLocation();
     const state = location.state;
@@ -28,10 +28,9 @@ const DoctorAllotment = (props) => {
 			setDoctors(doctor);
 		})
 	}
-    
+
     const navigate = useNavigate();
 
-    
     const submited = (e) => {
         const doc = (document.getElementById('combo-box-demo').value);
         const arr=[state.name,state.id,state.description,state.slot,doc,state.preferredDoctor];
