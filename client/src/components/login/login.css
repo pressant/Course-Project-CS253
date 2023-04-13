@@ -21,6 +21,14 @@
     font-size: 1rem;
 }
 
+.login > input.error {
+	border-color: #f00;
+}
+
+.login > p.error {
+	color: #f00;
+}
+
 .login > .button {
     background: #ff9900;
     border: 1px solid #ff9900;

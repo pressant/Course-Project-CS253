@@ -30,7 +30,7 @@ import AppointmentStatus from './components/Receptionist/AppointmentStatus';
 import RequireAuth from './components/RequireAuth';
 import Layout from './components/Layout';
 import PersistLogin from './components/PersistLogin'
-import AboutUs from './components/AboutUs'
+import AboutUs from './components/AboutUs';
 
 function App() {
 

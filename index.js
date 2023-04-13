@@ -203,14 +203,6 @@ const verifyIdentity = (...allowedIdentity) => {
 
 app.use(verifyJWT)
 
-// app.get("/student", (req, res)=>{
-//     res.sendStatus(200)
-// })
-
-// app.get("/testing", (req, res) => {
-//     res.json({"abcd" : "abcd"});
-// })
-
 const student_request_schema = new mongoose.Schema({
     name: String,
     rollno:String,

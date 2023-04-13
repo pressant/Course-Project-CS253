@@ -21,6 +21,18 @@
     font-size: 1rem;
 }
 
+.register > input.error {
+	border-color: #f00;
+}
+
+.register > p.error {
+	color: #f00;
+}
+
+.register > select.error {
+	border-color: #f00;
+}
+
 
 .register > select {
     border-radius: 8px;
