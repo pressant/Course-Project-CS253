@@ -13,8 +13,6 @@ In the main directory containing the codebase cloned from GitHub, run the follow
 
 	chmod +x install.sh
 	./install.sh
-	chmod +x run_backend.sh
-	chmod +x run_frontend.sh
 
 ### Run instructions
 
