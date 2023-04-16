@@ -6,3 +6,23 @@ This project is made as part of our course project - CS253 - Software Developmen
 
 
 At present most of the documentation records are handled on paper in the Health Center at IIT Kanpur. Our team decided to make a Web-based App to automate the appointment and prescription procedure.
+
+### Installation Instructions
+
+In the main directory containing the codebase cloned from GitHub, run the following commands:
+
+	chmod +x install.sh
+	./install.sh
+	chmod +x run_backend.sh
+	chmod +x run_frontend.sh
+
+### Run instructions
+
+Run the following command in a shell
+
+	./run_backend.sh
+	
+In a new shell, run
+
+	./run_frontend.sh
+
