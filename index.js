@@ -821,6 +821,23 @@ app.get("/report/:roll/:pdfname", (req, res) => {
 app.get('/doc_on_schedule', (req,res)=>{
     res.json(doctor_list);
 })
+
+app.get('/all_doctors', (req,res) => {
+    User.find({identity : "doctor"}, (err, stuff) =>{
+        if(err){
+            res.send(err);
+        }
+        else{
+            if(stuff){
+                res.json(stuff);
+            }
+            else{
+                res.send("No Doctors registered");
+            }
+        }
+    });
+});
+
 app.listen(9002,() => {
     console.log("BE started at port 9002")
 })
