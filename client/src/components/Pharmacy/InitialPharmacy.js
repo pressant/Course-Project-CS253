@@ -1,11 +1,9 @@
 import React, { useState,useEffect } from "react";
-// import { useNavigate } from "react-router-dom";
 import Patient from "./Patient";
 import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 
 const InitialPharmacy = () => {
 
-    // const navigate = useNavigate();
     const axiosPrivate = useAxiosPrivate();
     const [pending, setPending] = useState([]);
     const [query, setQuery] = useState("")

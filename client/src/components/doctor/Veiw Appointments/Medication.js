@@ -32,6 +32,8 @@ const Conduct_appointment = (props) => {
             medication: medicine,
             remark: val
         });
+        setVal("");
+        setMedicine([]);
     }
     
     const handleClick = () => {
@@ -125,7 +127,7 @@ const Conduct_appointment = (props) => {
                 </div>
                 <div className="col-6">
                     <div className="input-group">
-                        <textarea value={val} onChange={changed}  className="form-control" rows="6" aria-label="With textarea"></textarea>
+                        <textarea value={val} onChange={changed}  className="form-control" rows="6" aria-label="With textarea" id="txt"></textarea>
                     </div>
                 </div>
             </div>

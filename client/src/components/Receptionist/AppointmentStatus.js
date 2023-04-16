@@ -7,7 +7,7 @@ const AppointmentStatus = (props) => {
   const axiosPrivate = useAxiosPrivate();
   const [appointments, setAppts] = useState([]);
   const [query, setQuery] = useState("");
-  // const prescriptions = props.prescriptions;
+
   useEffect(() => {
     //on mount i.e. "on load": get ongoing appointments and display
     const fxn = async () => {
@@ -25,25 +25,15 @@ const AppointmentStatus = (props) => {
           </div>
           <div className="col-5">
             <form className="d-flex" role="search">
-              <input
-                className="form-control me-2"
-                type="text"
-                placeholder="Roll/PF Number"
-                value={query}
-                onChange={(event) => {
+              <input className="form-control me-2" type="text" placeholder="Roll/PF Number" value={query} onChange={(event) => {
                   setQuery(event.target.value);
-                }}
-                aria-label="Search"
-              />
+                }} aria-label="Search" />
             </form>
           </div>
         </div>
         <div className="container">
           <div className="row">
-            {appointments
-			  .filter(element => element.rollno !== undefined)
-              .filter((element) => element.rollno.startsWith(query))
-              .map((element) => {
+            {appointments.filter(element => element.rollno !== undefined).filter((element) => element.rollno.startsWith(query)).map((element) => {
                 console.log(element.rollno);
                 return (
                   <div className="col-md-4" key={element._id}>

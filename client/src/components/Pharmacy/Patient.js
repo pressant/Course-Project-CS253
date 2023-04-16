@@ -24,11 +24,13 @@ const Patient = (props) => {
                 <div className="card-body">
                     <h5 className="card-title">{prescription.name}</h5>
                     <div className="container">
-                        {prescription.description}
+                        {prescription.symptom}
                     </div>
-                    <button className="btn btn-dark btn-sm" onClick={handleClick}>
-                        View Prescription
-                    </button>
+                    <div className="text-center">
+                        <button className="btn btn-dark btn-sm" onClick={handleClick}>
+                            View Prescription
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

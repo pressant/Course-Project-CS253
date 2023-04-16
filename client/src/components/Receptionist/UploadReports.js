@@ -10,6 +10,7 @@ const UploadReports = () => {
     const changeInput = (event) => {
         let f = event.target.files;
         setFiles([...files, f]);
+        console.log(f);
     } 
 
     const handleUpload = () => {
@@ -37,10 +38,15 @@ const UploadReports = () => {
                 "Content-Type": "multipart/form-data"
             }
         }).then((res) => {
-
+            
         }).catch((err) => {
             console.log(err.message);
-        })
+        });
+    }
+
+    const handleSub = () => {
+        var formData = new FormData();
+        
     }
 
     return (
@@ -51,7 +57,7 @@ const UploadReports = () => {
                     <input type="number" className="form-control" id="inputRollNo" placeholder="Enter Roll/PF Number"/>
                 </div>
             </form>
-            <form>
+            <form onSubmit={handleSub}>
                 <div className="row justify-content-center align-items-center">
                     <div className="col-8">
                         <div className="input-group my-5">

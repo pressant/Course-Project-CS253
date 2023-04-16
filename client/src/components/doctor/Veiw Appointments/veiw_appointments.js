@@ -17,16 +17,15 @@ const Veiw_appointments = () => {
 
     useEffect(() => {
         document.onload = abcd();
-    // eslint-disable-next-line
-    }, [])
+    }, [app_t_arr])
 
     const abcd=()=>{
-        axiosPrivate.get("/doctor"+auth.user.name).then((res) => {
-        setAppts(res.data.request);
+        axiosPrivate.get("/doctor"+auth.user.rollno).then((res) => {
+            setAppts(res.data.request);
         }).catch((err) => {
-        console.log(err);
-        navigate("/login", {state : {from : location}, replace : true});
-    });
+            console.log(err);
+            navigate("/login", {state : {from : location}, replace : true});
+        });
     }
 
     return (
@@ -45,17 +44,11 @@ const Veiw_appointments = () => {
                 <div className="row">
                     {app_t_arr.filter(element => element.rollno !== undefined).filter(element => element.rollno.startsWith(query)).map((el) =>  {
                         return(
-                        <div className="col-md-4" key={app_t_arr.indexOf(el)}> 
-                            <Appointment prescription={{
-                                name :el.name ,
-                                id :el.rollno,
-                                description :el.symptoms,
-                                doctor: el.Doctor,
-                                slot: el.appt_slot
-                            }} />
-                        </div>);
-                    })
-                    }
+                            <div className="col-md-4" key={app_t_arr.indexOf(el)}> 
+                                <Appointment prescription={{ name :el.name , id :el.rollno, description :el.symptoms, doctor: el.Doctor, slot: el.appt_slot }} />
+                            </div>
+                        );
+                    })}
                 </div>
             </div>
         </div>

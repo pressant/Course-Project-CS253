@@ -1,6 +1,7 @@
-import React,{useState} from 'react'
-// import axios from 'axios'
+import React,{ useState, useEffect } from 'react'
 import {useNavigate } from 'react-router-dom'
+import TextField from '@mui/material/TextField';
+import Autocomplete from '@mui/material/Autocomplete';
 import "./Setschedule.css"
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 
@@ -8,22 +9,40 @@ const DoctorAppointment = (props) => {
 
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
-    // const axiosPrivate = useAxiosPrivate();
     const [medicine, setMedicine] = useState([]);
+    const [doctors, setDoctors] = useState([]);
 
+    useEffect(() => {
+        document.onload = setTimeout(rrr, 1000);
+    }, []);
+      
+    const rrr = () => {
+        axiosPrivate.get('/all_doctors').then((res) => {
+            let doctor=[];
+            let arr=[];
+            arr = res.data;
+            let arr_length=arr.length;
+            for(let i=0;i<arr_length;i++) {
+                doctor.push(arr[i].name);
+            }
+            setDoctors(doctor);
+            console.log(doctor);
+        })
+    }
+    
 	const handlePrescribe=()=>{
 		axiosPrivate.post("/doctor_schedule", medicine)
-            .then( res => {
-                alert(res.data.message)
-                navigate("/receptionist")
-            })
-			.catch((err)=>{
-				console.log(err);
-			})
-	}
+        .then( res => {
+            alert(res.data.message)
+            navigate("/receptionist")
+        })
+        .catch((err)=>{
+            console.log(err);
+        })
+    }
     
     const handleClick = () => {
-        var name = document.getElementById('name').value;
+        var name = document.getElementById('combo-box-demo').value;
         var dosage = document.getElementsByName('btnradio');
 		var specialization=document.getElementById('specialization').value;
 		var room=document.getElementById('room').value;
@@ -38,7 +57,7 @@ const DoctorAppointment = (props) => {
             }
         }
         setMedicine([...medicine, {name_of_medicine: name, dosage: dose , specialization:specialization,Room_no:room}]);
-        document.getElementById('name').value = "";
+        document.getElementById('combo-box-demo').value = "";
 		document.getElementById('specialization').value = "";
 		document.getElementById('room').value = "";
     }
@@ -48,8 +67,7 @@ const DoctorAppointment = (props) => {
             <h2 className="mb-5">Doctor Allotment for the day</h2>
             <div className="container my-3">
                 <div className="input-group mb-3">
-                    <span className="input-group-text" id="inputGroup-sizing-default">Doctor Name</span>
-                    <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" id="name"/>
+                    <Autocomplete className='btn-group white_background' disablePortal id="combo-box-demo" options={doctors} sx={{ width: "80%" }} renderInput={(params) => <TextField {...params} label="Doctors"/>} maxHeight={200} />
                 </div>
             </div>
             <div className="btn-group my-3 white_background" role="group" aria-label="Basic radio toggle button group">  

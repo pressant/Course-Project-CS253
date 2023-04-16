@@ -31,6 +31,8 @@ const DiagnosticTest = (props) => {
             tests: test,
             remark: val
         });
+        setTest([]);
+        setVal("");
     }
     
     return (

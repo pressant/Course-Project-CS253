@@ -3,18 +3,6 @@ import { useLocation } from "react-router-dom";
 import Prescription from "./Prescription";
 
 const PendingPrescription = () => {
-    // eslint-disable-next-line
-    // const history=useHistory();
-    // pending is an array which stores all pending prescriptions
-    // Use setPending to change pending
-    //     var k=0;
-    //    if(global[1]==='pharmacy'){
-        //     k=1;
-        //    }
-        //    if(k===0){
-            //     history.push("/login")
-            //    }
-            
     const { state } = useLocation();
 
     return (

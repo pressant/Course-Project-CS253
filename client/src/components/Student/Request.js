@@ -12,10 +12,12 @@ import useAxiosPrivate from "../../hooks/useAxiosPrivate";
 export default function Request(props) {
 	const [isLoading, setIsLoading] = useState(true);
 	const axiosPrivate = useAxiosPrivate();
+	
 	useEffect(() => {
 	  document.onload = setTimeout(rrr, 1000);
 	  // eslint-disable-next-line
 	}, []);
+	
     const [doctors, setDoctors] = useState([]);
 	
 	const rrr=()=>{
@@ -103,11 +105,9 @@ export default function Request(props) {
 				<FormControl sx={{ m: 3, minWidth: 200 }}>
 					<InputLabel id="demo-simple-select-autowidth-label">Preferred Doctor</InputLabel>
 					<Select labelId="demo-simple-select-autowidth-label" id="demo-simple-select-autowidth-label" value={doc} label="Doctor" onChange={handleChange}>
-						{/* {console.log(doctors)} */}
-							{isLoading ? "Loading" : doctors?.map((item, index) => {
-								return(<MenuItem value={item} key={index}>{item}</MenuItem>);
-							})
-						}
+						{isLoading ? "Loading" : doctors?.map((item, index) => {
+							return(<MenuItem value={item} key={index}>{item}</MenuItem>);
+						})}
 					</Select>
 				</FormControl>
 			</div>
