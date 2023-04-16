@@ -21,7 +21,7 @@ const Veiw_appointments = () => {
     }, [])
 
     const abcd=()=>{
-        axiosPrivate.get("/doctor"+auth.user.rollno).then((res) => {
+        axiosPrivate.get("/doctor"+auth.user.name).then((res) => {
         setAppts(res.data.request);
         }).catch((err) => {
         console.log(err);

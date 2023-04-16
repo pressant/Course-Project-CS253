@@ -25,11 +25,12 @@ const Conduct_appointment = () => {
     const handleClick2 = (event) => {
         axiosPrivate.post('/complete_appt', appt).then((res) => {
             console.log(res);
+            alert(res.data.message);
+            navigate("/doctor/view_appointment");
             // navigate('/doctor_appt');
         }).catch((err) => {
             console.log(err);
         })
-        navigate("/doctor/view_appointment");
     }
 
     return (

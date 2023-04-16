@@ -592,7 +592,7 @@ app.post("/complete_appt", (req, res) => {
                                 res.send(err);
                             }
                             else{
-                                if(deleted_stuff) res.send("ok");
+                                if(deleted_stuff) res.json({message: "Done."});
                             }
                         });
                     });
@@ -753,8 +753,11 @@ const storage = multer.memoryStorage();
 const upload = multer({storage: storage});
 
 app.post("/report_upload", upload.array('files', 12), function(req, res){
+    console.log('hello')
 
     console.log(req.body.rollno);
+    // console.log(files)
+    console.log(req.body.file[0])
 
     req.files.forEach(file =>{
         console.log(file);
