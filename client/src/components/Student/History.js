@@ -23,7 +23,7 @@ export default function History(props) {
 
 	const getHistory = () => {
         axiosPrivate.get("/student_history"+auth.user.rollno).then((res) => {
-			console.log(res.data.request);
+			// console.log(res.data.request);
 			setHistory(res.data.request);
 		}).catch((err) => {
 			console.log(err);
@@ -43,7 +43,7 @@ export default function History(props) {
                         }}>
                             <div className="card-header text-center">{Date(element.date)}</div>
                             <div className="card-body">
-                                <h5 className="card-title">{element.symptoms}</h5>
+                                <h5 className="card-title">{element.remark}</h5>
                             </div>
                             <Popup open={showModal} details={popup}/>
                         </div>

@@ -1,5 +1,4 @@
-// import "./view_appointments.css"
-import React,{useState,useEffect} from 'react'
+import React,{ useState, useEffect } from 'react'
 import Appointment from './Appointment'
 import useAuth from "../../../hooks/useAuth"
 import useAxiosPrivate from "../../../hooks/useAxiosPrivate"
@@ -17,11 +16,12 @@ const Veiw_appointments = () => {
 
     useEffect(() => {
         document.onload = abcd();
-    }, [app_t_arr])
+    }, [])
 
     const abcd=()=>{
-        axiosPrivate.get("/doctor"+auth.user.rollno).then((res) => {
+        axiosPrivate.get("/doctor"+auth.user.name).then((res) => {
             setAppts(res.data.request);
+            console.log(res.data.request);
         }).catch((err) => {
             console.log(err);
             navigate("/login", {state : {from : location}, replace : true});

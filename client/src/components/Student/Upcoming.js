@@ -27,29 +27,27 @@ export default function Upcoming() {
         });
     };
     return (
-        <div className="student_upcoming">
         <div className="container">
             <div className="row">
             {app_t_arr.map((el) => {
                 return (
                     <div className="my-3 col-6">
                         <div className="card my-3 hc_card">
-                        <div className="card-header hc_card_header">
-                            <h4>{el.rollno}</h4>
-                        </div>
-                        <div className="card-body hc_card_body">
-                            <h5 className="card-title hc_card_title">
-                            {el.name}
-                            </h5>
-                            <p className="card-text hc_card_text"><span className="description">{el.symptoms}</span></p>
-                            <p>Appointed Doctor: {el.Doctor}</p>
-                        </div>
+                            <div className="card-header hc_card_header">
+                                <h4>{el.rollno}</h4>
+                            </div>
+                            <div className="card-body hc_card_body">
+                                <h5 className="card-title hc_card_title">
+                                {el.name}
+                                </h5>
+                                <p className="card-text hc_card_text"><span className="description">{el.symptoms}</span></p>
+                                <p>Appointed Doctor: {el.Doctor}</p>
+                            </div>
                         </div>
                     </div>
                 );
             })}
             </div>
-        </div>
         </div>
     );
 }

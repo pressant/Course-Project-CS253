@@ -19,6 +19,7 @@ const Popup = (props) => {
 
     const handleOpen = () => {
         setOpen(true);
+        console.log(props.details)
     };
 
     const handleClose = () => {
@@ -34,14 +35,12 @@ const Popup = (props) => {
                 <CenteredBox>
                     <div className="card text-bg-light mb-3" style={{maxWidth: "18rem"}}>
                         <div className="card-header d-flex row">
-                            <div class="text-center col-9">{props.details.date}</div>
+                            <div class="text-center col-9">{Date(props.details.date)}</div>
                             <div class="text-center col-3">
                                 <button type="button" className="btn-close text-end" aria-label="Close" onClick={handleClose}></button>
                             </div>
                         </div>
                         <div className="card-body">
-                            <h5 className="card-title">Symptoms:</h5>
-                            <p className="card-text">{props.details.symptoms}</p>
                             <h5 className="card-title">Medication:</h5>
                             <div className="container">
                                 {
@@ -57,10 +56,20 @@ const Popup = (props) => {
                                 {
                                     props.details.tests?.map((med) => (
                                         <div key={med.index}>
-                                            <div>{`${med.name_of_medicine} \t \t ${med.dosage} - ${med.days} days`}</div>
+                                            <div>{med}</div>
                                         </div>
                                     ))
                                 }
+                            </div>
+                            <h5 className="card-title">Vitals:</h5>
+                            <div className="container">
+                                Oxygen: {props.details.vitals_Oxygen}
+                            </div>
+                            <div className="container">
+                                Temperature: {props.details.vitals_temperature}
+                            </div>
+                            <div className="container">
+                                Blood Pressure: {props.details.vitals_Blood_pressure}
                             </div>
                         </div>
                     </div>
