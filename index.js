@@ -774,6 +774,7 @@ app.post("/report_upload", upload.array('file_0', 12), function(req, res){
         });
         newPdf.save();
     })
+    res.send("received");
 
 });
 

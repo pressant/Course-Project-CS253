@@ -17,7 +17,7 @@ const Entry_page = () => {
                 <h1>Doctor Entry page</h1>
                 <button className="home_button" onClick={schedule}>Schedule</button>
                 <br/>
-                <button className="home_button" onClick={appointments}>Veiw Appointments</button>
+                <button className="home_button" onClick={appointments}>View Appointments</button>
             </div>
         </>
     );

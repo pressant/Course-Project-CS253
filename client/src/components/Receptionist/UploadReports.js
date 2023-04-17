@@ -52,7 +52,9 @@ const UploadReports = () => {
 					"Content-Type": "multipart/form-data"
 				}
 			}).then((res) => {
-				console.log("sent");
+				console.log("sent file: ", files[i][0].name);
+// 				console.log(files[i][0]);
+				setPdfs(pdfs.filter(pdfname => pdfname !== files[i][0].name))
 			}).catch((err) => {
 				console.log("problem");
 				console.log(err.message);
