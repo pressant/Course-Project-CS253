@@ -35,7 +35,10 @@ const Popup = (props) => {
                 <CenteredBox>
                     <div className="card text-bg-light mb-3" style={{maxWidth: "18rem"}}>
                         <div className="card-header d-flex row">
-                            <div class="text-center col-9">{Date(props.details.date)}</div>
+                            <div class="text-center col-9">{
+                            (new Date(props.details.date)).toDateString()
+                             + " "
+                             + (/[0-9]{2}\:[0-9]{2}\:[0-9]{2}/.exec((new Date(props.details.date)).toTimeString()) ? /[0-9]{2}\:[0-9]{2}\:[0-9]{2}/.exec((new Date(props.details.date)).toTimeString())[0] : "")}</div>
                             <div class="text-center col-3">
                                 <button type="button" className="btn-close text-end" aria-label="Close" onClick={handleClose}></button>
                             </div>

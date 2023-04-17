@@ -1,4 +1,5 @@
 import React,{useState} from 'react'
+import axios from "axios"
 import useAxiosPrivate from '../../hooks/useAxiosPrivate'
 
 const UploadReports = () => {
@@ -6,7 +7,12 @@ const UploadReports = () => {
     const axiosPrivate = useAxiosPrivate();
     const [pdfs, setPdfs] = useState([]);
     const [files, setFiles] = useState([]);
-
+    const [rollno, setRollno] = useState("");
+	
+	const handleRoll = (event) => {
+		setRollno(event.target.value);
+	}
+	
     const changeInput = (event) => {
         let f = event.target.files;
         setFiles([...files, f]);
@@ -19,29 +25,49 @@ const UploadReports = () => {
         document.getElementById("inputGroupFile02").value = '';
     }
 
-    const handleSubmit = async() => {
-        let uploadedFiles = files;
-        let formData = new FormData();
-        formData.append("file", uploadedFiles);
-        formData.append("name", "Name");
+    const handleSubmit = async(event) => {
+    	if (rollno === "") {
+    		return;
+    	}
+    	event.preventDefault();
+    	console.log(files);
+    	console.log(pdfs);
+    	let formData = new FormData();
+    	for (let i = 0; i < files.length; i++) {
+    		console.log(`file ${i}`);
+    		formData.append(`file_0`, files[i][0]);
+    		formData.append("rollno", rollno);
+    		console.log(`sending file ${i}`);
+			console.log(formData);
+// 			let test = formData.entries()
+// 			console.log(typeof(test.next().value[1]))
+// 			console.log(test.next().value)
+		
+	//         axios.post("http://localhost:9002/report_upload", "lol").catch((err) => (console.log("sadge")));
+			axiosPrivate({
+				method: "POST",
+				url: "/report_upload",
+				data: formData,
+				headers: {
+					"Content-Type": "multipart/form-data"
+				}
+			}).then((res) => {
+				console.log("sent");
+			}).catch((err) => {
+				console.log("problem");
+				console.log(err.message);
+			});
+    	}
+        
+//         formData.append("fuck you", uploadedFiles);
+//         formData.append("name", "Name");
         // const res = await fetch('http://localhost:9002/report_upload', {
         //     method: "POST",
         //     headers: {
         //         "Content-Type": "multipart/form-data",
         //     }
         // })
-        axiosPrivate({
-            method: "POST",
-            url: "/report_upload",
-            data: formData,
-            headers: {
-                "Content-Type": "multipart/form-data"
-            }
-        }).then((res) => {
-            
-        }).catch((err) => {
-            console.log(err.message);
-        });
+
     }
 
     const handleSub = () => {
@@ -54,7 +80,8 @@ const UploadReports = () => {
             <h1 className="text-center my-5">Upload Medical Reports</h1>
             <form className="row justify-content-center">
                 <div className="col-5 my-2">
-                    <input type="number" className="form-control" id="inputRollNo" placeholder="Enter Roll/PF Number"/>
+                    <input type="number" className="form-control" id="inputRollNo" placeholder="Enter Roll/PF Number" value={rollno} onChange={handleRoll} style={{borderColor:`${rollno === "" ? "#f00" : "#000"}`}}/>
+                    {rollno === "" ? <p style={{color:"#f00"}}>Please enter a roll number.</p> : ""}
                 </div>
             </form>
             <form onSubmit={handleSub}>

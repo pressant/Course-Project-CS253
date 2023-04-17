@@ -10,7 +10,6 @@ const Login = ({ setLoginUser }) => {
   const location = useLocation();
   const from = location.state?.from?.pathname || "/";
   const userEmailRegex = /^$|^[a-z0-9.]+@[a-z0-9]+\.iitk\.ac\.in$|^[a-z0-9.]+@iitk\.ac\.in$/;
-
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -76,6 +75,9 @@ const Login = ({ setLoginUser }) => {
         } else if (res.data.message === "Password didn't match") {
         	setError({...error, passWrong:true});
         }
+      })
+      .catch((err) => {
+      	alert("Something went wrong. Please try again later.");
       });
   };
   const handleEnter = (event) => {

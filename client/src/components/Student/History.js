@@ -23,13 +23,13 @@ export default function History(props) {
 
 	const getHistory = () => {
         axiosPrivate.get("/student_history"+auth.user.rollno).then((res) => {
+// 			console.log(res.data.request);
 			setHistory(res.data.request);
 		}).catch((err) => {
 			console.log(err);
 			navigate("/login", {state : {from : location}, replace : true});
 		})
 	}
-
 	return (
         <div className="col-7 mx-1" style={{ maxHeight: '600px', overflowY: 'scroll' }}>
             {history?.map(function (element) {
@@ -40,7 +40,7 @@ export default function History(props) {
                             setPopup(element);
                             setShowModal(true);
                         }}>
-                            <div className="card-header text-center">{Date(element.date)}</div>
+                            <div className="card-header text-center">{(new Date(element.date)).toDateString() + " " + /[0-9]{2}\:[0-9]{2}\:[0-9]{2}/.exec((new Date(element.date)).toTimeString())[0]}</div>
                             <div className="card-body">
                                 <h5 className="card-title">{element.doctor}</h5>
                                 <h5 className="card-title">{element.remark}</h5>

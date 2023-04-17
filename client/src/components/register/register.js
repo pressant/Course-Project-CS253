@@ -11,6 +11,8 @@ const Register = () => {
   const userEmailRegex = /^$|^[a-z0-9.]+@[a-z0-9]+\.iitk\.ac\.in$|^[a-z0-9.]+@iitk\.ac\.in$/;
   const userRollRegex = /^$|^[0-9]{5,}|(INT|EXY|K|M|S|Y)[0-9]{4,}$/;
   
+  const [registrationStage, setStage] = useState("not yet submitted");
+  
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -103,13 +105,18 @@ const Register = () => {
       identity &&
       password === reEnterPassword
     ) {
+      setStage("pending");
       axios.post("http://localhost:9002/register", user).then((res) => {
         if (res.data.message === "A user already registerd with same email") {
         	setError({...error, emailUsed:true});
+        	setStage("not yet submitted");
         	return;
+        } else if (res.data.message === "Successfully Registered, Please login now.") {
+        	setStage("completed");
+        	setTimeout(() => {navigate("/login");}, 3000);
         }
-        alert(res.data.message);
-        navigate("/login");
+        
+//         navigate("/login");
       });
     } else {
 //       alert("invlid input");
@@ -220,9 +227,14 @@ const Register = () => {
       ></input>
       {error.passDoesntMatch ? <p className="error">The passwords don't match. Please try again.</p> : ""}
 
-      <div className="button" id="registerButton" onClick={register}>
-        Register
-      </div>
+      <button 
+      	className="button" 
+      	id="registerButton" 
+      	disabled={registrationStage === "pending"}
+      	onClick={register}>
+        {registrationStage === "pending" ? "Loading" : "Register"}
+      </button>
+      {registrationStage === "completed" ? <p style={{color: "#0f0"}}>You have successfully been registered. Please wait while you are redirected to the log-in page.</p> : ""}
       <div>
         <p>
             Already have an account?

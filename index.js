@@ -752,13 +752,15 @@ const storage = multer.memoryStorage();
 
 const upload = multer({storage: storage});
 
-app.post("/report_upload", upload.array('files', 12), function(req, res){
+app.post("/report_upload", upload.array('file_0', 12), function(req, res){
     console.log('hello')
-
-    console.log(req.body.rollno);
+//     console.log(req);
+// 	console.log(req.body.file_0);
+//     console.log(req.body.rollno);
     // console.log(files)
-    console.log(req.body.file[0])
-
+    // console.log(req.body.file[0])
+    console.log(req.body.rollno);
+	console.log(req.files);
     req.files.forEach(file =>{
         console.log(file);
         const newPdf = new pdfModel({
@@ -768,7 +770,7 @@ app.post("/report_upload", upload.array('files', 12), function(req, res){
                 name: file.originalname
             },
             rollno : req.body.rollno,
-            date : new Date()
+            date : Date.now()
         });
         newPdf.save();
     })
@@ -841,3 +843,8 @@ app.get('/all_doctors', (req,res) => {
 app.listen(9002,() => {
     console.log("BE started at port 9002")
 })
+
+
+
+
+
