@@ -16,7 +16,7 @@ const UploadReports = () => {
     const handleUpload = () => {
         const name = document.getElementById("inputGroupFile02").value.split("\\").pop();;
         if(name !== '') setPdfs([...pdfs, name]);
-        document.getElementById("inputGroupFile02").value = ''
+        document.getElementById("inputGroupFile02").value = '';
     }
 
     const handleSubmit = async() => {

@@ -14,21 +14,7 @@ export default function Home(props) {
 	const { auth } = useAuth();
 
 	return (
-		// <div className="student_home">
-		// 	<table>
-		// 		<tbody>
-		// 			<tr>
-		// 				<td><Link to="request"><button>Request Appointment</button></Link></td>
-		// 				<td><Link to="upcoming"><button>View Appointments</button></Link></td>
-		// 			</tr>
-		// 			<tr>
-		// 				<td><Link to="history"><button>View Medical History</button></Link></td>
-		// 				<td><Link to="doctors"><button>View Doctor Schedules</button></Link></td>
-		// 			</tr>
-		// 		</tbody>
-		// 	</table>
-		// </div>
-		<div className="container row">
+		<div className="container row justify-content-center align-items-center">
 			<div className="col-8 mx-1">
 				<div className="card-title">
 					<h1>Welcome, {auth.user.name}</h1>
@@ -81,19 +67,18 @@ export default function Home(props) {
 			</div>
 			<div className="col-3 d-flex justify-content-center align-items-center mx-4">
 				<div>
-
-				<div className="my-5 mr-5">
-					<Link to="request"><button className="btn btn-lg btn-dark" style={{width: "100%", height:"100px"}}>Request Appointment</button></Link>
-				</div>
-				<div className="my-5 mr-5">
-					<Link to="upcoming"><button className="btn btn-lg btn-dark" style={{width: "100%", height:"100px"}}>View Appointments</button></Link>
-				</div>
-				<div className="my-5 mr-5">
-					<Link to="history"><button className="btn btn-lg btn-dark" style={{width: "100%", height:"100px"}}>View Medical History</button></Link>
-				</div>
-				<div className="my-5 mr-5">
-					<Link to="doctors"><button className="btn btn-lg btn-dark" style={{width: "100%", height:"100px"}}>View Doctor Schedules</button></Link>
-				</div>
+					<div className="my-5 mr-5">
+						<Link to="request"><button className="btn btn-lg btn-dark" style={{width: "100%", height:"100px"}}>Request Appointment</button></Link>
+					</div>
+					<div className="my-5 mr-5">
+						<Link to="upcoming"><button className="btn btn-lg btn-dark" style={{width: "100%", height:"100px"}}>View Appointments</button></Link>
+					</div>
+					<div className="my-5 mr-5">
+						<Link to="history"><button className="btn btn-lg btn-dark" style={{width: "100%", height:"100px"}}>View Medical History</button></Link>
+					</div>
+					<div className="my-5 mr-5">
+						<Link to="doctors"><button className="btn btn-lg btn-dark" style={{width: "100%", height:"100px"}}>View Doctor Schedules</button></Link>
+					</div>
 				</div>
 			</div>
 		</div>

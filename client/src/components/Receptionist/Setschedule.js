@@ -56,7 +56,12 @@ const DoctorAppointment = (props) => {
                 break;
             }
         }
-        setMedicine([...medicine, {name_of_medicine: name, dosage: dose , specialization:specialization,Room_no:room}]);
+        if(name != '' && dosage != '' && specialization != '' && room != '') {
+            setMedicine([...medicine, {name_of_medicine: name, dosage: dose , specialization:specialization,Room_no:room}]);
+        }
+        else {
+            alert('Please fill in all the fields');
+        }
         document.getElementById('combo-box-demo').value = "";
 		document.getElementById('specialization').value = "";
 		document.getElementById('room').value = "";
