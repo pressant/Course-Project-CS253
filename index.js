@@ -237,15 +237,21 @@ app.post("/request_student", (req, res)=> {
         }
     )
     
-    app.get("/upcoming_student", (req, res)=> {
-       Student_request.find({identity:"student"}, (err, request) => {
-              if(request){
-                res.send({message: "Upcoming appointments", request: request})
-              } else {
-                res.send({message: "No appointments"})
-              }
-       })
-    })  
+app.get("/upcoming_student", (req, res)=> {
+   Student_request.find({identity:"student"}, (err, request) => {
+		  if(request){
+			res.send({message: "Upcoming appointments", request: request})
+		  } else {
+			res.send({message: "No appointments"})
+		  }
+   })
+})
+
+app.get("/upcoming_student/:roll", (req, res) => {
+	Student_request.find({rollno: req.params.roll}, (err, data) => {
+		res.send({data});
+	})
+});
 
 
 const apptSchema = new mongoose.Schema({
