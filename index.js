@@ -270,6 +270,7 @@ const Medical_history = new mongoose.Schema({
     medical_history:[{
         date: Date,
         remark: String,
+        symptoms: String,
         doctor: String,
         medication:[{name_of_medicine:String,
                     dosage:String,
@@ -544,9 +545,10 @@ app.post("/complete_appt", (req, res) => {
         date: new Date(),
         doctor: doc_name,
         remark: remark,
+        symptoms: req.body[0].symptoms,
         completed_doc: true
     };
-
+	console.log(newTestHistory);
     console.log(newTestHistory.remark);
 
     if(medication){
@@ -820,6 +822,16 @@ app.get("/report/:roll/:pdfname", (req, res) => {
         }
     })
 })
+
+// app.post("/report/:roll/:pdfname/delete", (req, res) => {
+// 	console.log(req.params.roll, req.params.pdfname, "deleting...");
+// 	const filter = {
+// 		rollno: req.params.roll,
+// 		"pdf.name": req.params.pdfname
+// 	}
+// 	pdfModel.deleteOne(filter);
+// 	req.send("deleted")
+// })
 
 app.get('/doc_on_schedule', (req,res)=>{
     res.json(doctor_list);

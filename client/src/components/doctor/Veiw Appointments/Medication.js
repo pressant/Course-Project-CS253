@@ -30,7 +30,8 @@ const Conduct_appointment = (props) => {
             doctor: doctor,
             appt_slot: slot,
             medication: medicine,
-            remark: val
+            remark: val,
+            symptoms: props.symptoms
         });
         setVal("");
         setMedicine([]);

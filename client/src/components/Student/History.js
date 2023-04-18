@@ -66,7 +66,7 @@ export default function History(props) {
                         </div>
                     </div>
                 );}
-            })}
+            }).reverse()}
             </div>
         </div>
         <div style={{width: "45%"}}>
@@ -98,11 +98,15 @@ export default function History(props) {
                             <div className="card-header text-center">{(new Date(element.date)).toDateString() + " " + /[0-9]{2}\:[0-9]{2}\:[0-9]{2}/.exec((new Date(element.date)).toTimeString())[0]}</div>
                             <div className="card-body">
                                 <h5 className="card-title" style={{color: "#00f", textDecoration: "underline"}}>{element.pdfname} [click to download]</h5>
+                                {// <button className="btn" onClick={() => {
+//                                 	
+//                                 }}>Delete this report
+}
                             </div>
                         </div>
                     </div>
                 );}
-            })}
+            }).reverse()}
             </div>
         </div>
         </div>

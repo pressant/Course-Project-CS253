@@ -15,6 +15,7 @@ const CenteredBox = styled(Box)({
 });
 
 const Popup = (props) => {
+	console.log(props);
     const [open, setOpen] = useState(props.open);
 
     const handleOpen = () => {
@@ -44,6 +45,10 @@ const Popup = (props) => {
                             </div>
                         </div>
                         <div className="card-body">
+                        	<h5 className="card-title">Symptoms:</h5>
+                        	<div className="container">
+                        		{props.details.symptoms}
+                        	</div>
                             <h5 className="card-title">Medication:</h5>
                             <div className="container">
                                 {
